@@ -1,0 +1,15 @@
+#!/bin/bash
+#Calculate Nino3.4 index
+
+in_file = ~/Documents/ACCESS_data/prc_Amon_ACCESS1-3_historical_r3i1p1_185001-200512.nc
+out_file = ~/Documents/my_coding_routines/test333.nc
+
+ncwa -O -a lat,lon -d lat,-5.0,5.0 -d lon,190.0,240.0 in_file out_file
+
+#calculate an area-averaged index
+#ncap -h -O -s "weights=cos(lat*3.1415/180)" in.nc in.nc
+#ncwa -h -O -w weights -a lat,lon in.nc global_mean.nc
+
+#mask part of grid
+#ncwa -h -O -B logical_expression -w weights -a lat,lon in.nc out.nc
+

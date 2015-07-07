@@ -1,0 +1,9 @@
+#!/bin/bash
+#Calculate Nino3.4 index
+
+in_file = "~/Documents/AWAP_data/my_coding_routines/prc_Amon_ACCESS1-3_historical_r3i1p1_185001-200512.nc"
+out_file = "~/Documents/AWAP_data/my_coding_routines/test333.nc"
+
+ncwa -O -a lat,lon -d lat,-5.0,5.0 -d lon,190.0,240.0 in_file out_file
+
+
