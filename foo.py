@@ -6,3 +6,4 @@ Last updated 7 July 2015.
 """
 
 print "Hello world!"
+print "A test! Hooray!"
