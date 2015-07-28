@@ -6,52 +6,55 @@ Last updated 7 July 2015.
 """
 
 #Check current working directory
-import os
-os.chdir("/home/sonya/Documents/")
-print os.getcwd()
-#If working directory set up correctly, this file should load
-#f = open("my_coding_routines/foo.py","r")
+from metadata import cwd
 
 import netCDF4 as n
 import numpy as np
+
 from matplotlib import cm, pyplot as plt
 import pylab
 import Image
 from mpl_toolkits.basemap import Basemap, maskoceans
 
+def mapsExplan():
+    """A function to plot maps for explanatory material"""
+    m = Basemap(projection='cyl', resolution='c',\
+                llcrnrlat=-50,urcrnrlat=0,\
+                llcrnrlon=110,urcrnrlon=160)
+    m.drawcoastlines()
+    
+    m.drawstates()
+    states_lon = [145.5,142,146.5,144,144,133,133,122]
+    states_lat = [-42.5,-37,-35,-32,-22,-30,-23,-25]
+    x,y = m(states_lon, states_lat)
+    m.plot(x, y, 'bo',markersize=0)
+    labels = ['Tas.','Vic.','A.C.T.','N.S.W.','Qld','S.A.','N.T.','W.A.']
+    for label, xpt, ypt in zip(labels,x,y):
+        plt.text(xpt,ypt,label)
+
+    m.fillcontinents(color='0.75',lake_color='white')
+    m.drawmapboundary(fill_color='white')
+    # Change these values to fit what gridded to
+    #m.drawparallels(np.arange(-50.,1.,1.25),labels=[True,False,True,True])
+    #m.drawmeridians(np.arange(110.,161.,1.875),labels=[True,True,False,True])
+    # May need to remove padding
+    plt.xlabel("Longitude (degrees east)",labelpad=25)
+    plt.ylabel("Latitude (degrees south)",labelpad=35)
+    plt.title("Australia")
+
+    plt.show()
+    if raw_input('Do you want to save this image? y/n ') == 'y':
+        a = raw_input('Enter name of file: ')
+        if raw_input('Save as .png? y/n: ') == 'y':
+            plt.savefig('my_coding_routines/images/'+a+'.png')
+        else:
+            print('Will be saved as a .pdf')
+            plt.savefig('my_coding_routines/images/'+a+'.pdf')
+    else:
+        print('Image will not be saved.')
 """
-Maps for explanatory material
 """
-m = Basemap(projection='cyl', resolution='c',\
-            llcrnrlat=-50,urcrnrlat=0,\
-            llcrnrlon=110,urcrnrlon=160)
-m.drawcoastlines()
-
-m.drawstates()
-states_lon = [145.5,142,146.5,144,144,133,133,122]
-states_lat = [-42.5,-37,-35,-32,-22,-30,-23,-25]
-x,y = m(states_lon, states_lat)
-m.plot(x, y, 'bo',markersize=0)
-labels = ['Tas.','Vic.','A.C.T.','N.S.W.','Qld','S.A.','N.T.','W.A.']
-for label, xpt, ypt in zip(labels,x,y):
-    plt.text(xpt,ypt,label)
-
-m.fillcontinents(color='0.75',lake_color='white')
-m.drawmapboundary(fill_color='white')
-# Change these values to fit what gridded to
-#m.drawparallels(np.arange(-50.,1.,1.25),labels=[True,False,True,True])
-#m.drawmeridians(np.arange(110.,161.,1.875),labels=[True,True,False,True])
-# May need to remove padding
-plt.xlabel("Longitude (degrees east)",labelpad=25)
-plt.ylabel("Latitude (degrees south)",labelpad=35)
-plt.title("Australia")
-
-plt.show()
-#plt.savefig('my_coding_routines/title.png') #Can also use .pdf
-
-
-"""
-Maps for main data analysis
+#Maps for main data analysis
 """
 data = n.Dataset('ACCESS_data/pr_Amon_ACCESS1-3_historical_r3i1p1_185001-200512.nc','r')
 pr_time = data.variables['pr'][1700,:,:]
@@ -87,7 +90,7 @@ plt.show()
 #plt.savefig('my_coding_routines/title.png') #Can also use .pdf
 
 """
-Combine multiple (nine) maps into one
+#Combine multiple (nine) maps into one
 """
 
 fig = plt.figure()
@@ -103,3 +106,4 @@ m = Basemap(projection='cyl', resolution='c',\
 
 plt.show()
 #plt.savefig('my_coding_routines/title.png') #Can also use .pdf
+"""

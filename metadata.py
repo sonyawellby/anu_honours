@@ -15,7 +15,7 @@ POSSIBLE FILES:
 ACCESS_data/pr_Amon_ACCESS1-3_historical_r3i1p1_185001-200512.nc ...x3 Check right
 ACCESS_data/ts_Amon_ACCESS1-3_historical_r3i1p1_185001-200512.nc ...x3 Check right
 HadISST_sst.nc
-...AWAP data...
+AWAP_1900-2014_monthly_precip_v1.nc
 """
         
 def cwd():
