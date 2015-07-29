@@ -1,6 +1,10 @@
-"""This routine determines the ENSO strength (in Nino3.4 region: 5 degrees NS,
+"""
+This routine determines the ENSO strength (in Nino3.4 region: 5 degrees NS,
 190-240 degrees E).
-Prepared by Sonya Wellby (u4680942) for Honours ENVS4015, 3 July 2015."""
+
+Submitted by Sonya Wellby for ENVS4055, 2015.
+Last updated 8 July 2015.
+"""
 
 #Check current working directory
 import os
@@ -12,13 +16,17 @@ print os.getcwd()
 import netCDF4 as n
 import numpy as np
 
+import time_bins as t
+
 #Change to SST file
-f = n.Dataset('ACCESS_data/pr_Amon_ACCESS1-3_historical_r3i1p1_185001-200512.nc','a')
-SST1 = f.variables['prc']
+f = n.Dataset('ACCESS_data/ts_Amon_ACCESS1-3_historical_r3i1p1_185001-200512.nc','a')
+SST1 = f.variables['ts']
 SST2 = np.array(SST1)
 SST_array = np.reshape(SST2,(1872,145,192))
 
-#ENSO
+"""
+ENSO
+"""
 #time, longitude [0-144], latitude [0-191].  Nino3.4 = 190:240 EW, -5:5 NS
 nino34_array = SST_array[600:,101:129,68:76]
 nino34 = np.zeros(1272)
@@ -29,7 +37,14 @@ for index in nino34:
     nino34[count] = a
     count += 1
 
+
+
+
+
+"""
+"""
 #IPO
+"""
 #Region 1: 25N-45N, 140-145EW
 IPO_array1 = SST_array[600:,101:129,68:76]
 IPO1 = np.zeros(1272)
@@ -66,4 +81,4 @@ for index in TPI:
     a = IPO2 - ((IPO1+IPO3)/2.0)
     TPI[count] = a
     count += 1
-
+"""
