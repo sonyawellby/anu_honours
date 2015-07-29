@@ -63,9 +63,18 @@ def mapBasic(states=False,grid=False,labels=True,title=True,save=False):
             m.drawmapboundary(fill_color='white')
 
     if grid == True:
-        # Change these values to fit what gridded to
-        m.drawparallels(np.arange(-50.,1.,1.25),labels=[True,False,True,True],linewidth=0.0)
-        m.drawmeridians(np.arange(110.,161.,1.875),labels=[True,True,False,True],linewidth=0.0)
+        if raw_input("Do you want the whole map gridded? y/n ")=='y' or 'yes':
+            # Change these values to fit what gridded to
+            # Draw the grid
+            m.drawparallels(np.arange(-50.,1.,1.25),labels=[False,False,False,False])
+            m.drawmeridians(np.arange(110.,161.,1.875),labels=[False,False,False,False])
+            # Draw the labels
+            m.drawparallels(np.arange(-50.,1.,49),labels=[True,False,True,True],linewidth=0.0)
+            m.drawmeridians(np.arange(110.,161.,50),labels=[True,True,False,True],linewidth=0.0)
+        else:
+            # Change these values to fit what gridded to
+            m.drawparallels(np.arange(-50.,1.,49),labels=[True,False,True,True],linewidth=0.0)
+            m.drawmeridians(np.arange(110.,161.,50),labels=[True,True,False,True],linewidth=0.0)
 
     if labels == True:
         # May need to remove padding
@@ -101,25 +110,41 @@ def saveFig(ext='png'):
         plt.savefig(fileName)
     plt.close()
 
-"""
+
 def saveMult():
-    A function to save multiple (nine) maps in one.
+    """A function to save multiple (nine) maps in one."""
 
-fig = plt.figure()
-plt.suptitle("Main title",fontsize = 18)
+    fig = plt.figure()
+    mainTitle = raw_input("Enter the main title: ")
+    plt.suptitle(mainTitle,fontsize = 18)
 
-fig1 = fig.add_subplot(331)
-fig1.set_title("Title here",fontsize = 14)
-#Enter code for first map
-m = Basemap(projection='cyl', resolution='c',\
-            llcrnrlat=-50,urcrnrlat=0,\
-            llcrnrlon=110,urcrnrlon=160)
-#Repeat as needed
+    num_images = int(raw_input("Enter integer of number of images want to combine: "))
+    fileList = {}
+    for i in range(1,num_images +1):
+        count = 0
+        imgName = raw_input("Enter the name of the image you want to add: ")
+        imageName = "%s%s" %("my_coding_routines/images/",imgName)
+        fileList.update({'image%s'%i: imageName})
+        count += 1
 
-plt.show()
-#plt.savefig('my_coding_routines/title.png') #Can also use .pdf
+    for key in fileList:
+        for value in key:
+            fig.add_subplot(3,3,i)
+
+    plt.show()
+
 """
+    fig1 = fig.add_subplot(331)
+    fig1.set_title("Title here",fontsize = 14)
+    Enter code for first map
+    m = Basemap(projection='cyl', resolution='c',\
+                llcrnrlat=-50,urcrnrlat=0,\
+                llcrnrlon=110,urcrnrlon=160)
+    #Repeat as needed
 
+    plt.show()
+    #plt.savefig('my_coding_routines/title.png') #Can also use .pdf
+"""
 
 def mapMain():
     """A function to plot maps for main data analysis"""
@@ -164,9 +189,10 @@ def mapMain():
     cs = m.pcolor(x,y,var_time_land)
     cbar = m.colorbar(cs, location='right', pad="10%")
     units_name = raw_input("What variable is being measured? ")
-    cbar.set_label("%s ("+ var_units + ")") %units_name
+    cbarLabel = "%s %s%s%s" %(units_name,"(",var_units,")")
+    cbar.set_label(cbarLabel)
 
     if raw_input("Do you want to save this image? y/n ")=='y' or 'yes':
-        mapBasic(save=True)
+        mapBasic(grid=True,save=True)
     else:
         mapBasic()
