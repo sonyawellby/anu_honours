@@ -2,7 +2,7 @@
 Routines to plot maps of Australia with Matplotlib library.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 29 July 2015. 
+Last updated 30 July 2015. 
 """
 
 import netCDF4 as n
@@ -58,12 +58,12 @@ def mapBasic(states=False,grid=False,labels=True,title=True,save=False):
         for label, xpt, ypt in zip(labels,x,y):
             plt.text(xpt,ypt,label)
 
-        if raw_input('Do you want to fill Australia with grey? y/n ')== 'y' or 'yes' or 'Yes' or 'YES':
+        if raw_input('Do you want to fill Australia with grey? y/n ')== 'y':
             m.fillcontinents(color='0.75',lake_color='white')
             m.drawmapboundary(fill_color='white')
 
     if grid == True:
-        if raw_input("Do you want the whole map gridded? y/n ")=='y' or 'yes':
+        if raw_input("Do you want the whole map gridded? y/n ")=='y':
             # Change these values to fit what gridded to
             # Draw the grid
             m.drawparallels(np.arange(-50.,1.,1.25),labels=[False,False,False,False])
@@ -81,10 +81,9 @@ def mapBasic(states=False,grid=False,labels=True,title=True,save=False):
         plt.xlabel("Longitude (degrees east)",labelpad=25)
         plt.ylabel("Latitude (degrees south)",labelpad=35)
 
-    if save == True:
-        if title == True:
-            titleName = raw_input("Enter the graph title (don't forget units): ")
-            plt.title(titleName)
+    if save == True and title == True:
+        titleName = raw_input("Enter the graph title (don't forget units): ")
+        plt.title(titleName)
         saveFig()
     elif save == 'None':
         pass
@@ -99,7 +98,7 @@ def saveFig(ext='png'):
         The file extension.  An alternate file extension can also be entered via
         raw_input.
     """
-    if raw_input('Save as a .png file? y/n ')== 'y' or 'yes' or 'Yes' or 'YES':
+    if raw_input('Save as a .png file? y/n ')== 'y':
         a = raw_input('Enter name of file: ')
         fileName = "%s%s.%s" %("my_coding_routines/images/",a,ext)
         plt.savefig(fileName)
@@ -110,6 +109,30 @@ def saveFig(ext='png'):
         plt.savefig(fileName)
     plt.close()
 
+def saveMulti():
+    """Docstring here"""
+    fig = plt.figure(1)
+    mainTitle = raw_input("Enter the main title: ")
+    plt.suptitle(mainTitle,fontsize = 18)
+
+    num_images = int(raw_input("Enter integer of number of images want to combine: "))
+    fileList = {}
+    for i in range(1,num_images +1):
+        count = 0
+        mapMain()
+        imgName = raw_input("Enter the filename of the image you have just made: ")
+        imageName = "%s%s" %("my_coding_routines/images/",imgName)
+        fileList.update({'image%s'%i: imageName})
+        count += 1
+
+    for key in fileList:
+        for value in key:
+            fig.add_subplot(3,1,i)
+    print fileList
+    #plt.show()
+    plt.savefig('my_coding_routines/images/title.png') #Can also use .pdf
+
+    #plt.show()
 
 def saveMult():
     """A function to save multiple (nine) maps in one."""
@@ -130,8 +153,8 @@ def saveMult():
     for key in fileList:
         for value in key:
             fig.add_subplot(3,3,i)
-
-    plt.show()
+        #plt.show()
+        plt.savefig('my_coding_routines/title.png') #Can also use .pdf
 
 """
     fig1 = fig.add_subplot(331)
@@ -148,16 +171,18 @@ def saveMult():
 
 def mapMain():
     """A function to plot maps for main data analysis"""
-    dataFile = 'ACCESS_data/pr_Amon_ACCESS1-3_historical_r3i1p1_185001-200512.nc'
+    dataFile = raw_input("Enter the filepath of the data you want to map: ")
+    # e.g. ACCESS_data/pr_Amon_ACCESS1-3_historical_r3i1p1_185001-200512.nc
     data = n.Dataset(dataFile,'r')
 
-    if raw_input("Is data ACCESS data? y/n ")=='y' or 'yes':
+    units_name = raw_input("What variable is being measured? ")
+    if raw_input("Is data ACCESS data? y/n ")=='y':
         lat = data.variables['lat'][:]
         lat_units = data.variables['lat'].units
         lon = data.variables['lon'][:]
         lon_units = data.variables['lon'].units
 
-        if raw_input("Is data precipitation data? y/n ")=='y' or 'yes':
+        if units_name == "Precipitation":
             #change
             var_time = data.variables['pr'][1700,:,:]
             var_units = data.variables['pr'].units
@@ -165,7 +190,7 @@ def mapMain():
         else:
             #change
             var_time = data.variables['ts'][1700,:,:]
-            var_units = data.variabels['ts'].units
+            var_units = data.variables['ts'].units
             data.close()
     else:
         lat = data.variables['latitude'][:]
@@ -173,7 +198,7 @@ def mapMain():
         lon = data.variables['longitude'][:]
         lon_units = data.variables['longitude'].units
 
-        if raw_input("Is data HadISST data? y/n ")=='y' or 'yes':
+        if raw_input("Is data HadISST data? y/n ")=='y':
             var_time = data.variables['sst'][:]
             var_units = data.variables['sst'].units
             data.close()
@@ -188,11 +213,10 @@ def mapMain():
 
     cs = m.pcolor(x,y,var_time_land)
     cbar = m.colorbar(cs, location='right', pad="10%")
-    units_name = raw_input("What variable is being measured? ")
     cbarLabel = "%s %s%s%s" %(units_name,"(",var_units,")")
     cbar.set_label(cbarLabel)
 
-    if raw_input("Do you want to save this image? y/n ")=='y' or 'yes':
+    if raw_input("Do you want to save this image? y/n ") == 'y':
         mapBasic(grid=True,save=True)
     else:
-        mapBasic()
+        mapBasic(title=False,save=False)
