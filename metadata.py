@@ -8,6 +8,8 @@ Last updated 28 July 2015.
 
 import netCDF4 as n
 import numpy as np
+
+import cwd
         
 dataFile=raw_input('Enter the filepath of the NetCDF4 file to analyse: ')
 """
@@ -17,21 +19,6 @@ ACCESS_data/ts_Amon_ACCESS1-3_historical_r3i1p1_185001-200512.nc ...x3 Check rig
 HadISST_sst.nc
 AWAP_1900-2014_monthly_precip_v1.nc
 """
-    
-
-def cwd():
-    """A function to set current working directory."""
-    import os
-    os.chdir("/home/sonya/Documents/")
-    print os.getcwd()
-    #If working directory set up correctly, this file should load
-    f = open("my_coding_routines/foo.py","r")
-    print f
-
-def cwdInFunction():
-    """Function to be used in setting the current working directory within a function."""
-    import os
-    os.chdir("/home/sonya/Documents/")
     
 def metadata():
     """A function to return the metadata of a NetCDF4 file"""   

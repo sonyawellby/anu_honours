@@ -13,7 +13,7 @@ import pylab
 import Image
 from mpl_toolkits.basemap import Basemap, maskoceans
 
-from metadata import cwdInFunction
+from cwd import *
 
 cwdInFunction()
 
