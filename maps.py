@@ -19,8 +19,8 @@ cwdInFunction()
 
 #Import the base map
 m = Basemap(projection='cyl', resolution='c',\
-    llcrnrlat=-50,urcrnrlat=0,\
-    llcrnrlon=110,urcrnrlon=160)
+    llcrnrlat=-43.75,urcrnrlat=-12.5,\
+    llcrnrlon=114.375,urcrnrlon=153.75)
 
 
 def mapBasic(states=False,grid=False,labels=True,title=True,save=False):
@@ -66,24 +66,24 @@ def mapBasic(states=False,grid=False,labels=True,title=True,save=False):
         if raw_input("Do you want the whole map gridded? y/n ")=='y':
             # Change these values to fit what gridded to
             # Draw the grid
-            m.drawparallels(np.arange(-50.,1.,1.25),labels=[False,False,False,False])
-            m.drawmeridians(np.arange(110.,161.,1.875),labels=[False,False,False,False])
+            m.drawparallels(np.arange(-43.75,-11.25,1.25),labels=[False,False,False,False])
+            m.drawmeridians(np.arange(114.375,153.75,1.875),labels=[False,False,False,False])
             # Draw the labels
-            m.drawparallels(np.arange(-50.,1.,49),labels=[True,False,True,True],linewidth=0.0)
-            m.drawmeridians(np.arange(110.,161.,50),labels=[True,True,False,True],linewidth=0.0)
+            m.drawparallels(np.arange(-43.75,-11.25,1.25),labels=[True,False,True,True],linewidth=0.0)
+            m.drawmeridians(np.arange(114.375,153.75,7.5),labels=[True,True,False,True],linewidth=0.0)
         else:
             # Change these values to fit what gridded to
-            m.drawparallels(np.arange(-50.,1.,49),labels=[True,False,True,True],linewidth=0.0)
-            m.drawmeridians(np.arange(110.,161.,50),labels=[True,True,False,True],linewidth=0.0)
+            m.drawparallels(np.arange(-43.75,-11.25,31.25),labels=[True,False,True,True],linewidth=0.0)
+            m.drawmeridians(np.arange(114.375,153.75,37.5),labels=[True,True,False,True],linewidth=0.0)
 
     if labels == True:
         # May need to remove padding
         plt.xlabel("Longitude (degrees east)",labelpad=25)
-        plt.ylabel("Latitude (degrees south)",labelpad=35)
+        plt.ylabel("Latitude (degrees south)",labelpad=55)
 
     if save == True and title == True:
         titleName = raw_input("Enter the graph title (don't forget units): ")
-        plt.title(titleName)
+        plt.title(titleName,fontsize=18)
         saveFig()
     elif save == 'None':
         pass
@@ -211,7 +211,7 @@ def mapMain():
     x,y = m(lonall,latall)
     var_time_land = maskoceans(lonall,latall,var_time)
 
-    cs = m.pcolor(x,y,var_time_land)
+    cs = m.pcolor(x,y,var_time_land,vmin=0) #vmax = (for colourbar upper limit)
     cbar = m.colorbar(cs, location='right', pad="10%")
     cbarLabel = "%s %s%s%s" %(units_name,"(",var_units,")")
     cbar.set_label(cbarLabel)

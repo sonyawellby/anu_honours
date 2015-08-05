@@ -5,6 +5,7 @@ from matplotlib import cm, pyplot as plt
 import pylab
 from mpl_toolkits.basemap import Basemap, maskoceans
 
+from maps import saveFig
 from cwd import *
 
 cwdInFunction()
@@ -44,7 +45,7 @@ lat_units = data.variables['latitude'].units
 lon = data.variables['longitude']
 lon_units = data.variables['longitude'].units
 
-var_time = data.variables['AWAP_precipitation'][100,:,:]
+var_time = data.variables['AWAP_precipitation'][0,:,:]
 var_units = data.variables['AWAP_precipitation'].units
 
 m = Basemap(projection='cyl', resolution='c',\
@@ -56,8 +57,13 @@ m.drawcoastlines()
 [lonall,latall] = np.meshgrid(lon,lat)
 x,y = m(lonall,latall)
 
-cs = m.pcolor(x,y,var_time)
+cs = m.pcolor(x,y,var_time,vmin=0,vmax=0.02) #
+cbarLabel = "%s" %(var_units) #not working
 cbar = m.colorbar(cs, location='right', pad="10%")
+
+titleName = raw_input("Enter the graph title (don't forget units): ")
+plt.title(titleName,fontsize=18)
+saveFig()
 
 plt.show()
 
