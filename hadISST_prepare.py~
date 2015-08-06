@@ -1,0 +1,27 @@
+"""
+A set of routines to prepare HadISST sea-surface temperature data for analysis.
+
+Submitted by Sonya Wellby for ENVS4055, 2015.
+Last updated 6 August 2015.
+"""
+
+import netCDF4 as n
+import numpy as np
+
+from cwd import *
+cwdInFunction()
+
+def hadisstData():
+    """
+    A function to read in the HadISST dataset, trim it to the period
+    June 1900 to May 2005, and reshape it as a Numpy array. 
+    """
+    full_data = n.Dataset('HadISST_sst.nc','r')
+    #data_flat: months,latitude,longitude
+    data_flat = full_data.variables['sst'][365:1625]
+    data = np.array(data_flat)
+    data = np.reshape(data,(105,12,180,360))
+    return data
+
+# hadisstData[104,11,179,359] = May 2005 at 180 deg N and 360 deg E
+hadisstData = hadisstData()
