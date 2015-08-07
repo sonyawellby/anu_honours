@@ -36,19 +36,19 @@ m/day, and has X days in each month).  Note that the AWAP dataset has also
 been modified so it, too, reports mm/month values.
 
 NB: prc_monthly[1871][160][40] is: timestep, latitude, longitude
-"""
+
 prc_monthly = [data.variables['pr'][i]*data.variables['time'][i] for i in range(0,len(data.variables['time']))]
 data.variables['pr'] = prc_monthly
     
 timeData = data.variables['pr'][605:1864]
-
+"""
 
 """
 Monthly data for Jun-May years (June 1900 to May 2004) - 104 year analysis.
 
 e.g. months[month][year][longitude][latitude]
 e.g. months[0][0][0][0] is June for 1900 at latitude -90 N and longitude 0 E
-"""
+
 Jun = timeData[0:1248:12]
 Jul = timeData[1:1248:12]
 Aug = timeData[2:1249:12]
@@ -63,24 +63,25 @@ Apr = timeData[10:1257:12]
 May = timeData[11:1258:12]
 
 months = np.array([Jun,Jul,Aug,Sep,Oct,Nov,Dec,Jan,Feb,Mar,Apr,May])
-
+"""
 
 """
 Seasonal data for Jun-May years (June 1900 to May 2004) - 104 year analysis
 e.g. DJF[month][year][longitude][latitude]
 e.g. DJF[:][0][0][0] is all DJF for 1900 at latitude -90 N and longitude 0 E
-"""
+
 DJF = np.array([Dec,Jan,Feb])
 MAM = np.array([Mar,Apr,May])
 JJA = np.array([Jun,Jul,Aug])
 SON = np.array([Sep,Oct,Nov])
-
+"""
 
 """
 Annual data for Jun-May years (Jun 1900 to May 2004) - 104 year analysis
 e.g. annual[year][month][longitude][latitude]
 e.g. annual[0][:][0][0] is 1900 (all months) at latitude -90 N and longitude 0 E
-"""
+
 
 annual_array = np.array([JJA,SON,DJF,MAM])
 annual = np.reshape(annual_array,(104,12,145,192))
+"""

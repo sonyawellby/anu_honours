@@ -8,12 +8,39 @@ Last updated 7 August 2015.
 
 import netCDF4 as n
 import numpy as np
+from numpy import ma
 
 from cwd import *
 cwdInFunction()
 
+#Make sure to run with (a) correct data, and (b) all three runs
+data = n.Dataset('ACCESS_data/ts_Amon_ACCESS1-3_historical_r3i1p1_185001-200512.nc','r')
 
+#dataAWAP = n.Dataset('AWAP_1900-2014_monthly_precip_swACCESSgrid_v4.nc','r')
+"""
+Convert SST units from K to degrees Celsius (to make compatible with HadISST1.1
+dataset.
+"""
+#-273.15
 
+def KtoC():
+    """
+    A function to convert the ACCESS 'ts' variable from K to degrees Celsius
+    so that data can be compared directly with HadISST data.
+
+    Values with temperatures less than 0 degrees Celsius have been masked as
+    land-based values return 'skin' temperature (and may distort results).
+    """
+    dataCelsius = data.variables['ts']
+    #Not working - not sure why?  Was earlier today (7 August).
+    for i in dataCelsius:
+        i -= 273.15
+    return dataCelsius
+    # Mask land-based SSTs
+    mx = np.ma.masked_less[dataCelsius,0]
+    return mx
+    
+dataCelsius = KtoC()
 
 
 
