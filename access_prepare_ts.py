@@ -9,17 +9,14 @@ import netCDF4 as n
 import numpy as np
 from numpy import ma
 
+from mpl_toolkits.basemap import Basemap
+import matplotlib.pyplot as plt
+
 from cwd import *
 cwdInFunction()
 
 #Make sure to run with (a) correct data, and (b) all three runs
 data = n.Dataset('ACCESS_data/ts_Amon_ACCESS1-3_historical_r3i1p1_185001-200512.nc','r')
-
-
-def sstMissing():
-    dataSST = data.variables['ts'][:]
-    dataMiss = np.ma.masked_equal(dataSST,1e+20)
-    return dataMiss
 
 def KtoC():
     """
@@ -34,9 +31,7 @@ def KtoC():
     dataCelsius = data.variables['ts'][:]
     for i in dataCelsius:
         i -= 273.15
-    # Mask land-based SSTs
-    mx = np.ma.masked_less(dataCelsius,0)
-    return mx
+    return dataCelsius
 
 def accessTrim():
     """
@@ -45,8 +40,8 @@ def accessTrim():
 
     Note: data_flat: months,latitude,longitude
     """
-    full_data = dataCelsius
-    data_flat = full_data[605:1865]
+    data1 = dataCelsius[605:1865]
+    data_flat = np.ma.masked_outside(data1,Min,Max)
     return data_flat
 
 def accessAnnual():
@@ -58,8 +53,7 @@ def accessAnnual():
     e.g. accessData[104,11,144,191]
          = May 2005 at -180 deg N (-90 deg S) and 0 deg E (0 deg E = prime meridian)
     """
-    data = np.array(data_flat)
-    data = np.reshape(data,(105,12,145,192))
+    data = np.reshape(data_flat,(105,12,145,192))
     return data
 
 def accessJune():
@@ -68,7 +62,7 @@ def accessJune():
     Note: June[year,lat,lon]
     """
     June = data_flat[0::12]
-    June = np.array(June)
+    June = np.ma.masked_outside(June,Min,Max)
     data = np.reshape(June,(105,145,192))
     return June
 
@@ -78,7 +72,7 @@ def accessJuly():
     Note: July[year,lat,lon]
     """
     July = data_flat[1::12]
-    July = np.array(July)
+    July = np.ma.masked_outside(July,Min,Max)
     data = np.reshape(July,(105,145,192))
     return July
 
@@ -88,7 +82,7 @@ def accessAugust():
     Note: August[year,lat,lon]
     """
     August = data_flat[2::12]
-    August = np.array(August)
+    August = np.ma.masked_outside(August,Min,Max)
     data = np.reshape(August,(105,145,192))
     return August
 
@@ -98,7 +92,7 @@ def accessSeptember():
     Note: September[year,lat,lon]
     """
     September = data_flat[3::12]
-    September = np.array(September)
+    September = np.ma.masked_outside(September,Min,Max)
     data = np.reshape(September,(105,145,192))
     return September
 
@@ -108,7 +102,7 @@ def accessOctober():
     Note: October[year,lat,lon]
     """
     October = data_flat[4::12]
-    October = np.array(October)
+    October = np.ma.masked_outside(October,Min,Max)
     data = np.reshape(October,(105,145,192))
     return October
 
@@ -118,7 +112,7 @@ def accessNovember():
     Note: November[year,lat,lon]
     """
     November = data_flat[5::12]
-    November = np.array(November)
+    November = np.ma.masked_outside(November,Min,Max)
     data = np.reshape(November,(105,145,192))
     return November
 
@@ -128,7 +122,7 @@ def accessDecember():
     Note: December[year,lat,lon]
     """
     December = data_flat[6::12]
-    December = np.array(December)
+    December = np.ma.masked_outside(December,Min,Max)
     data = np.reshape(December,(105,145,192))
     return December
 
@@ -138,7 +132,7 @@ def accessJanuary():
     Note: January[year,lat,lon]
     """
     January = data_flat[7::12]
-    January = np.array(January)
+    January = np.ma.masked_outside(January,Min,Max)
     data = np.reshape(January,(105,145,192))
     return January
 
@@ -148,7 +142,7 @@ def accessFebruary():
     Note: February[year,lat,lon]
     """
     February = data_flat[8::12]
-    February = np.array(February)
+    February = np.ma.masked_outside(February,Min,Max)
     data = np.reshape(February,(105,145,192))
     return February
 
@@ -158,7 +152,7 @@ def accessMarch():
     Note: March[year,lat,lon]
     """
     March = data_flat[9::12]
-    March = np.array(March)
+    March = np.ma.masked_outside(March,Min,Max)
     data = np.reshape(March,(105,145,192))
     return March
 
@@ -168,7 +162,7 @@ def accessApril():
     Note: April[year,lat,lon]
     """
     April = data_flat[10::12]
-    April = np.array(April)
+    April = np.ma.masked_outside(April,Min,Max)
     data = np.reshape(April,(105,145,192))
     return April
 
@@ -178,7 +172,7 @@ def accessMay():
     Note: May[year,lat,lon]
     """
     May = data_flat[11::12]
-    May = np.array(May)
+    May = np.ma.masked_outside(May,Min,Max)
     data = np.reshape(May,(105,145,192))
     return May
 
@@ -190,7 +184,7 @@ def accessJJA():
     """
     JJA_flat = data_flat[0::12] + data_flat[1::12] + data_flat[2::12]
     JJA_flat /= 3.0
-    JJA = np.array(JJA_flat)
+    JJA = np.ma.masked_outside(JJA_flat,Min,Max)
     data = np.reshape(JJA,(105,145,192))
     return JJA
 
@@ -202,7 +196,7 @@ def accessSON():
     """
     SON_flat = data_flat[3::12] + data_flat[4::12] + data_flat[5::12]
     SON_flat /= 3.0
-    SON = np.array(SON_flat)
+    SON = np.ma.masked_outside(SON_flat,Min,Max)
     data = np.reshape(SON,(105,145,192))
     return SON
 
@@ -214,7 +208,7 @@ def accessDJF():
     """
     DJF_flat = data_flat[6::12] + data_flat[7::12] + data_flat[8::12]
     DJF_flat /= 3.0
-    DJF = np.array(DJF_flat)
+    DJF = np.ma.masked_outside(DJF_flat,Min,Max)
     data = np.reshape(DJF,(105,145,192))
     return DJF
 
@@ -226,12 +220,13 @@ def accessMAM():
     """
     MAM_flat = data_flat[9::12] + data_flat[10::12] + data_flat[11::12]
     MAM_flat /= 3.0
-    MAM = np.array(MAM_flat)
+    MAM = np.ma.masked_outside(MAM_flat,Min,Max)
     data = np.reshape(MAM,(105,145,192))
     return MAM
 
 #Prepare data for analysis
-dataMiss = sstMissing()
+Min = -2.0
+Max = 35.0
 dataCelsius = KtoC()
 data_flat = accessTrim()
 

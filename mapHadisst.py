@@ -24,23 +24,23 @@ m = Basemap(projection='cyl', resolution='c',\
     llcrnrlon=0,urcrnrlon=179)
 
 #Import SST data from hadisst_prepare
-hadisstAnnual
-June
-July
-August
-September
-October
-November
-December
-January
-February
-March
-April
-May
-JJA
-SON
-DJF
-MAM
+sst_Annual
+sst_June
+sst_July
+sst_August
+sst_September
+sst_October
+sst_November
+sst_December
+sst_January
+sst_February
+sst_March
+sst_April
+sst_May
+sst_JJA
+sst_SON
+sst_DJF
+sst_MAM
 
 data = n.Dataset('HadISST_sst.nc','r')
 #data.variables['sst'][365][90][180] (time,latitude,longitude)
@@ -50,11 +50,11 @@ lat = data.variables['latitude'][:]
 lat_units = data.variables['latitude'].units
 lon = data.variables['longitude'][:]
 lon_units = data.variables['longitude'].units
-#Change this time period accordingly.  Currently shows December 1900-01.
+#Change this time period accordingly.  Currently shows December 1900-1901.
 #var_time = data.variables['sst'][0,0,:,:] #This uses the original hadISST dataset - time not trimmed
-#var_time = hadisstAnnual[0,0,:,:]
-#var_time = June[0,:,:]
-var_time = DJF[0,:,:]
+#var_time = sst_Annual[0,0,:,:]
+#var_time = sst_June[0,:,:]
+var_time = sst_DJF[0,:,:]
 var_units = data.variables['sst'].units
 data.close()
 
