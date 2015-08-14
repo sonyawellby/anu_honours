@@ -2,7 +2,7 @@
 Script to prepare ACCESS1.3 sea surface temperature data for analysis.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 13 August 2015.
+Last updated 14 August 2015.
 """
 
 import netCDF4 as n
@@ -16,6 +16,7 @@ from cwd import *
 cwdInFunction()
 
 #Make sure to run with (a) correct data, and (b) all three runs
+#Change this to raw input?
 data = n.Dataset('ACCESS_data/ts_Amon_ACCESS1-3_historical_r3i1p1_185001-200512.nc','r')
 
 def KtoC():

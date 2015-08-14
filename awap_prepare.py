@@ -12,7 +12,33 @@ import numpy as np
 from cwd import *
 cwdInFunction()
 
-data = n.Dataset('AWAP_1900-2014_monthly_precip_swACCESSgrid_v4.nc','r')
+data = n.Dataset('AWAP_1900-2014_monthly_precip_swACCESSgrid_v4.nc','a')
+
+def lat():
+    """
+    A function to replace empty latitudinal values in the resampled
+    AWAP dataset with actual latitudinal values.
+    """
+    start = -43.75
+    newlist = []
+    for i in range(0,27):
+        i = start
+        newlist.append(i)
+        start += 1.25
+    data.variables['latitude'][:] = newlist[:]
+
+def lon():
+    """
+    A function to replace empty longitudinal values in the resampled
+    AWAP dataset with actual longitudinal values.
+    """
+    start_lon = 114.375
+    newlist_lon = []
+    for i in range(0,22):
+        i = start_lon
+        newlist_lon.append(i)
+        start_lon += 1.875
+    data.variables['longitude'][:] = newlist_lon[:]   
 
 def m2mm():
     """
@@ -214,6 +240,13 @@ def awapMAM():
     MAM = np.ma.masked_less(MAM_flat,mask)
     data = np.reshape(MAM,(105,27,22))
     return MAM
+
+#Update lon/lat values
+longitude = lon()
+latitude = lat()
+awap_lat_units = data.variables['latitude'].units
+awap_lon_units = data.variables['longitude'].units
+awap_units = data.variables['AWAP_precipitation'].units
 
 #Prepare data for analysis
 mask = 0.0 #Mask values less than 0 (cannot have negative rainfall)

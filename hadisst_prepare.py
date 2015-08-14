@@ -4,7 +4,7 @@ for analysis.  Data file 'HadISST_sst.nc' from
 http://www.metoffice.gov.uk/hadobs/hadisst/data/download.html
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 7 August 2015.
+Last updated 14 August 2015.
 """
 
 import netCDF4 as n
