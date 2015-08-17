@@ -3,7 +3,7 @@ A set of routines to prepare AWAP precipitation data
 for analysis.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 14 August 2015.
+Last updated 17 August 2015.
 """
 
 import netCDF4 as n
@@ -26,6 +26,7 @@ def lat():
         newlist.append(i)
         start += 1.25
     data.variables['latitude'][:] = newlist[:]
+    return data.variables['latitude'][:]
 
 def lon():
     """
@@ -38,7 +39,8 @@ def lon():
         i = start_lon
         newlist_lon.append(i)
         start_lon += 1.875
-    data.variables['longitude'][:] = newlist_lon[:]   
+    data.variables['longitude'][:] = newlist_lon[:]
+    return data.variables['longitude'][:]
 
 def m2mm():
     """
@@ -246,7 +248,6 @@ longitude = lon()
 latitude = lat()
 awap_lat_units = data.variables['latitude'].units
 awap_lon_units = data.variables['longitude'].units
-awap_units = data.variables['AWAP_precipitation'].units
 
 #Prepare data for analysis
 mask = 0.0 #Mask values less than 0 (cannot have negative rainfall)

@@ -4,7 +4,7 @@ as the AWAP dataset (-43.7 deg N to -11.25 deg N, 114.373 deg E to 153.75 deg E)
 This improves the ease of comparing the two datasets.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 14 August 2015.
+Last updated 17 August 2015.
 """
 
 import netCDF4 as n
@@ -16,14 +16,9 @@ cwdInFunction()
 
 from access_prepare_pr import mask, data_flat
 
-"""
-data1 = n.Dataset('AWAP_1900-2014_monthly_precip_swACCESSgrid_v4.nc','a')
-awap = data1.variables['AWAP_precipitation']
-"""
-
 def trimAnnual():
     """
-    A function to trim annual data to -43.7 deg N to -11.25 deg N,
+    A function to trim annual data to -43.7 deg N to -8.75 deg N,
     114.373 deg E to 153.75 deg E
 
     Note: accessData[year,month,lat,lon]
@@ -205,7 +200,7 @@ def accessMAM():
     data = np.reshape(MAM,(105,27,22))
     return MAM
 
-trimAnnual = trimAnnual()
+trim_Annual = trimAnnual()
 
 trim_June = accessJune()
 trim_July = accessJuly()

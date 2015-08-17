@@ -225,6 +225,15 @@ def accessMAM():
     data = np.reshape(MAM,(105,145,192))
     return MAM
 
+#Make lat/lon data accessible for use in other files
+latACCESS = data.variables['lat'][:]
+lonACCESS = data.variables['lon'][:]
+latACCESS_units = data.variables['lat'].units
+lonACCESS_units = data.variables['lon'].units
+
+latACCESS_tr = data.variables['lat'][39:66] #66 = -8.75 deg N - may need to change
+lonACCESS_tr = data.variables['lon'][61:83]
+
 #Prepare data for analysis
 mask = 0.0 #Mask values less than 0 (cannot have negative rainfall)
 dataDay = SectoDay()

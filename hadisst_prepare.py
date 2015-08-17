@@ -4,7 +4,7 @@ for analysis.  Data file 'HadISST_sst.nc' from
 http://www.metoffice.gov.uk/hadobs/hadisst/data/download.html
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 14 August 2015.
+Last updated 17 August 2015.
 """
 
 import netCDF4 as n
@@ -26,17 +26,16 @@ def hadisstTrim():
     data_flat = np.ma.masked_less(data_flat,mask)
     return data_flat
 
-#Create function to accommodate for changes around dateline in 1982 onwards
-
 def bugFix():
     """
-    A function to mask values alone the dateline from 1982 onwards
+    A function to mask values along the dateline from 1982 onwards
     (http://hadobs.metoffice.com/hadisst/ - see the comment on
-    this webpage from 13 March 2015.)
+    this webpage from 13 March 2015.)  January 1982 is time '984',
+    and the date-line is longitude '0'.
     """
-    for i in data_flat[984:,:,0]:
-        i == -9999.0
-    dataFix = np.ma.masked_less(data_flat,-9999.0)
+    b = data_flat[:]
+    b[984:,:,0] = -9999.0
+    dataFix = np.ma.masked_less_equal(b,-9999.0)
     return dataFix
 
 def hadisstAnnual():
@@ -219,12 +218,19 @@ def hadisstMAM():
     data = np.reshape(MAM,(105,180,360))
     return MAM
 
+#Make lat/lon data accessible for use in other files
+latHad = data.variables['latitude'][:]
+lonHad = data.variables['longitude'][:]
+latHad_units = data.variables['latitude'].units
+lonHad_units = data.variables['longitude'].units
+
 #Prepare data for analysis
 mask = -10.0 #Mask values less than -10 deg Celsius to remove no-data values of -1e+30
 data_flat = hadisstTrim()
 dataFix = bugFix()
 
 #Divide into time bins
+
 sst_Annual = hadisstAnnual()
 
 sst_June = hadisstJune()
@@ -244,3 +250,4 @@ sst_JJA = hadisstJJA()
 sst_SON = hadisstSON()
 sst_DJF = hadisstDJF()
 sst_MAM = hadisstMAM()
+

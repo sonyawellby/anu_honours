@@ -11,7 +11,7 @@ import numpy as np
 from matplotlib import cm, pyplot as plt
 import pylab
 from mpl_toolkits.basemap import Basemap, maskoceans
-from maps_sub import m, saveFig, gridWhole, gridLabels
+from maps_sub import m, saveFig
 
 from cwd import *
 cwdInFunction()
@@ -23,7 +23,7 @@ Import the data to be plotted:
 from awap_prepare import latitude,longitude,awap_lon_units,awap_lat_units
 from access_prepare_pr import latACCESS, lonACCESS, latACCESS_units, \
      latACCESS_tr, lonACCESS_tr, lonACCESS_units
-#from hadisst_prepare import latHad, lonHad, latHad_units, lonHad_units
+from hadisst_prepare import latHad, lonHad, latHad_units, lonHad_units
 
 from awap_prepare import awap_Annual, awap_June,awap_July,awap_August, \
      awap_September,awap_October,awap_November,awap_December,awap_January,\
@@ -64,7 +64,7 @@ def vmax(dataset):
     """
     mean = np.mean(dataset)
     sd = np.std(dataset)
-    vmax = mean + 2.0*sd
+    vmax = mean + 3.0*sd
     return vmax
 
 def mapAWAP(dataset):
@@ -81,7 +81,7 @@ def mapAWAP(dataset):
     dict1['lon'] = longitude
     dict1['lat_units'] = awap_lat_units
     dict1['lon_units'] = awap_lon_units
-    dict1['var_units'] = "Precipitation (mm/day)"
+    dict1['var_units'] = "mm/day"
     dict1['vmin'] = 0.0 # mm/day
     dict1['vmax'] = vmax # mm/day.
     return dict1
@@ -101,7 +101,7 @@ def mapACCESSpr(dataset):
     dict2['lon'] = lonACCESS
     dict2['lat_units'] = latACCESS_units
     dict2['lon_units'] = lonACCESS_units
-    dict2['var_units'] = "Precipitation (mm/day)"
+    dict2['var_units'] = "mm/day"
     dict2['vmin'] = 0.0 # mm/day
     dict2['vmax'] = vmax # mm/day.
     return dict2
@@ -121,7 +121,7 @@ def mapACCESSpr_tr(dataset):
     dict3['lon'] = lonACCESS_tr
     dict3['lat_units'] = latACCESS_units
     dict3['lon_units'] = lonACCESS_units
-    dict3['var_units'] = 'Precipitation (mm/day)'
+    dict3['var_units'] = 'mm/day'
     dict3['vmin'] = 0.0 # deg Celsius
     dict3['vmax'] = vmax # deg Celsius
     return dict3
@@ -140,7 +140,7 @@ def mapACCESSts(dataset):
     dict4['lon'] = lonACCESS
     dict4['lat_units'] = latACCESS_units
     dict4['lon_units'] = lonACCESS_units
-    dict4['var_units'] = 'Temperature ($^\circ$C)'
+    dict4['var_units'] = '$^\circ$C'
     dict4['vmin'] = -2.0 # deg Celsius
     dict4['vmax'] = vmax # deg Celsius
     return dict4
@@ -159,7 +159,7 @@ def mapHadisst(dataset):
     dict5['lon'] = lonHad
     dict5['lat_units'] = latHad_units
     dict5['lon_units'] = lonHad_units
-    dict5['var_units'] = 'Temperature ($^\circ$C)'
+    dict5['var_units'] = '$^\circ$C'
     dict5['vmin'] = -2.0 # deg Celsius
     dict5['vmax'] = vmax # deg Celsius
     return dict5
@@ -168,62 +168,56 @@ def mapHadisst(dataset):
 #def testPlot(dic={}, compdic={})
 #def plot(Dict={}):
 
-def plot(var_time,Dict,labels=False,grid=False,oceans=False):
+def plot(var_time,Dict): #grid=False,labels=True,save=False,states=False):
     """
     A function to plot and display a basic plot of ACCESS,
     AWAP, or HadISST datasets.
 
     Parameters:
     -----------
-    var_time : The variable to be plotted.  Use the imported
+    var_time: The variable to be plotted.  Use the imported
             data above.
     Dict :  a dictionary defining various
             variables needed for the dataset to be plotted.
             The dictionaries are defined above in the
             mapAWAP(), mapACCESSpr(), mapACCESSts(), and
             mapHadisst() functions.
-    Labels : (default = False)
-            Adds axis labels for longitude/latitude if "True".
-    Grid : (default = False)
-            If set to "True", the a grid is superimposed over
-            the map at the 1.25 (lat) by 1.875 (lon) degree
-            resolution.  If set to "False", only the latitudes/
-            longitudes that show the dimensions of the box are
-            plotted.
-    Oceans : (default = False)
-            If set to "True", ocean regions remain unmaskeded
-            and are plotted; if set to "False", the oceans are
-            not plotted.
     """
     m
     
     [lonall,latall] = np.meshgrid((Dict['lon']),(Dict['lat']))
     x,y = m(lonall,latall)
 
-    #Check to see if gridLabels correct; check wholeGrid spacing if using
-    if grid == False:
-        gridLabels(-43.75,-11.25,31.25,114.375,153.75,37.5)
-    else:
-        gridWhole(-43.75,-11.25,1.25,114.375,153.75,1.875)
-        gridLabels(-43.75,-11.25,31.25,114.375,153.75,37.5)
-
-    if labels == True:
-        plt.xlabel("Longitude ($^\circ$E)",labelpad=25)
-        plt.ylabel("Latitude ($^\circ$S)",labelpad=25)
-    else:
-        pass
-
-    if oceans == False:
-        var_time_land = maskoceans(lonall,latall,var_time)
-        cs = m.pcolor(x,y,var_time_land,vmin=Dict['vmin'],vmax=Dict['vmax'])
-    else:
-        cs = m.pcolor(x,y,var_time,vmin=Dict['vmin'],vmax=Dict['vmax'])
-
+    cs = m.pcolor(x,y,var_time,vmin=Dict['vmin'],vmax=Dict['vmax'])
+    cbarLabel = "%s" %(Dict['var_units']) #not working
     cbar = m.colorbar(cs, location='right', pad="10%")
-    cbarLabel = "%s" %(Dict['var_units'])
+
+    plt.show()
+
+def save():
+
+    titleName = raw_input("Enter the graph title (don't forget units): ")
+    plt.title(titleName,fontsize=18)
+
+    saveFig()
+
+    plt.show()
+
+"""
+[lonall,latall] = np.meshgrid(lon,lat)
+    x,y = m(lonall,latall)
+    var_time_land = maskoceans(lonall,latall,var_time)
+
+    cs = m.pcolor(x,y,var_time_land,vmin=0) #vmax = (for colourbar upper limit)
+    cbar = m.colorbar(cs, location='right', pad="10%")
+    cbarLabel = "%s %s%s%s" %(units_name,"(",var_units,")")
     cbar.set_label(cbarLabel)
 
-    return plt
+    if raw_input("Do you want to save this image? y/n ") == 'y':
+        mapBasic(grid=True,save=True)
+    else:
+        mapBasic(title=False,save=False)
+"""
 
 """
 #Plot AWAP annual data
@@ -231,15 +225,10 @@ vmax = vmax(awap_Annual)
 dict1 = mapAWAP(awap_Annual)
 plot(awap_Annual[0,0],mapAWAP(dict1))
 """
-
 #Plot ACCESS annual pr data
 vmax = vmax(pr_Annual)
 dict2 = mapACCESSpr(pr_Annual)
-plot(pr_Annual[0,0],mapACCESSpr(dict2),labels=True)
-plt.show(plot)
-#plot(pr_Annual[0,0],mapACCESSpr(dict2),labels=True)
-#saveFig(plot,title="",filename="test",ext='png')
-
+plot(pr_Annual[0,0],mapACCESSpr(dict2))
 """
 #Plot ACCESS annual pr data, trimmed
 vmax = vmax(trim_Annual)
@@ -249,11 +238,11 @@ plot(trim_Annual[0,0],mapACCESSpr_tr(dict3))
 #Plot ACCESS annual sst data
 vmax = vmax(ts_Annual)
 dict4 = mapACCESSts(ts_Annual)
-plot(ts_Annual[0,0],mapACCESSts(dict4),oceans=True)
+plot(ts_Annual[0,0],mapACCESSts(dict4))
 
 #Plot HadISST annual data
 vmax = vmax(sst_Annual)
 dict5 = mapACCESSpr(sst_Annual)
-plot(sst_Annual[0,0],mapHadisst(dict5),oceans=True)
+plot(sst_Annual[0,0],mapHadisst(dict5))
 """
 
