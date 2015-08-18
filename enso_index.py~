@@ -1,6 +1,10 @@
-"""This routine determines the ENSO strength (in Nino3.4 region: 5 degrees NS,
+"""
+This routine determines the ENSO strength (in Nino3.4 region: 5 degrees NS,
 190-240 degrees E).
-Prepared by Sonya Wellby (u4680942) for Honours ENVS4015, 22 June 2015."""
+
+Submitted by Sonya Wellby for ENVS4055, 2015.
+Last updated 22 June 2015.
+"""
 
 #Check current working directory
 import os
