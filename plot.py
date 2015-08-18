@@ -10,7 +10,10 @@ import numpy as np
 
 from matplotlib import cm, pyplot as plt
 import pylab
+import glob
+import matplotlib.image as mpimg
 from mpl_toolkits.basemap import Basemap, maskoceans
+
 from maps_sub import m, saveFig, gridWhole, gridLabels
 
 from cwd import *
@@ -83,7 +86,7 @@ def mapAWAP(dataset):
     dict1['lon_units'] = awap_lon_units
     dict1['var_units'] = "Precipitation (mm/day)"
     dict1['vmin'] = 0.0 # mm/day
-    dict1['vmax'] = vmax # mm/day.
+    dict1['vmax'] = vmax(dataset) # mm/day.
     return dict1
 
 def mapACCESSpr(dataset):
@@ -103,7 +106,7 @@ def mapACCESSpr(dataset):
     dict2['lon_units'] = lonACCESS_units
     dict2['var_units'] = "Precipitation (mm/day)"
     dict2['vmin'] = 0.0 # mm/day
-    dict2['vmax'] = vmax # mm/day.
+    dict2['vmax'] = vmax(dataset) # mm/day.
     return dict2
 
 def mapACCESSpr_tr(dataset):
@@ -164,11 +167,7 @@ def mapHadisst(dataset):
     dict5['vmax'] = vmax # deg Celsius
     return dict5
 
-
-#def testPlot(dic={}, compdic={})
-#def plot(Dict={}):
-
-def plot(var_time,Dict,labels=False,grid=False,oceans=False):
+def plot(var_time,Dict,labels=False,grid=False,oceans=False,cbar=False):
     """
     A function to plot and display a basic plot of ACCESS,
     AWAP, or HadISST datasets.
@@ -194,6 +193,8 @@ def plot(var_time,Dict,labels=False,grid=False,oceans=False):
             If set to "True", ocean regions remain unmaskeded
             and are plotted; if set to "False", the oceans are
             not plotted.
+    Cbar : (default = False)
+            Plots a colour-bar (if set to "True").
     """
     m
     
@@ -225,21 +226,81 @@ def plot(var_time,Dict,labels=False,grid=False,oceans=False):
 
     return plt
 
+#def plot(dict, compdict) - add a comparison dictionary if necessary
+#When making comparisions, remember vmax - especially if plotting afterwards
+
+def multi(directory,title=''):
+    """
+    A file to plot nine pre-plotted images in a three-by-three image.
+    Parameters:
+    -----------
+    directory : The directory (str; with wildcards and extension) of the
+                images to be plotted.
+                E.g. 'my_coding_routines/images/test/*.png'
+    title : (default = '')
+            The title of the graph (str).  By default, none is added.
+    """
+    fig = plt.figure(facecolor='white') # removing 'facecolor' sets it to 'None'
+
+    mainTitle = title
+    plt.suptitle(mainTitle,fontsize = 18)
+    
+    fileList = glob.glob(directory)
+    
+    for i in range(10):
+        a = fig.add_subplot(3,3,i)
+        img = mpimg.imread(fileList[i-1])
+        imgplot = plt.imshow(img)
+        plt.tick_params(
+            axis='both',        # Apply to both x- and y-axes
+            which='both',       # Turns major and minor ticks off
+            left = 'off',       # Turns axis ticks off
+            right = 'off',
+            bottom='off',      
+            top='off',         
+            labelbottom='off',  # Turns axis labels off
+            labelleft='off')
+        if i == 1:
+            a.set_title('ENSO Positive')
+            a.set_ylabel('IPO Positive',fontsize=15)
+        elif i == 2:
+            a.set_title('ENSO Neutral')
+        elif i == 3:
+            a.set_title('ENSO Negative')
+        elif i == 4:
+            a.set_ylabel('IPO Neutral',fontsize=15)
+        elif i == 7:
+            a.set_ylabel('IPO Negative',fontsize=15)
+        else:
+            pass
+    """
+    #Code for colorbar - but will only go between 0 and 1.
+    #If include, will need to add "units" to function arguments.
+    pylab.subplots_adjust(bottom=0.1, right=0.8, top=0.9)
+    cax = pylab.axes([0.85, 0.1, 0.04, 0.8])
+    pylab.colorbar(cax=cax,ticks=[0, 0.5, 1.5],label=units)
+    """
+    plt.show(fig)
+    
+
+#Fix: plot(pr_Annual[0,0],mapACCESSpr(HERE_pr_Annual),labels=True)
+#plot(pr_Annual[0,0],dict2,labels=True)
+
 """
 #Plot AWAP annual data
 vmax = vmax(awap_Annual)
 dict1 = mapAWAP(awap_Annual)
 plot(awap_Annual[0,0],mapAWAP(dict1))
 """
-
+"""
 #Plot ACCESS annual pr data
-vmax = vmax(pr_Annual)
+#vmax = vmax(pr_Annual)
 dict2 = mapACCESSpr(pr_Annual)
 plot(pr_Annual[0,0],mapACCESSpr(dict2),labels=True)
 plt.show(plot)
 #plot(pr_Annual[0,0],mapACCESSpr(dict2),labels=True)
 #saveFig(plot,title="",filename="test",ext='png')
-
+"""
 """
 #Plot ACCESS annual pr data, trimmed
 vmax = vmax(trim_Annual)

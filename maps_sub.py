@@ -2,7 +2,7 @@
 Sub-functions to support plot.py
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 17 August 2015. 
+Last updated 18 August 2015. 
 """
 
 import netCDF4 as n
@@ -10,14 +10,9 @@ import numpy as np
 
 from matplotlib import cm, pyplot as plt
 import pylab
-import Image
-import StringIO
 from mpl_toolkits.basemap import Basemap, maskoceans
 
-import glob
-
 from cwd import *
-
 cwdInFunction()
 
 def mapBase():
@@ -117,94 +112,3 @@ def saveFig(plot,title,filename,ext='png'):
 
 
 m = mapBase()
-
-def multi():
-    """
-    Docstring
-    """
-
-    fig = plt.figure(1)
-    #mainTitle = raw_input("Enter the main title: ")
-    mainTitle = "Hooray"
-    plt.suptitle(mainTitle,fontsize = 18)
-
-    fileList = glob.glob('my_coding_routines/images/test/*.png')
-    print fileList
-
-    values = []
-    num = 1
-    for i in fileList:
-        values.append(num)
-        num += 1
-
-    dictionary = dict(zip(values,fileList))
-        
-    for key in fileList:
-        #im = Image.open(dictionary[key])
-        im = Image.open(StringIO.StringIO(buffer))
-        StringIO.StringIO().seek(0)
-        fig.add_subplot(3,3,im)
-    
-    plt.show(fig)
-    #plt.savefig('my_coding_routines/images/title.png') #Can also use .pdf
-
-
-def saveMulti():
-    """Docstring here"""
-    fig = plt.figure(1)
-    mainTitle = raw_input("Enter the main title: ")
-    plt.suptitle(mainTitle,fontsize = 18)
-
-    num_images = int(raw_input("Enter integer of number of images want to combine: "))
-    fileList = {}
-    for i in range(1,num_images +1):
-        count = 0
-        mapMain()
-        imgName = raw_input("Enter the filename of the image you have just made: ")
-        imageName = "%s%s" %("my_coding_routines/images/",imgName)
-        fileList.update({'image%s'%i: imageName})
-        count += 1
-
-    for key in fileList:
-        for value in key:
-            fig.add_subplot(3,1,i)
-    print fileList
-    #plt.show()
-    plt.savefig('my_coding_routines/images/title.png') #Can also use .pdf
-
-    #plt.show()
-
-def saveMult():
-    """A function to save multiple (nine) maps in one."""
-
-    fig = plt.figure()
-    mainTitle = raw_input("Enter the main title: ")
-    plt.suptitle(mainTitle,fontsize = 18)
-
-    num_images = int(raw_input("Enter integer of number of images want to combine: "))
-    fileList = {}
-    for i in range(1,num_images +1):
-        count = 0
-        imgName = raw_input("Enter the name of the image you want to add: ")
-        imageName = "%s%s" %("my_coding_routines/images/",imgName)
-        fileList.update({'image%s'%i: imageName})
-        count += 1
-
-    for key in fileList:
-        for value in key:
-            fig.add_subplot(3,3,i)
-        #plt.show()
-        plt.savefig('my_coding_routines/title.png') #Can also use .pdf
-
-"""
-    fig1 = fig.add_subplot(331)
-    fig1.set_title("Title here",fontsize = 14)
-    Enter code for first map
-    m = Basemap(projection='cyl', resolution='c',\
-                llcrnrlat=-50,urcrnrlat=0,\
-                llcrnrlon=110,urcrnrlon=160)
-    #Repeat as needed
-
-    plt.show()
-    #plt.savefig('my_coding_routines/title.png') #Can also use .pdf
-"""
