@@ -2,7 +2,7 @@
 Script to prepare ACCESS1.3 sea surface temperature data for analysis.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 14 August 2015.
+Last updated 19 August 2015.
 """
 
 import netCDF4 as n
@@ -45,6 +45,20 @@ def accessTrim():
     data_flat = np.ma.masked_outside(data1,Min,Max)
     return data_flat
 
+def bugHad():
+    """
+    A function to allow direct comparison with the HadiSST dataset,
+    which has a discontinuity at the dateline (see 'bugfix()' in
+    'hadisst_prepare.py'). 
+
+    January 1982 is time '984', and the date-line is longitude [96] (180 E).
+    This affects computation of the IPO TPI index only (not Nino3.4).
+    """
+    b = data_flat[:]
+    b[984:,:,96] = -9999.0
+    dataFix = np.ma.masked_less_equal(b,-9999.0)
+    return dataFix
+
 def accessAnnual():
     """
     A function to convert flat data to an array with all 105 years
@@ -54,15 +68,37 @@ def accessAnnual():
     e.g. accessData[104,11,144,191]
          = May 2005 at -180 deg N (-90 deg S) and 0 deg E (0 deg E = prime meridian)
     """
-    data = np.reshape(data_flat,(105,12,145,192))
+    data = np.reshape(dataFix,(105,12,145,192))
     return data
+
+    """
+    data = np.reshape(dataFix,(105,12,145,192))
+    for i in data:
+        data[i] = np.mean[...]
+    return data
+
+    new = np.zeros(105)
+    print new
+    count = 0
+    a = 0
+    b = 12
+    for i in dataFix:
+        new[count] = np.mean(dataFix[a:b:,:,:])
+        print new[count]
+        a += 12
+        b += 12
+        count +=1
+
+    data = np.reshape(new,(105,145,192))
+    return data
+    """
 
 def accessJune():
     """
     A function to produce an array of June data for all 105 years.
     Note: June[year,lat,lon]
     """
-    June = data_flat[0::12]
+    June = dataFix[0::12]
     June = np.ma.masked_outside(June,Min,Max)
     data = np.reshape(June,(105,145,192))
     return June
@@ -72,7 +108,7 @@ def accessJuly():
     A function to produce an array of July data for all 105 years.
     Note: July[year,lat,lon]
     """
-    July = data_flat[1::12]
+    July = dataFix[1::12]
     July = np.ma.masked_outside(July,Min,Max)
     data = np.reshape(July,(105,145,192))
     return July
@@ -82,7 +118,7 @@ def accessAugust():
     A function to produce an array of August data for all 105 years.
     Note: August[year,lat,lon]
     """
-    August = data_flat[2::12]
+    August = dataFix[2::12]
     August = np.ma.masked_outside(August,Min,Max)
     data = np.reshape(August,(105,145,192))
     return August
@@ -92,7 +128,7 @@ def accessSeptember():
     A function to produce an array of September data for all 105 years.
     Note: September[year,lat,lon]
     """
-    September = data_flat[3::12]
+    September = dataFix[3::12]
     September = np.ma.masked_outside(September,Min,Max)
     data = np.reshape(September,(105,145,192))
     return September
@@ -102,7 +138,7 @@ def accessOctober():
     A function to produce an array of October data for all 105 years.
     Note: October[year,lat,lon]
     """
-    October = data_flat[4::12]
+    October = dataFix[4::12]
     October = np.ma.masked_outside(October,Min,Max)
     data = np.reshape(October,(105,145,192))
     return October
@@ -112,7 +148,7 @@ def accessNovember():
     A function to produce an array of November data for all 105 years.
     Note: November[year,lat,lon]
     """
-    November = data_flat[5::12]
+    November = dataFix[5::12]
     November = np.ma.masked_outside(November,Min,Max)
     data = np.reshape(November,(105,145,192))
     return November
@@ -122,7 +158,7 @@ def accessDecember():
     A function to produce an array of December data for all 105 years.
     Note: December[year,lat,lon]
     """
-    December = data_flat[6::12]
+    December = dataFix[6::12]
     December = np.ma.masked_outside(December,Min,Max)
     data = np.reshape(December,(105,145,192))
     return December
@@ -132,7 +168,7 @@ def accessJanuary():
     A function to produce an array of January data for all 105 years.
     Note: January[year,lat,lon]
     """
-    January = data_flat[7::12]
+    January = dataFix[7::12]
     January = np.ma.masked_outside(January,Min,Max)
     data = np.reshape(January,(105,145,192))
     return January
@@ -142,7 +178,7 @@ def accessFebruary():
     A function to produce an array of Feburary data for all 105 years.
     Note: February[year,lat,lon]
     """
-    February = data_flat[8::12]
+    February = dataFix[8::12]
     February = np.ma.masked_outside(February,Min,Max)
     data = np.reshape(February,(105,145,192))
     return February
@@ -152,7 +188,7 @@ def accessMarch():
     A function to produce an array of March data for all 105 years.
     Note: March[year,lat,lon]
     """
-    March = data_flat[9::12]
+    March = dataFix[9::12]
     March = np.ma.masked_outside(March,Min,Max)
     data = np.reshape(March,(105,145,192))
     return March
@@ -162,7 +198,7 @@ def accessApril():
     A function to produce an array of April data for all 105 years.
     Note: April[year,lat,lon]
     """
-    April = data_flat[10::12]
+    April = dataFix[10::12]
     April = np.ma.masked_outside(April,Min,Max)
     data = np.reshape(April,(105,145,192))
     return April
@@ -172,7 +208,7 @@ def accessMay():
     A function to produce an array of May data for all 105 years.
     Note: May[year,lat,lon]
     """
-    May = data_flat[11::12]
+    May = dataFix[11::12]
     May = np.ma.masked_outside(May,Min,Max)
     data = np.reshape(May,(105,145,192))
     return May
@@ -183,7 +219,7 @@ def accessJJA():
     all three months at each location) for all 105 years.
     Note: JJA[year,lat,lon]
     """
-    JJA_flat = data_flat[0::12] + data_flat[1::12] + data_flat[2::12]
+    JJA_flat = dataFix[0::12] + dataFix[1::12] + dataFix[2::12]
     JJA_flat /= 3.0
     JJA = np.ma.masked_outside(JJA_flat,Min,Max)
     data = np.reshape(JJA,(105,145,192))
@@ -195,7 +231,7 @@ def accessSON():
     all three months at each location) for all 105 years.
     Note: SON[year,lat,lon]
     """
-    SON_flat = data_flat[3::12] + data_flat[4::12] + data_flat[5::12]
+    SON_flat = dataFix[3::12] + dataFix[4::12] + dataFix[5::12]
     SON_flat /= 3.0
     SON = np.ma.masked_outside(SON_flat,Min,Max)
     data = np.reshape(SON,(105,145,192))
@@ -207,7 +243,7 @@ def accessDJF():
     all three months at each location) for all 105 years.
     Note: DJF[year,lat,lon]
     """
-    DJF_flat = data_flat[6::12] + data_flat[7::12] + data_flat[8::12]
+    DJF_flat = dataFix[6::12] + dataFix[7::12] + dataFix[8::12]
     DJF_flat /= 3.0
     DJF = np.ma.masked_outside(DJF_flat,Min,Max)
     data = np.reshape(DJF,(105,145,192))
@@ -219,7 +255,7 @@ def accessMAM():
     all three months at each location) for all 105 years.
     Note: MAM[year,lat,lon]
     """
-    MAM_flat = data_flat[9::12] + data_flat[10::12] + data_flat[11::12]
+    MAM_flat = dataFix[9::12] + dataFix[10::12] + dataFix[11::12]
     MAM_flat /= 3.0
     MAM = np.ma.masked_outside(MAM_flat,Min,Max)
     data = np.reshape(MAM,(105,145,192))
@@ -230,6 +266,7 @@ Min = -2.0
 Max = 35.0
 dataCelsius = KtoC()
 data_flat = accessTrim()
+dataFix = bugHad()
 
 #Divide into time bins
 

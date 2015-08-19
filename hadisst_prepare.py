@@ -31,10 +31,12 @@ def bugFix():
     A function to mask values along the dateline from 1982 onwards
     (http://hadobs.metoffice.com/hadisst/ - see the comment on
     this webpage from 13 March 2015.)  January 1982 is time '984',
-    and the date-line is longitude '0'.
+    and the date-line spans longitude [0] and longitude [359]
+    (-179.5 E to 179.5 E).
+    This affects computation of the IPO TPI index only (not Nino3.4).
     """
     b = data_flat[:]
-    b[984:,:,0] = -9999.0
+    b[984:,:,0:360:359] = -9999.0
     dataFix = np.ma.masked_less_equal(b,-9999.0)
     return dataFix
 
