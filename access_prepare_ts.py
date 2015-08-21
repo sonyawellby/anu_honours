@@ -2,7 +2,7 @@
 Script to prepare ACCESS1.3 sea surface temperature data for analysis.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 19 August 2015.
+Last updated 21 August 2015.
 """
 
 import netCDF4 as n
@@ -12,12 +12,23 @@ from numpy import ma
 from mpl_toolkits.basemap import Basemap
 import matplotlib.pyplot as plt
 
+from data import access_ts_r1, access_ts_r2, access_ts_r3
+
 from cwd import *
 cwdInFunction()
 
 #Make sure to run with (a) correct data, and (b) all three runs
-#Change this to raw input?
-data = n.Dataset('ACCESS_data/ts_Amon_ACCESS1-3_historical_r3i1p1_185001-200512.nc','r')
+"""
+Choose data to analyse: access_pr_r1, access_pr_r2, access_pr_r3
+"""
+data_in = raw_input('Enter the data for analysis: ')
+if data_in == 'access_ts_r1':
+    data_in = access_ts_r1
+elif data_in == 'access_ts_r2':
+    data_in = access_ts_r2
+else:
+    data_in = access_ts_r3
+data = n.Dataset(data_in,'r')
 
 def KtoC():
     """

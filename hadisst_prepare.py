@@ -1,19 +1,19 @@
 """
-A set of routines to prepare HadISST (version 1.1.) sea-surface temperature data
-for analysis.  Data file 'HadISST_sst.nc' from
-http://www.metoffice.gov.uk/hadobs/hadisst/data/download.html
+A set of routines to prepare HadISST1.1 sea-surface temperature data.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 17 August 2015.
+Last updated 21 August 2015.
 """
 
 import netCDF4 as n
 import numpy as np
 
+from data import hadisst
+
 from cwd import *
 cwdInFunction()
 
-data = n.Dataset('HadISST_sst.nc','r')
+data = n.Dataset(hadisst,'r')
 
 def hadisstTrim():
     """

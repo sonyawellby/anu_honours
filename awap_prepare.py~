@@ -9,12 +9,10 @@ Last updated 17 August 2015.
 import netCDF4 as n
 import numpy as np
 
-from data import awap
-
 from cwd import *
 cwdInFunction()
 
-data = n.Dataset(awap,'a')
+data = n.Dataset('AWAP_1900-2014_monthly_precip_swACCESSgrid_v4.nc','a')
 
 def lat():
     """

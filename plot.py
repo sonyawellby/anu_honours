@@ -2,7 +2,7 @@
 Routines to plot HadISST, ACCESS and AWAP datasets. 
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 18 August 2015.
+Last updated 21 August 2015.
 """
 
 import netCDF4 as n
@@ -20,19 +20,13 @@ from cwd import *
 cwdInFunction()
 
 """
-Import the data to be plotted:
+Import the metadata about the data to be plotted:
 """
 
 from awap_prepare import latitude,longitude,awap_lon_units,awap_lat_units
 from access_prepare_pr import latACCESS, lonACCESS, latACCESS_units, \
      latACCESS_tr, lonACCESS_tr, lonACCESS_units
 from hadisst_prepare import latHad, lonHad, latHad_units, lonHad_units
-
-#Note that access_prepare_pr.py may be changed to raw_input to allow for comparison of
-#datasets of interest
-
-#Note that access_prepare_ts.py may be changed to raw_input to allow for
-#comparison of datasets of interest
 
 def vmax(dataset):
     """
@@ -185,19 +179,22 @@ def plot(var_time,Dict,labels=False,grid=False,oceans=False,cbar=True):
     [lonall,latall] = np.meshgrid((Dict['lon']),(Dict['lat']))
     x,y = m(lonall,latall)
 
-    #Check to see if gridLabels correct; check wholeGrid spacing if using
-    if grid == False:
-        pass
+    if grid == True:
+        gridWhole(-47.5,-7.5,1.25,112.5,157.5,1.875)
+        gridLabels(-47.5,-7.5,2.5,112.5,159.375,7.5)
     elif grid == 'Simple':
-        gridLabels(-43.75,-11.25,31.25,114.375,153.75,37.5)
+        gridLabels(-40.0,0.0,10.0,110.0,160.0,10.0)
+    elif grid == 'Ticks':
+        gridLabels(-40.0,0.0,10.0,110.0,160.0,10.0)
     else:
-        gridWhole(-43.75,-11.25,1.25,114.375,153.75,1.875)
-        gridLabels(-43.75,-11.25,31.25,114.375,153.75,37.5)
+        pass
 
-    if labels == True:
+    if labels == True and grid==True:
         plt.xlabel("Longitude ($^\circ$E)",labelpad=25)
-        plt.ylabel("Latitude ($^\circ$S)",labelpad=25)
-        
+        plt.ylabel("Latitude ($^\circ$S)",labelpad=50)
+    elif labels == True and not grid==True:
+        plt.xlabel("Longitude ($^\circ$E)",labelpad=25)
+        plt.ylabel("Latitude ($^\circ$S)",labelpad=30)
     else:
         pass
 
@@ -219,7 +216,7 @@ def plot(var_time,Dict,labels=False,grid=False,oceans=False,cbar=True):
 #def plot(dict, compdict) - add a comparison dictionary if necessary
 #When making comparisions, remember vmax - especially if plotting afterwards
 
-def multi(directory,title=''):
+def multi(directory,nrow,ncol,title=''):
     """
     A file to plot nine pre-plotted images in a three-by-three image.
     Parameters:
@@ -227,6 +224,8 @@ def multi(directory,title=''):
     directory : The directory (str; with wildcards and extension) of the
                 images to be plotted.
                 E.g. 'my_coding_routines/images/test/*.png'
+    nrow : The number of rows of images in the file.
+    ncol : The number of columns of images in the file.
     title : (default = '')
             The title of the graph (str).  By default, none is added.
     """
@@ -237,8 +236,8 @@ def multi(directory,title=''):
     
     fileList = glob.glob(directory)
     
-    for i in range(10):
-        a = fig.add_subplot(3,3,i)
+    for i in range((nrow*ncol)+1):
+        a = fig.add_subplot(nrow,ncol,i)
         img = mpimg.imread(fileList[i-1])
         imgplot = plt.imshow(img)
         plt.tick_params(
@@ -271,8 +270,13 @@ def multi(directory,title=''):
     cax = pylab.axes([0.85, 0.1, 0.04, 0.8])
     pylab.colorbar(cax=cax,ticks=[0, 0.5, 1.5],label=units)
     """
-    plt.show(fig)
-    
+    return fig
+
+
+from access_prepare_pr import pr_Annual
+dict2 = mapACCESSpr(pr_Annual)
+plot(pr_Annual[104,0],dict2)
+plt.show(plot)
 
 """
 #Make sure to check vmax!
@@ -290,7 +294,7 @@ plot(pr_Annual[0,0],dict2)
 plt.show(plot)
 
 #Plot ACCESS annual pr data, trimmed
-from access_trimmed import trim_Annual
+from access_trimmed import trim_Annual  
 dict3 = mapACCESSpr_tr(trim_Annual)
 plot(trim_Annual[0,0],dict3)
 plt.show(plot)

@@ -26,8 +26,8 @@ def mapBase():
 
     """
     m = Basemap(projection='cyl', resolution='c',\
-        llcrnrlat=-47.0,urcrnrlat=-7.5,\
-        llcrnrlon=112.0,urcrnrlon=156.0)
+        llcrnrlat=-47.5,urcrnrlat=-7.5,\
+        llcrnrlon=112.5,urcrnrlon=157.5)
     m.drawcoastlines()
     return m
 
@@ -72,7 +72,6 @@ def gridWhole(a,b,c,d,e,f):
     """
     m.drawparallels(np.arange(a,b,c),labels=[False,False,False,False])
     m.drawmeridians(np.arange(d,e,f),labels=[False,False,False,False])
-    gridLabels(a,b,c,d,e,f)
 
 def gridLabels(a,b,c,d,e,f):
     """
