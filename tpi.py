@@ -109,6 +109,12 @@ def areaBase(dataset,a,b,ACCESS=True):
 
     return base_area1,base_area2,base_area3
 
+def test(base):
+    hey = np.mean(base,axis=0)
+    return hey
+    
+
+"""
 def baseArea(base_area):
     arr_zeros = np.zeros(16,42)
     for i in arr_zeros:
@@ -116,13 +122,13 @@ def baseArea(base_area):
 
     for i in np.nditer(base_area):
         arr_zeros[i] = 
-    
+"""  
 
+"""
 
-
-    """
-    Calculate average SST in each grid point for base period
-    """
+"""
+    #Calculate average SST in each grid point for base period
+"""
     Region1 = np.zeros(area1)
     region1 = np.reshape(Region1,((a+b+1),(len(Region1)-(a+b+1))))
     count = 0
@@ -141,25 +147,30 @@ def baseArea(base_area):
         nino34[count] = a
         count += 1
     #
-    """
-    Calculate anomalies for each grid cell in time-series 
-    """
+"""
+    #Calculate anomalies for each grid cell in time-series 
+"""
     #Subtract the base period average for each grid cell from each grid cell
 
-    """
-    Calculate average anomaly for each TPI box for each point in time
-    """
+"""
+    #Calculate average anomaly for each TPI box for each point in time
+"""
+"""
 
 #from hadisst_prepare import sst_Annual
-from access_prepare_ts import ts_Annual,dataFix,ts_JJA
+from access_prepare_ts import ts_Annual,dataFix,ts_JJA,ts_January
 
 area1 = ts_Annual[60:90,92:109,74:116]
 area1a = ts_JJA[60:90,92:109,74:116]
 
+
 #CODE TO KEEP#
 
-areaTPI = areaTPI()
-(area1,area2,area3)=areaTPI #Unpacks tuple so can access 'area1','area2','area3'
+AreaTPI = areaTPI(ts_January)
+(area1,area2,area3)=AreaTPI #Unpacks tuple so can access 'area1','area2','area3'
 
-areaBase = areaBase()
+areaBase = areaBase(ts_January,60,90)
 (base_area1,base_area2,base_area3)=areaBase
+
+#___________________
+c = test(base_area1)
