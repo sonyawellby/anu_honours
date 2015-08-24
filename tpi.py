@@ -17,8 +17,8 @@ cwdInFunction()
 
 def areaTPI(dataset,ACCESS=True):
     """
-    A function to take SST input and return the three TPI regions, as
-    described in the explanatory information above, for the whole
+    A function to take SST input and return the three TPI regions
+    (given in the explanatory information above) for the whole
     study period.
     
     Parameters:
@@ -59,7 +59,7 @@ def areaTPI(dataset,ACCESS=True):
     return area1,area2,area3
 
 
-def areaBase(dataset,a,b,ACCESS=True):
+def baseAreaTPI(dataset,a,b,ACCESS=True):
     """
     A function to take SST input and return the three TPI regions, as
     described in the explanatory information above, for the base period.
@@ -109,68 +109,72 @@ def areaBase(dataset,a,b,ACCESS=True):
 
     return base_area1,base_area2,base_area3
 
-def test(base):
-    hey = np.mean(base,axis=0)
+def meanSST(area1,area2,area3):
+    """
+    A function to calculate the average SST values for each
+    grid point in the three TPI regions for the entire
+    period of analysis.
+
+    Parameters:
+    -----------
+    area1, area2, area3 : the output of areaTPI()
+    """
+    mean_SST1 = np.mean(area1,axis=0)
+    mean_SST2 = np.mean(area2,axis=0)
+    mean_SST3 = np.mean(area3,axis=0)
+    return mean_SST1, mean_SST2, mean_SST3
+
+def baseMeanSST(base_area1,base_area2,base_area3):
+    """
+    A function to calculate the average SST values for each
+    grid point in the three TPI regions for the base period
+    specified in areaBase().
+
+    Parameters:
+    -----------
+    base_area1, base_area2, base_area3 : the output of baseAreaTPI()
+    """
+    base_SST1 = np.mean(base_area1,axis=0)
+    base_SST2 = np.mean(base_area2,axis=0)
+    base_SST3 = np.mean(base_area3,axis=0)
+    return base_SST1, base_SST2, base_SST3
+
+def anomalies(mean_SST1,base_SST1):
+    """
+    Anomalies are in degrees Celsius.
+    """
+    hey = np.subtract(mean_SST1,base_SST1)
     return hey
     
 
-"""
-def baseArea(base_area):
-    arr_zeros = np.zeros(16,42)
-    for i in arr_zeros:
-        arr_zeros[i] =
+    #Calculate average SST in each grid point for base period - Done
 
-    for i in np.nditer(base_area):
-        arr_zeros[i] = 
-"""  
-
-"""
-
-"""
-    #Calculate average SST in each grid point for base period
-"""
-    Region1 = np.zeros(area1)
-    region1 = np.reshape(Region1,((a+b+1),(len(Region1)-(a+b+1))))
-    count = 0
-    for i in area1:
-        a = np.mean(area1[count,:,:])
-        region1[count] = a
-        count += 1
-    
-    #
-    nino34_array = SST_array[600:,101:129,68:76]
-    nino34 = np.zeros(1272)
-
-    count = 0
-    for index in nino34:
-        a = np.average(nino34_array[count,:,:])
-        nino34[count] = a
-        count += 1
-    #
-"""
     #Calculate anomalies for each grid cell in time-series 
-"""
+
     #Subtract the base period average for each grid cell from each grid cell
 
-"""
     #Calculate average anomaly for each TPI box for each point in time
-"""
-"""
 
-#from hadisst_prepare import sst_Annual
-from access_prepare_ts import ts_Annual,dataFix,ts_JJA,ts_January
 
-area1 = ts_Annual[60:90,92:109,74:116]
-area1a = ts_JJA[60:90,92:109,74:116]
+from hadisst_prepare import sst_Annual, sst_January
+#from access_prepare_ts import ts_Annual,dataFix,ts_JJA,ts_January
+
+#area1 = ts_Annual[60:90,92:109,74:116]
+#area1a = ts_JJA[60:90,92:109,74:116]
 
 
 #CODE TO KEEP#
 
-AreaTPI = areaTPI(ts_January)
+AreaTPI = areaTPI(sst_January)
 (area1,area2,area3)=AreaTPI #Unpacks tuple so can access 'area1','area2','area3'
 
-areaBase = areaBase(ts_January,60,90)
-(base_area1,base_area2,base_area3)=areaBase
+BaseAreaTPI = baseAreaTPI(sst_January,60,90)
+(base_area1,base_area2,base_area3) = BaseAreaTPI
 
-#___________________
-c = test(base_area1)
+MeanSST = meanSST(area1,area2,area3)
+(mean_SST1,mean_SST2,mean_SST3)= MeanSST
+
+BaseMeanSST = baseMeanSST(base_area1,base_area2,base_area3)
+(base_SST1,base_SST2,base_SST3)= BaseMeanSST
+
+hey = anomalies(mean_SST1,base_SST1)
