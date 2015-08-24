@@ -1,16 +1,22 @@
 """
-Set of routines to compute the TPI IPO index.
+Set of functions to compute the TPI IPO index.
 
+The TPI is defined by Henley et al. 2015 in
+"A Tripole Index for the Interdecadal Pacific Oscillation"
+(Climate Dynamics, published online 5 March 2015,
+DOI: 10.1007/s00382-015-2525-1).
+_____________________________________________________________
 TPI region 1: 25-45N, 140E-145W = 25-45N, 140-215E
 TPI region 2: -10 to 10N, 170E-90W = -10 to 10N, 170-270E
 TPI region 3: -50 to -15N, 150E-160W = -50 to -15N, 150-200E.
-
+_____________________________________________________________
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 19 August 2015.
+Last updated 24 August 2015.
 """
 
 import netCDF4 as n
 import numpy as np
+from scipy import signal
 
 from cwd import *
 cwdInFunction()
@@ -78,9 +84,6 @@ def baseAreaTPI(dataset,a,b,ACCESS=True):
             (e.g. [0=1900,104=2005]
     """
 
-    """
-    Create TPI regions
-    """
     if ACCESS==True:
         base_area1 = dataset[a:b,92:109,74:116] #25 to 45 N; 138.75 to 215.625 E
         base_area2 = dataset[a:b,64:81,90:145] # -10 to 10 N; 168.75 to 270 E
@@ -139,42 +142,86 @@ def baseMeanSST(base_area1,base_area2,base_area3):
     base_SST3 = np.mean(base_area3,axis=0)
     return base_SST1, base_SST2, base_SST3
 
-def anomalies(mean_SST1,base_SST1):
+
+def anomalies(area1,area2,area3,base_SST1,base_SST2,base_SST3):
     """
-    Anomalies are in degrees Celsius.
-    """
-    hey = np.subtract(mean_SST1,base_SST1)
-    return hey
+    A function to compute the SST anomalies (degrees Celsius)
+    in each TPI region.  Base period values are subtracted
+    from each grid cell of the TPI areas for the whole period
+    of analysis.
     
+    Parameters:
+    -----------
+    area1,area2,area3 : output from areaTPI().  Gives the TPI
+                        areas for all years in the study period.
+    base_SST1,base_SST2,base_SST2:
+                        output from baseMeanSST().  Gives the TPI
+                        areas for chosen base period.
+    """
+    for i in area1:
+        anomalies1 = np.subtract(area1,base_SST1)
+    for i in area2:
+        anomalies2 = np.subtract(area2,base_SST2)
+    for i in area3:
+        anomalies3 = np.subtract(area3,base_SST3)
+    return anomalies1,anomalies2,anomalies3
 
-    #Calculate average SST in each grid point for base period - Done
 
-    #Calculate anomalies for each grid cell in time-series 
+def meanAnom(anomalies1,anomalies2,anomalies3):
+    """
+    A fuction to calculate the mean SST anonamly
+    in each TPI box for each time step.
 
-    #Subtract the base period average for each grid cell from each grid cell
+    Parameters:
+    -----------
+    anomalies1,anomalies2,anomalies3:
+        The output of anomalies().  Anomaly information
+        for each grid cell in the TPI regions for all times.
+    """
+    meanAnom1 = np.zeros(105)
+    count1 = 0
+    meanAnom2 = np.zeros(105)
+    count2 = 0
+    meanAnom3 = np.zeros(105)
+    count3 = 0
+    for i in anomalies1:
+        meanAnom1[count1] = np.mean(i)
+        count1 += 1
+    for i in anomalies2:
+        meanAnom2[count2] = np.mean(i)
+        count2 += 1
+    for i in anomalies3:
+        meanAnom3[count3] = np.mean(i)
+        count3 += 1
+    return meanAnom1, meanAnom2, meanAnom3
 
-    #Calculate average anomaly for each TPI box for each point in time
+def TPIunfil(meanAnom1,meanAnom2,meanAnom3):
+    """
+    A function to return an array of the unfiltered
+    TPI values for all years of analysis.
 
+    TPI = SST_area2 - ((SST_area1 + SST_area3)/2)
+    """
+    a1a3 = np.add(meanAnom1,meanAnom3)
+    div2 = np.divide(a1a3,2.0)
+    TPI = np.subtract(meanAnom2,div2)
+    return TPI
 
-from hadisst_prepare import sst_Annual, sst_January
-#from access_prepare_ts import ts_Annual,dataFix,ts_JJA,ts_January
+def TPI(n,rp,wn,TPIunfiltered):
+    """
+    A function to apply a 13 year Chebyshev low pass filter
+    to the unfiltered TPI output, from TPIunfil().  The
+    filter is a digital, type 1 (passband) Chebyshev filter.
 
-#area1 = ts_Annual[60:90,92:109,74:116]
-#area1a = ts_JJA[60:90,92:109,74:116]
-
-
-#CODE TO KEEP#
-
-AreaTPI = areaTPI(sst_January)
-(area1,area2,area3)=AreaTPI #Unpacks tuple so can access 'area1','area2','area3'
-
-BaseAreaTPI = baseAreaTPI(sst_January,60,90)
-(base_area1,base_area2,base_area3) = BaseAreaTPI
-
-MeanSST = meanSST(area1,area2,area3)
-(mean_SST1,mean_SST2,mean_SST3)= MeanSST
-
-BaseMeanSST = baseMeanSST(base_area1,base_area2,base_area3)
-(base_SST1,base_SST2,base_SST3)= BaseMeanSST
-
-hey = anomalies(mean_SST1,base_SST1)
+    Parameters:
+    -----------
+    n = filter order (Henley et al.: n = 6).
+    rp = peak to peak passband ripple. In decibels; positive number.
+        (Henley et al.: rp = 13).
+    wn = critical frequencies.  Between 0-1, where 1 is
+        the Nyquist frequency, pi radians/sample.
+        (Henley et al.: wn = 0.1).
+    """
+    b, a = signal.cheby1(n, rp, wn, btype='low', analog=False, output='ba')
+    TPI = signal.lfilter(b,a,TPIunfiltered)
+    return TPI
