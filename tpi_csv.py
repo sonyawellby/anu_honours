@@ -14,6 +14,7 @@ Last updated 25 August 2015.
 
 import csv
 from tpi import *
+from parameters import baseStart,baseEnd,n,rp,wn
 
 from hadisst_prepare import sst_January, sst_February, sst_March,\
      sst_April,sst_May,sst_June,sst_July,sst_August,sst_September,\
@@ -99,14 +100,6 @@ def annual(season1,season2,season3,season4):
     average = np.divide(seasons_all,4.0)
     return average
 
-#Define base period
-baseStart = 70
-baseEnd = 100
-
-#Define Chebyshev low pass filter parameters
-n = 6
-rp = 13
-wn = 0.1
 
 """
 Compute unfiltered Hadisst TPI indices

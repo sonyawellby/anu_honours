@@ -2,7 +2,7 @@
 Script to prepare ACCESS1.3 sea surface temperature data for analysis.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 25 August 2015.
+Last updated 26 August 2015.
 """
 
 import netCDF4 as n
@@ -329,4 +329,4 @@ ts_MAM = accessMAM()
 
 #Divide into time bins - January 1900 to December 2005
 data_flat_ext = accessTrimExt()
-dataFix_Acc = bugFix(data_flat_ext,ext=True)
+dataFix_Acc = bugHad(data_flat_ext,ext=True)
