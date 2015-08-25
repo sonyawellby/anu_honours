@@ -169,7 +169,7 @@ def anomalies(area1,area2,area3,base_SST1,base_SST2,base_SST3):
 
 def meanAnom(anomalies1,anomalies2,anomalies3):
     """
-    A fuction to calculate the mean SST anonamly
+    A function to calculate the mean SST anonamly
     in each TPI box for each time step.
 
     Parameters:

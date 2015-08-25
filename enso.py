@@ -3,28 +3,17 @@ Set of routines to compute the Nino3.4 ENSO index.
 Nino3.4 region: -5 to 5 degrees N, 190 to 240 degrees E
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 24 August 2015.
+Last updated 25 August 2015.
 """
 
 import netCDF4 as n
 import numpy as np
-from scipy import signal
+import numpy.ma
 
 from cwd import *
 cwdInFunction()
 
-"""
-from access_prepare_ts import ts_January,ts_February,ts_March,\
-     ts_April,ts_May,ts_June,ts_July,ts_August,ts_September,\
-     ts_October,ts_November,ts_December
 
-from hadisst_prepare import sst_January,sst_February,sst_March,\
-     sst_April,sst_May,sst_June,sst_July,sst_August,sst_September,\
-     sst_October,sst_November,sst_December
-"""
-
-
-#Function to define Nino3.4 area
 def areaENSO(dataset,ACCESS=True):
     """
     A function to define the Nino3.4 area for entire time period.
@@ -125,8 +114,8 @@ def anomalies(area,base_SST):
 
 def meanAnom(anomalies):
     """
-    A fuction to calculate the mean SST anonamly
-    in the Nino3.4 box for each time step.
+    A function to calculate the mean SST anonamlies (degrees
+    Celsius) in the Nino3.4 box for each time step.
 
     Parameters:
     -----------
@@ -142,35 +131,89 @@ def meanAnom(anomalies):
     return meanAnom
 
 
-def ENSOunfil(meanAnom):
+def running(dataset,start,end):
     """
-    A function to return an array of the unfiltered
-    ENSO values for all years of analysis.
+    A function to calculate a five month running mean
+    of SST anomalies (degrees Celsius) in the Nino3.4 region.
 
-    
+    Parameters:
+    -----------
+    Dataset : the dataset to calculate a five month running mean
+            from.  Usually the output of meanAnom()
+    Start : the index of the 'middle' month in the first five month
+            block.  Will be [2] if start at [0].
+    End : the index of the 'middle' month in the last five month
+            block.  Will usually be (len(dataset)-3).
     """
-    a1a3 = np.add(meanAnom1,meanAnom3)
-    div2 = np.divide(a1a3,2.0)
-    TPI = np.subtract(meanAnom2,div2)
-    return ENSO
+    copy = dataset
+    running = np.zeros((len(copy)-4))
+    count_copy = start-2
+    count_running = 0
+    for i in dataset[start:(end+1)]:
+        r_mean = np.mean(copy[count_copy:count_copy+5])
+        running[count_running] += r_mean
+        count_copy += 1
+        count_running += 1
+    return running
 
+def cropRM(dataset):
+    """
+    A function to crop the running mean output (June 1900
+    to December 2005) to study period (June 1900 to May 2005).
+    This output is used for the CSV output (see enso_csv.py).
 
-   
-#_____________________________________________    
-#from hadisst_prepare import sst_Annual
-from access_prepare_ts import ts_Annual,dataFix,ts_JJA
+    Parameters:
+    -----------
+    Dataset : the output of running()
+    """
+    cropRM = dataset[:((len(dataset))-2),:,:]
+    return cropRM
 
+def ENSOphase(dataset,start,end):
+    """
+    A function to take a dataset and stratify it according to
+    ENSO phase (positive, neutral, negative).  The ENSO definition
+    applied is that of Trenberth et al. 1997 ('The Definition of
+    El Nino',Bulletin of the American Meteorological Society).
+    Three different arrays are returned (positive, negative,
+    and neutral ENSO events).
 
-"""
-def test():
-    hi = "hi"
-    bye = "bye"
-    return hi,bye
-    
-test = test()
-(hello,cya)=test #associates 'hello' and 'cya' with output of function (unpacks tuple)
-"""
+    Parameters:
+    -----------
+    dataset : The input datset of running-means (i.e. running() ).
+            It must include five more months of data than are
+            analysing in order to determine whether +- 0.4 deg. Cel.
+            is exceeded for six months or more.
+    start : the index of the first element to analyse.  If using
+            5 month running mean data this is likely to be [2].
+    end : the index of the last element to analyse.  It is likely to
+            be dataset[::-6] (the sixth from last element).
+    """
+    copy = dataset
+    count = 0
+    ENSOpos = None
+    ENSOneg = None
+    ENSOneutral = None
+    for i in dataset[start:(end+1)]:
+        if dataset[count] > 0.4 and dataset[count+1] > 0.4 and \
+           dataset[count+2] > 0.4 and dataset[count+3] > 0.4 \
+           and dataset[count+4] > 0.4 and dataset[count+5] > 0.4:
+            ENSOpos = np.ma.masked_less_equal(copy, 0.4)
+        elif dataset[count] < 0.4 and dataset[count+1] < 0.4 and \
+             dataset[count+2] < 0.4 and dataset[count+3] < 0.4 \
+               and dataset[count+4] < 0.4 and dataset[count+5] < 0.4:
+            ENSOneg = np.ma.masked_greater_equal(copy,-0.4)
+        else:
+            ENSOneutral = np.ma.masked_outside(copy, 0.4, -0.4)
+        count += 1
+    return ENSOpos, ENSOneg, ENSOneutral
 
-#Actual code
-areaENSO = areaENSO()
+def cropPhase(dataset):
+    """
+    A function to crop the running mean output (June 1900
+    to December 2005) to study period (June 1900 to May 2005).
 
+    Dataset : the output of running()
+    """
+    cropPhase = dataset[:((len(dataset))-5),:,:]
+    return cropPhase
