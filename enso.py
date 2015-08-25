@@ -35,8 +35,10 @@ def areaENSO(dataset,ACCESS=True):
     """
     if ACCESS==True:
         area = dataset[:,68:77,101:130] #-5.0 to 5.0 N; 189.375 to 241.875 E
-    else:
+    elif ACCESS==False:
         area = dataset[:,84:96,9:60] #5.5 to -5.5 N; -170.5 to -121.5 E
+    else:
+        raise ValueError('Specify whether ACCESS or HadISST data are being used.')
     return area
 
 def baseAreaENSO(dataset,a,b,ACCESS=True):
@@ -62,14 +64,20 @@ def baseAreaENSO(dataset,a,b,ACCESS=True):
     b :     The latest year in the base period.  Give as index
             (e.g. [0=1900,104=2005]
     """
+    #Account for Python slicing.
+    b += 1
+    
     if ACCESS==True:
         area = dataset[a:b,68:77,101:130] #-5.0 to 5.0 N; 189.375 to 241.875 E
-    else:
+    elif ACCESS==False:
         area = dataset[a:b,84:96,9:60] #5.5 to -5.5 N; -170.5 to -121.5 E
+    else:
+        raise ValueError('Specify whether ACCESS or HadISST data are being used.')
     return base_area
 
+"""
 def meanSST(area):
-    """
+
     A function to calculate the average SST values for each
     grid point in the Nino3.4 region for the entire
     period of analysis.
@@ -77,10 +85,11 @@ def meanSST(area):
     Parameters:
     -----------
     area: the output of areaENSO()
-    """
+
     mean_SST = np.mean(area,axis=0)
     return mean_SST
-
+"""
+    
 def baseMeanSST(base_area):
     """
     A function to calculate the average SST values for each
@@ -97,9 +106,9 @@ def baseMeanSST(base_area):
 def anomalies(area,base_SST):
     """
     A function to compute the SST anomalies (degrees Celsius)
-    in the Nino3.4 region.  Base period values are subtracted
-    from each grid cell of the Nino3.4 area for the whole period
-    of analysis.
+    in the Nino3.4 region.  Base period (mean) values are subtracted
+    from each grid cell of the Nino3.4 area for each time step
+    for the whole period of analysis.
     
     Parameters:
     -----------

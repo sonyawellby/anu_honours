@@ -24,12 +24,35 @@ from access_prepare_ts import ts_January, ts_February, ts_March,\
      ts_October,ts_November,ts_December
 
 
-def unfilteredTPI(dataset,baseStart,baseEnd):
-    AreaTPI = areaTPI(dataset)
-    (area1,area2,area3)=AreaTPI #Unpacks tuple so can access 'area1','area2','area3'
+def unfilteredTPI(dataset,baseStart,baseEnd,ACCESS=True):
+    """
+    A function to compute the unfiltered values of the TPI.
 
-    BaseAreaTPI = baseAreaTPI(dataset,baseStart,baseEnd)
-    (base_area1,base_area2,base_area3) = BaseAreaTPI
+    Parameters:
+    -----------
+    dataset : the SST dataset of interest.  From 'hadisst_prepare'
+            or 'access_prepare_ts'.
+    baseStart : The first year of the base period.  Give as index
+            (e.g. [0=1900,104=2005]
+    baseEnd : The last year of the base period.  Give as index
+            (e.g. [0=1900,104=2005]
+    ACCESS : (default = True)
+            If using ACCESS data, set as 'True'.  Else set as 'False'.
+    """
+    if ACCESS=True:
+        AreaTPI = areaTPI(dataset, ACCESS=True)
+        (area1,area2,area3)=AreaTPI #Unpacks tuple so can access 'area1','area2','area3'
+
+        BaseAreaTPI = baseAreaTPI(dataset,baseStart,baseEnd,ACCESS=True)
+        (base_area1,base_area2,base_area3) = BaseAreaTPI
+    elif:
+        AreaTPI = areaTPI(dataset, ACCESS=False)
+        (area1,area2,area3)=AreaTPI #Unpacks tuple so can access 'area1','area2','area3'
+
+        BaseAreaTPI = baseAreaTPI(dataset,baseStart,baseEnd,ACCESS=False)
+        (base_area1,base_area2,base_area3) = BaseAreaTPI
+    else:
+        raise ValueError('Specify whether ACCESS or HadISST are used.')
 
     BaseMeanSST = baseMeanSST(base_area1,base_area2,base_area3)
     (base_SST1,base_SST2,base_SST3)= BaseMeanSST

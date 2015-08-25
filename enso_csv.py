@@ -12,6 +12,37 @@ from hadisst_prepare import sst_JanuaryEx,sst_FebruaryEx,sst_MarchEx,\
      sst_AprilEx,sst_MayEx,sst_JuneEx,sst_JulyEx,sst_AugustEx,sst_SeptemberEx,\
      sst_OctoberEx,sst_NovemberEx,sst_DecemberEx
 
+def Nino34(dataset,baseStart,baseEnd,ACCESS=True):
+    """
+    A function to compute the unfiltered (mean SST anomaly) values
+    of the Nino3.4 ENSO index.
+
+    Parameters:
+    -----------
+    dataset : the SST dataset of interest.  From 'hadisst_prepare'
+            or 'access_prepare_ts'.
+    baseStart : The first year of the base period.  Give as index
+            (e.g. [0=1900,104=2005]
+    baseEnd : The last year of the base period.  Give as index
+            (e.g. [0=1900,104=2005]
+    ACCESS : (default = True)
+            If using ACCESS data, set as 'True'.  Else set as 'False'.
+    """
+    if ACCESS==True:
+        AreaENSO = areaENSO(dataset,ACCESS=True)
+        BaseAreaENSO = baseAreaENSO(dataset,baseStart,baseEnd,ACCESS=True)
+    elif ACCESS==False:
+        AreaENSO = areaENSO(dataset,ACCESS=False)
+        BaseAreaENSO = baseAreaENSO(dataset,baseStart,baseEnd,ACCESS=False)
+    else:
+        raise ValueError('Specify whether ACCESS or HadISST are used.')
+
+    BaseMeanSST = baseMeanSST(BaseAreaENSO)
+    Anomalies = anomalies(AreaENSO,BaseMeanSST)
+    MeanAnom = meanAnom(Anomalies)
+    return MeanAnom
+
+testy = Nino34(sst_JanuaryEx,71,100,ACCESS=False)
 
 """
 from access_prepare_ts import ts_January,ts_February,ts_March,\

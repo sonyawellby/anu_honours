@@ -41,7 +41,7 @@ def areaTPI(dataset,ACCESS=True):
         area1 = dataset[:,92:109,74:116] #25 to 45 N; 138.75 to 215.625 E
         area2 = dataset[:,64:81,90:145] # -10 to 10 N; 168.75 to 270 E
         area3 = dataset[:,32:85,80:108] # -50 to -15N; 150 to 200.625 E
-    else:
+    elif ACCESS==False:
         #45.5 to 25.5 N; (139.5-179.5)+(-179.5 to -145.5) E
         #[319:360] + [0:35]
         a = dataset[:,44:65,319:360]
@@ -62,6 +62,8 @@ def areaTPI(dataset,ACCESS=True):
         h = dataset[:,104:141,0:20]
         i = np.hstack((g,h))
         area3 = np.ma.masked_less_equal(i,0.0)
+    else:
+        raise ValueError('Specify whether ACCESS or HadISST data are being used.')
     return area1,area2,area3
 
 
@@ -83,12 +85,14 @@ def baseAreaTPI(dataset,a,b,ACCESS=True):
     b :     The latest year in the base period.  Give as index
             (e.g. [0=1900,104=2005]
     """
-
+    #Account for Python slicing.
+    b += 1
+    
     if ACCESS==True:
         base_area1 = dataset[a:b,92:109,74:116] #25 to 45 N; 138.75 to 215.625 E
         base_area2 = dataset[a:b,64:81,90:145] # -10 to 10 N; 168.75 to 270 E
         base_area3 = dataset[a:b,32:85,80:108] # -50 to -15N; 150 to 200.625 E
-    else:
+    elif ACCESS==False:
         #45.5 to 25.5 N; (139.5-179.5)+(-179.5 to -145.5) E
         #[319:360] + [0:35]
         a = dataset[a:b,44:65,319:360]
@@ -109,6 +113,8 @@ def baseAreaTPI(dataset,a,b,ACCESS=True):
         h = dataset[a:b,104:141,0:20]
         i = np.hstack((g,h))
         base_area3 = np.ma.masked_less_equal(i,0.0)
+    else:
+        raise ValueError('Specify whether ACCESS or HadISST data are being used.')
 
     return base_area1,base_area2,base_area3
 
