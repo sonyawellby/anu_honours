@@ -13,6 +13,8 @@ import numpy.ma
 from cwd import *
 cwdInFunction()
 
+from hadisst_prepare import dataFix
+
 
 def areaENSO(dataset,ACCESS=True):
     """
@@ -68,9 +70,9 @@ def baseAreaENSO(dataset,a,b,ACCESS=True):
     b += 1
     
     if ACCESS==True:
-        area = dataset[a:b,68:77,101:130] #-5.0 to 5.0 N; 189.375 to 241.875 E
+        base_area = dataset[a:b,68:77,101:130] #-5.0 to 5.0 N; 189.375 to 241.875 E
     elif ACCESS==False:
-        area = dataset[a:b,84:96,9:60] #5.5 to -5.5 N; -170.5 to -121.5 E
+        base_area = dataset[a:b,84:96,9:60] #5.5 to -5.5 N; -170.5 to -121.5 E
     else:
         raise ValueError('Specify whether ACCESS or HadISST data are being used.')
     return base_area
@@ -132,10 +134,10 @@ def meanAnom(anomalies):
         The output of anomalies().  Anomaly information
         for each grid cell in the Nino3.4 area for all times.
     """
-    meanAnom = np.zeros(105)
+    meanAnom = np.zeros(len(anomalies))
     count = 0
     for i in anomalies:
-        meanAnom1[count] = np.mean(i)
+        meanAnom[count] = np.mean(i)
         count += 1
     return meanAnom
 
@@ -158,7 +160,7 @@ def running(dataset,start,end):
     running = np.zeros((len(copy)-4))
     count_copy = start-2
     count_running = 0
-    for i in dataset[start:(end+1)]:
+    for i in dataset[start:end]:
         r_mean = np.mean(copy[count_copy:count_copy+5])
         running[count_running] += r_mean
         count_copy += 1
@@ -167,7 +169,7 @@ def running(dataset,start,end):
 
 def cropRM(dataset):
     """
-    A function to crop the running mean output (June 1900
+    A function to crop the running mean output (January 1900
     to December 2005) to study period (June 1900 to May 2005).
     This output is used for the CSV output (see enso_csv.py).
 
@@ -175,7 +177,7 @@ def cropRM(dataset):
     -----------
     Dataset : the output of running()
     """
-    cropRM = dataset[:((len(dataset))-2),:,:]
+    cropRM = dataset[3:((len(dataset))-5)]
     return cropRM
 
 def ENSOphase(dataset,start,end):
@@ -194,9 +196,10 @@ def ENSOphase(dataset,start,end):
             analysing in order to determine whether +- 0.4 deg. Cel.
             is exceeded for six months or more.
     start : the index of the first element to analyse.  If using
-            5 month running mean data this is likely to be [2].
+            5 month running mean data this is likely to be [2]
+            for June 1900.
     end : the index of the last element to analyse.  It is likely to
-            be dataset[::-6] (the sixth from last element).
+            be (len(dataset)-6) (the sixth from last element).
     """
     copy = dataset
     count = 0
@@ -224,5 +227,5 @@ def cropPhase(dataset):
 
     Dataset : the output of running()
     """
-    cropPhase = dataset[:((len(dataset))-5),:,:]
+    cropPhase = dataset[3:((len(dataset))-5),:,:]
     return cropPhase

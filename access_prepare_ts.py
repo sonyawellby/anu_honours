@@ -2,7 +2,7 @@
 Script to prepare ACCESS1.3 sea surface temperature data for analysis.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 21 August 2015.
+Last updated 25 August 2015.
 """
 
 import netCDF4 as n
@@ -26,8 +26,10 @@ if data_in == 'access_ts_r1':
     data_in = access_ts_r1
 elif data_in == 'access_ts_r2':
     data_in = access_ts_r2
-else:
+elif data_in == 'access_ts_r3':
     data_in = access_ts_r3
+else:
+    raise ValueError('Enter a valid round of ACCESS1.3 SST data.')
 data = n.Dataset(data_in,'r')
 
 def KtoC():
@@ -56,7 +58,19 @@ def accessTrim():
     data_flat = np.ma.masked_outside(data1,Min,Max)
     return data_flat
 
-def bugHad():
+def accessTrimExt():
+    """
+    A function to read in the ACCESS dataset and trim it to the period
+    January 1900 to December 2005.  For use in computing Nino3.4 running
+    means and ENSO phases (see enso.py).
+
+    Note: data_flat: months,latitude,longitude
+    """
+    data2 = dataCelsius[600:]
+    data_flat_ext = np.ma.masked_outside(data2,Min,Max)
+    return data_flat_ext
+
+def bugHad(dataset,ext=False):
     """
     A function to allow direct comparison with the HadiSST dataset,
     which has a discontinuity at the dateline (see 'bugfix()' in
@@ -64,9 +78,21 @@ def bugHad():
 
     January 1982 is time '984', and the date-line is longitude [96] (180 E).
     This affects computation of the IPO TPI index only (not Nino3.4).
+
+    Parameters:
+    -----------
+    dataset : Either data_flat or data_flat_ext
+    ext : (default = False)
+            If the dataset has been extended to Jan 1900-Dec 2005,
+            ext should be set to 'True'.  In this case, the timeslice
+            changes to accommodate for the extra five months at the
+            beginning of the extended dataset.
     """
-    b = data_flat[:]
-    b[984:,:,96] = -9999.0
+    b = dataset[:]
+    if ext==False:
+        b[984:,:,96] = -9999.0
+    else:
+        b[989:,:,96] = -9999.0
     dataFix = np.ma.masked_less_equal(b,-9999.0)
     return dataFix
 
@@ -276,10 +302,10 @@ def accessMAM():
 Min = -2.0
 Max = 35.0
 dataCelsius = KtoC()
-data_flat = accessTrim()
-dataFix = bugHad()
 
-#Divide into time bins
+#Divide into time bins - June 1900 - May 2005
+data_flat = accessTrim()
+dataFix = bugHad(data_flat,ext=False)
 
 ts_Annual = accessAnnual()
 
@@ -300,3 +326,7 @@ ts_JJA = accessJJA()
 ts_SON = accessSON()
 ts_DJF = accessDJF()
 ts_MAM = accessMAM()
+
+#Divide into time bins - January 1900 to December 2005
+data_flat_ext = accessTrimExt()
+dataFix_Acc = bugFix(data_flat_ext,ext=True)

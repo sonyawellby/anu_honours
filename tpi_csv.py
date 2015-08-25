@@ -3,7 +3,7 @@ Set of routines to compute the TPI IPO index and return
 its output in the .csv file format.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 24 August 2015.
+Last updated 25 August 2015.
 """
 #Check if need still:
 """
@@ -101,7 +101,7 @@ def annual(season1,season2,season3,season4):
 
 #Define base period
 baseStart = 70
-baseEnd = 90
+baseEnd = 100
 
 #Define Chebyshev low pass filter parameters
 n = 6
@@ -113,18 +113,18 @@ Compute unfiltered Hadisst TPI indices
 """
 
 #MONTHLY
-Had_JanTPI_uf = unfilteredTPI(sst_January,baseStart,baseEnd)
-Had_FebTPI_uf = unfilteredTPI(sst_February,baseStart,baseEnd)
-Had_MarTPI_uf = unfilteredTPI(sst_March,baseStart,baseEnd)
-Had_AprTPI_uf = unfilteredTPI(sst_April,baseStart,baseEnd)
-Had_MayTPI_uf = unfilteredTPI(sst_May,baseStart,baseEnd)
-Had_JunTPI_uf = unfilteredTPI(sst_June,baseStart,baseEnd)
-Had_JulTPI_uf = unfilteredTPI(sst_July,baseStart,baseEnd)
-Had_AugTPI_uf = unfilteredTPI(sst_August,baseStart,baseEnd)
-Had_SepTPI_uf = unfilteredTPI(sst_September,baseStart,baseEnd)
-Had_OctTPI_uf = unfilteredTPI(sst_October,baseStart,baseEnd)
-Had_NovTPI_uf = unfilteredTPI(sst_November,baseStart,baseEnd)
-Had_DecTPI_uf = unfilteredTPI(sst_December,baseStart,baseEnd)
+Had_JanTPI_uf = unfilteredTPI(sst_January,baseStart,baseEnd,ACCESS=False)
+Had_FebTPI_uf = unfilteredTPI(sst_February,baseStart,baseEnd,ACCESS=False)
+Had_MarTPI_uf = unfilteredTPI(sst_March,baseStart,baseEnd,ACCESS=False)
+Had_AprTPI_uf = unfilteredTPI(sst_April,baseStart,baseEnd,ACCESS=False)
+Had_MayTPI_uf = unfilteredTPI(sst_May,baseStart,baseEnd,ACCESS=False)
+Had_JunTPI_uf = unfilteredTPI(sst_June,baseStart,baseEnd,ACCESS=False)
+Had_JulTPI_uf = unfilteredTPI(sst_July,baseStart,baseEnd,ACCESS=False)
+Had_AugTPI_uf = unfilteredTPI(sst_August,baseStart,baseEnd,ACCESS=False)
+Had_SepTPI_uf = unfilteredTPI(sst_September,baseStart,baseEnd,ACCESS=False)
+Had_OctTPI_uf = unfilteredTPI(sst_October,baseStart,baseEnd,ACCESS=False)
+Had_NovTPI_uf = unfilteredTPI(sst_November,baseStart,baseEnd,ACCESS=False)
+Had_DecTPI_uf = unfilteredTPI(sst_December,baseStart,baseEnd,ACCESS=False)
 
 #SEASONAL
 Had_DJF_uf = season(Had_DecTPI_uf,Had_JanTPI_uf,Had_FebTPI_uf)

@@ -2,7 +2,7 @@
 Routines to prepare ACCESS1.3 precipitation data for analysis.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 21 August 2015.
+Last updated 25 August 2015.
 """
 
 import netCDF4 as n
@@ -23,8 +23,10 @@ if data_in == 'access_pr_r1':
     data_in = access_pr_r1
 elif data_in == 'access_pr_r2':
     data_in = access_pr_r2
-else:
+elif data_in == 'access_pr_r3':
     data_in = access_pr_r3
+else:
+    raise ValueError('Enter a valid round of ACCESS1.3 precipitation data.')
 data = n.Dataset(data_in,'r')
 
 def SectoDay():

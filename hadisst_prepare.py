@@ -476,8 +476,8 @@ sst_MAM = hadisstMAM(105,9,10,11)
 
 
 #Divide into time bins - January 1900 to December 2005
-dataFix = bugFix(data_flat_ext,ext=True)
-
+dataFix_Had = bugFix(data_flat_ext,ext=True)
+"""
 sst_JuneEx = hadisstJune(106,5)
 sst_JulyEx = hadisstJuly(106,6)
 sst_AugustEx = hadisstAugust(106,7)
@@ -495,4 +495,4 @@ sst_JJAEx = hadisstJJA(106,5,6,7)
 sst_SONEx = hadisstSON(106,8,9,10)
 sst_DJFEx = hadisstDJF(106,11,0,1)
 sst_MAMEx = hadisstMAM(106,2,3,4)
-
+"""
