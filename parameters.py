@@ -15,3 +15,7 @@ baseEnd = 100
 n = 6
 rp = 13
 wn = 0.1
+
+#How many standard deviations above the dataset mean result in IPO pos., neg., and neutral
+#Make sure this is a float.
+num = 1.5

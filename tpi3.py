@@ -11,14 +11,12 @@ TPI region 2: -10 to 10N, 170E-90W = -10 to 10N, 170-270E
 TPI region 3: -50 to -15N, 150E-160W = -50 to -15N, 150-200E.
 _____________________________________________________________
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 26 August 2015.
+Last updated 24 August 2015.
 """
 
 import netCDF4 as n
 import numpy as np
 from scipy import signal
-
-from parameters import num
 
 from cwd import *
 cwdInFunction()
@@ -46,10 +44,6 @@ def areaTPI(dataset,ACCESS=True):
     elif ACCESS==False:
         #45.5 to 25.5 N; (139.5-179.5)+(-179.5 to -145.5) E
         #[319:360] + [0:35]
-        a = np.roll(dataset,41,axis=2)
-        b = a[:,44:65,0:76]
-        area1 = np.ma.masked_less_equal(b,0.0)
-        
         a = dataset[:,44:65,319:360]
         b = dataset[:,44:65,0:35]
         c = np.hstack((a,b))
@@ -124,9 +118,8 @@ def baseAreaTPI(dataset,a,b,ACCESS=True):
 
     return base_area1,base_area2,base_area3
 
-"""
 def meanSST(area1,area2,area3):
-
+    """
     A function to calculate the average SST values for each
     grid point in the three TPI regions for the entire
     period of analysis.
@@ -134,12 +127,11 @@ def meanSST(area1,area2,area3):
     Parameters:
     -----------
     area1, area2, area3 : the output of areaTPI()
-
+    """
     mean_SST1 = np.mean(area1,axis=0)
     mean_SST2 = np.mean(area2,axis=0)
     mean_SST3 = np.mean(area3,axis=0)
     return mean_SST1, mean_SST2, mean_SST3
-"""
 
 def baseMeanSST(base_area1,base_area2,base_area3):
     """
@@ -221,8 +213,7 @@ def TPIunfil(meanAnom1,meanAnom2,meanAnom3):
     TPI = np.subtract(meanAnom2,div2)
     return TPI
 
-#Revise this to apply to whole TPI unfiltered dataset (not just subsets of it)
-def TPI(dataset,n,rp,wn):
+def TPI(n,rp,wn,TPIunfiltered):
     """
     A function to apply a 13 year Chebyshev low pass filter
     to the unfiltered TPI output, from TPIunfil().  The
@@ -230,8 +221,6 @@ def TPI(dataset,n,rp,wn):
 
     Parameters:
     -----------
-    dataset : the data to filter.  Will either be: Had_monthsTPI_uf or
-            Acc_monthsTPI_uf (see 'tpi_csv.py').
     n = filter order (Henley et al.: n = 6).
     rp = peak to peak passband ripple. In decibels; positive number.
         (Henley et al.: rp = 13).
@@ -240,35 +229,5 @@ def TPI(dataset,n,rp,wn):
         (Henley et al.: wn = 0.1).
     """
     b, a = signal.cheby1(n, rp, wn, btype='low', analog=False, output='ba')
-    TPI = signal.lfilter(b,a,dataset)
+    TPI = signal.lfilter(b,a,TPIunfiltered)
     return TPI
-
-def IPOphase(dataset):
-    """
-    A function to compute the phase of the TPI. Phases 1.5 standard
-    deviations above or below the mean are classed as IPO negative
-    and IPO positive phases, respectively.
-
-    Parameters:
-    ----------
-    dataset : dataset of filtered TPI values. 
-    """
-    sd = np.std(dataset)
-    std = sd * num
-
-    copy = dataset
-    count = 0
-    
-    ENSOpos = None
-    ENSOneg = None
-    ENSOneutral = None
-
-    for i in dataset:
-        if dataset[count] > sd:
-            IPOneg = np.ma.masked_less_equal(copy, std)
-        elif dataset[count] < sd:
-            IPOpos = np.ma.masked_greater_equal(copy,-std)
-        else:
-            IPOneutral = np.ma.masked_outside(copy, sd, -std)
-        count += 1
-    return IPOpos, IPOneg, IPOneutral

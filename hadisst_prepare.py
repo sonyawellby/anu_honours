@@ -64,9 +64,10 @@ def bugFix(dataset,ext=False):
     dataFix = np.ma.masked_less_equal(b,-9999.0)
     return dataFix
 
+"""
 #Can only be used with 105 year data.
 def hadisstAnnual():
-    """
+    
     A function to convert flat data to an array with all 105 years
     and 12 months for all latitudes and longitudes.
 
@@ -75,9 +76,10 @@ def hadisstAnnual():
          = May 2005 at 180 deg N (89.5 deg) and 360 deg E (179.5 deg E)
 
     NB: can currently only be used with 105 year data (e.g. data_flat).
-    """
+    
     data = np.reshape(dataFix,(105,12,180,360))
     return data
+"""
 
 def hadisstJune(years,start):
     """
@@ -454,7 +456,7 @@ data_flat_ext = hadisstTrimExt()
 #Divide into time bins - June 1900 to May 2005
 dataFix = bugFix(data_flat)
 
-sst_Annual = hadisstAnnual()
+#sst_Annual = hadisstAnnual()
 
 sst_June = hadisstJune(105,0)
 sst_July = hadisstJuly(105,1)
