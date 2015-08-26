@@ -19,28 +19,95 @@ def Nino34(dataset,baseStart,baseEnd,ACCESS=True):
 
     Parameters:
     -----------
-    dataset : the SST dataset of interest.  From 'hadisst_prepare'
-            or 'access_prepare_ts'.
+    dataset : the SST dataset of interest.  Either dataFix_Had
+            (from 'hadisst_prepare') or 'access_prepare_ts'.
     baseStart : The first year of the base period.  Give as index
-            (e.g. [0=1900,104=2005]
-    baseEnd : The last year of the base period.  Give as index
-            (e.g. [0=1900,104=2005]
+            (e.g. [0=1900,104=2005].  Defined in 'parameters.py' as 'baseStart'.
+    baseEnd : The last year of the base period.  Give as index 
+            (e.g. [0=1900,104=2005]. Defined in 'parameters.py' as 'baseEnd'.
     ACCESS : (default = True)
             If using ACCESS data, set as 'True'.  Else set as 'False'.
     """
     if ACCESS==True:
         AreaENSO = areaENSO(dataset,ACCESS=True)
-        BaseAreaENSO = baseAreaENSO(dataset,baseStart,baseEnd,ACCESS=True)
+        baseJan = baseAreaENSO(dataset[0::12],70,100,ACCESS=True)
+        baseFeb = baseAreaENSO(dataset[1::12],70,100,ACCESS=True)
+        baseMar = baseAreaENSO(dataset[2::12],70,100,ACCESS=True)
+        baseApr = baseAreaENSO(dataset[3::12],70,100,ACCESS=True)
+        baseMay = baseAreaENSO(dataset[4::12],70,100,ACCESS=True)
+        baseJun = baseAreaENSO(dataset[5::12],70,100,ACCESS=True)
+        baseJul = baseAreaENSO(dataset[6::12],70,100,ACCESS=True)
+        baseAug = baseAreaENSO(dataset[7::12],70,100,ACCESS=True)
+        baseSep = baseAreaENSO(dataset[8::12],70,100,ACCESS=True)
+        baseOct = baseAreaENSO(dataset[9::12],70,100,ACCESS=True)
+        baseNov = baseAreaENSO(dataset[10::12],70,100,ACCESS=True)
+        baseDec = baseAreaENSO(dataset[11::12],70,100,ACCESS=True)
     elif ACCESS==False:
         AreaENSO = areaENSO(dataset,ACCESS=False)
-        BaseAreaENSO = baseAreaENSO(dataset,baseStart,baseEnd,ACCESS=False)
+        baseJan = baseAreaENSO(dataset[0::12],70,100,ACCESS=False)
+        baseFeb = baseAreaENSO(dataset[1::12],70,100,ACCESS=False)
+        baseMar = baseAreaENSO(dataset[2::12],70,100,ACCESS=False)
+        baseApr = baseAreaENSO(dataset[3::12],70,100,ACCESS=False)
+        baseMay = baseAreaENSO(dataset[4::12],70,100,ACCESS=False)
+        baseJun = baseAreaENSO(dataset[5::12],70,100,ACCESS=False)
+        baseJul = baseAreaENSO(dataset[6::12],70,100,ACCESS=False)
+        baseAug = baseAreaENSO(dataset[7::12],70,100,ACCESS=False)
+        baseSep = baseAreaENSO(dataset[8::12],70,100,ACCESS=False)
+        baseOct = baseAreaENSO(dataset[9::12],70,100,ACCESS=False)
+        baseNov = baseAreaENSO(dataset[10::12],70,100,ACCESS=False)
+        baseDec = baseAreaENSO(dataset[11::12],70,100,ACCESS=False)
     else:
         raise ValueError('Specify whether ACCESS or HadISST are used.')
 
-    BaseMeanSST = baseMeanSST(BaseAreaENSO)
-    Anomalies = anomalies(AreaENSO,BaseMeanSST)
-    MeanAnom = meanAnom(Anomalies)
-    return MeanAnom
+    AreaMonth = areaMonth(AreaENSO)
+    (Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec) = AreaMonth
+
+    MeanJanBase = baseMeanSST(baseJan)
+    MeanFebBase = baseMeanSST(baseFeb)
+    MeanMarBase = baseMeanSST(baseMar)
+    MeanAprBase = baseMeanSST(baseApr)
+    MeanMayBase = baseMeanSST(baseMay)
+    MeanJunBase = baseMeanSST(baseJun)
+    MeanJulBase = baseMeanSST(baseJul)
+    MeanAugBase = baseMeanSST(baseAug)
+    MeanSepBase = baseMeanSST(baseSep)
+    MeanOctBase = baseMeanSST(baseOct)
+    MeanNovBase = baseMeanSST(baseNov)
+    MeanDecBase = baseMeanSST(baseDec)
+
+    anomJan = anomalies(Jan,MeanJanBase)
+    anomFeb = anomalies(Feb,MeanFebBase)
+    anomMar = anomalies(Mar,MeanMarBase)
+    anomApr = anomalies(Apr,MeanAprBase)
+    anomMay = anomalies(May,MeanMayBase)
+    anomJun = anomalies(Jun,MeanJunBase)
+    anomJul = anomalies(Jul,MeanJulBase)
+    anomAug = anomalies(Aug,MeanAugBase)
+    anomSep = anomalies(Sep,MeanSepBase)
+    anomOct = anomalies(Oct,MeanOctBase)
+    anomNov = anomalies(Nov,MeanNovBase)
+    anomDec = anomalies(Dec,MeanDecBase)
+
+    anomJanFinal = meanAnom(anomJan)
+    anomFebFinal = meanAnom(anomFeb)
+    anomMarFinal = meanAnom(anomMar)
+    anomAprFinal = meanAnom(anomApr)
+    anomMayFinal = meanAnom(anomMay)
+    anomJunFinal = meanAnom(anomJun)
+    anomJulFinal = meanAnom(anomJul)
+    anomAugFinal = meanAnom(anomAug)
+    anomSepFinal = meanAnom(anomSep)
+    anomOctFinal = meanAnom(anomOct)
+    anomNovFinal = meanAnom(anomNov)
+    anomDecFinal = meanAnom(anomDec)
+
+    months = np.array([anomJanFinal,anomFebFinal,anomMarFinal,anomAprFinal,\
+                   anomMayFinal,anomJunFinal,anomJulFinal,anomAugFinal,\
+                   anomSepFinal,anomOctFinal,anomNovFinal,anomDecFinal])
+
+    anomMonths = months.flatten('F')
+    return anomMonths
+
 
 def hadisstNino34():
     """
@@ -114,3 +181,4 @@ neutralR3 = ENSOneutral
 output = np.column_stack((cropHad.flatten(),cropR1.flatten(),\
                           cropR2.flatten(),cropR3.flatten()))
 np.savetxt('data/Nino3-4.csv',output,delimiter=',')
+

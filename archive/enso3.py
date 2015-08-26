@@ -13,6 +13,9 @@ import numpy.ma
 from cwd import *
 cwdInFunction()
 
+#Can remove later:
+from hadisst_prepare import dataFix_Had
+
 
 def areaENSO(dataset,ACCESS=True):
     """
@@ -26,8 +29,8 @@ def areaENSO(dataset,ACCESS=True):
     
     Parameters:
     -----------
-    dataset : SST data for all months and years in study period;
-            either from hadisst_prepare.py or access_ts.py
+    dataset : SST data of monthly, seasonal or annual resolution;
+            either from hadisst_prepare or access_ts
     ACCESS : (default = True)
             if the data is from access_ts, is "True".  Otherwise the
             HadISST data is analysed. This accommodates
@@ -41,30 +44,7 @@ def areaENSO(dataset,ACCESS=True):
         raise ValueError('Specify whether ACCESS or HadISST data are being used.')
     return area
 
-def areaMonth(dataset):
-    """
-    A function to slice the original dataset into its constituent months.
-
-    Parameters:
-    -----------
-    dataset : SST data for all months and years in study period;
-            either from hadisst_prepare.py or access_ts.py
-    """
-    Jan = dataset[0::12]
-    Feb = dataset[1::12]
-    Mar = dataset[2::12]
-    Apr = dataset[3::12]
-    May = dataset[4::12]
-    Jun = dataset[5::12]
-    Jul = dataset[6::12]
-    Aug = dataset[7::12]
-    Sep = dataset[8::12]
-    Oct = dataset[9::12]
-    Nov = dataset[10::12]
-    Dec = dataset[11::12]
-    return Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec
-
-def baseAreaENSO(dataset,a,b,ACCESS=True):
+def baseAreaENSO(dataset,a,b,c,ACCESS=True):
     """
     A function to define the Nino3.4 area for the base time period.
 
@@ -76,26 +56,46 @@ def baseAreaENSO(dataset,a,b,ACCESS=True):
     
     Parameters:
     -----------
-    dataset : monthly subset of SST data from hadisst_prepare or access_ts
+    dataset : SST data of monthly, seasonal or annual resolution;
+            either from hadisst_prepare or access_ts
     ACCESS : (default = True)
             if the data is from access_ts, is "True".  Otherwise the
             HadISST data is analysed. This accommodates
             for differences in longitudinal/latitudinal starting points.
     a :     The earliest year in the base period.  Give as index
-            (e.g. [0=1900].  Given in 'parameters.py'.
+            (e.g. [0=1900,104=2005]
     b :     The latest year in the base period.  Give as index
-            (e.g. [0=1900]. Given in 'parameters.py'.
+            (e.g. [0=1900,104=2005]
+    c :     The index of the first occurrence of the month computed
+            within the dataset.  Used to slice the base period into
+            values for this month only, to avoid seasonality when
+            computing the Nino3.4 index.
     """
     #Account for Python slicing.
     b += 1
     
     if ACCESS==True:
-        base_area = dataset[a:b,68:77,101:130] #-5.0 to 5.0 N; 189.375 to 241.875 E
+        base_area = dataset[a:b:c,68:77,101:130] #-5.0 to 5.0 N; 189.375 to 241.875 E
     elif ACCESS==False:
-        base_area = dataset[a:b,84:96,9:60] #5.5 to -5.5 N; -170.5 to -121.5 E
+        base_area = dataset[a:b:c,84:96,9:60] #5.5 to -5.5 N; -170.5 to -121.5 E
     else:
         raise ValueError('Specify whether ACCESS or HadISST data are being used.')
     return base_area
+
+"""
+def meanSST(area):
+
+    A function to calculate the average SST values for each
+    grid point in the Nino3.4 region for the entire
+    period of analysis.
+
+    Parameters:
+    -----------
+    area: the output of areaENSO()
+
+    mean_SST = np.mean(area,axis=0)
+    return mean_SST
+"""
     
 def baseMeanSST(base_area):
     """
@@ -113,9 +113,9 @@ def baseMeanSST(base_area):
 def anomalies(area,base_SST):
     """
     A function to compute the SST anomalies (degrees Celsius)
-    in the Nino3.4 region.  The base period mean values, baseMeanSST(),
-    for each grid cell is subtracted from each grid cell of the Nino3.4 area
-    for each time step for the whole period of analysis.
+    in the Nino3.4 region.  Base period (mean) values are subtracted
+    from each grid cell of the Nino3.4 area for each time step
+    for the whole period of analysis.
     
     Parameters:
     -----------
@@ -127,6 +127,15 @@ def anomalies(area,base_SST):
     for i in area:
         anomalies = np.subtract(area,base_SST)
     return anomalies
+
+    """
+count = 0
+while count <12:
+	for i in AreaENSO:
+	testz = AreaENSO[count::12]
+	count += 1
+print testz
+"""
 
 def meanAnom(anomalies):
     """
@@ -145,6 +154,7 @@ def meanAnom(anomalies):
         meanAnom[count] = np.mean(i)
         count += 1
     return meanAnom
+
 
 def running(dataset,start,end):
     """
