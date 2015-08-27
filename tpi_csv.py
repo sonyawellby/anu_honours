@@ -164,7 +164,7 @@ neutralR3 = IPOneutral
 
 
 """
-#Write filtered and unfiltered data to CSV files
+Write filtered and unfiltered data to CSV files
 """
 output = np.column_stack((Had_monthsTPI_uf.flatten(),Had_monthsTPI.flatten(),\
                           Acc_monthsTPI_uf_r1.flatten(),Acc_monthsTPI_r1.flatten(),\
