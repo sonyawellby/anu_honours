@@ -3,7 +3,7 @@ Set of routines to compute the TPI IPO index and return
 its output in the .csv file format.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 26 August 2015.
+Last updated 27 August 2015.
 """
 
 import csv
@@ -15,11 +15,7 @@ from hadisst_prepare import sst_January, sst_February, sst_March,\
      sst_October,sst_November,sst_December
 
 import access_prepare_ts
-"""
-from access_prepare_ts import ts_January, ts_February, ts_March,\
-     ts_April,ts_May,ts_June,ts_July,ts_August,ts_September,\
-     ts_October,ts_November,ts_December
-"""
+
 
 def unfilteredTPI(dataset,baseStart,baseEnd,ACCESS=True):
     """
@@ -94,6 +90,9 @@ def accUF():
     """
     print 'Computing ACCESS unfiltered, flat array (all times).'
     reload(access_prepare_ts)
+    from access_prepare_ts import ts_January, ts_February, ts_March,\
+     ts_April,ts_May,ts_June,ts_July,ts_August,ts_September,\
+     ts_October,ts_November,ts_December
     
     Acc_JanTPI_uf = unfilteredTPI(ts_January,baseStart,baseEnd)
     Acc_FebTPI_uf = unfilteredTPI(ts_February,baseStart,baseEnd)

@@ -11,7 +11,7 @@ TPI region 2: -10 to 10N, 170E-90W = -10 to 10N, 170-270E
 TPI region 3: -50 to -15N, 150E-160W = -50 to -15N, 150-200E.
 _____________________________________________________________
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 26 August 2015.
+Last updated 27 August 2015.
 """
 
 import netCDF4 as n
@@ -47,27 +47,21 @@ def areaTPI(dataset,ACCESS=True):
         #45.5 to 25.5 N; (139.5-179.5)+(-179.5 to -145.5) E
         #[319:360] + [0:35]
         a = np.roll(dataset,41,axis=2)
-        b = a[:,44:65,0:76]
+        b = a[:,44:65,0:75]
         area1 = np.ma.masked_less_equal(b,0.0)
-        
-        a = dataset[:,44:65,319:360]
-        b = dataset[:,44:65,0:35]
-        c = np.hstack((a,b))
-        area1 = np.ma.masked_less_equal(c,0.0)
         
         #10.5 to -10.5 N; (169.5-179.5)+(-179.5 to -90.5) E
         #[349:360] + [0:90]
-        d = dataset[:,79:101,349:360]
-        e = dataset[:,79:101,0:90]
-        f = np.hstack((d,e))
-        area2 = np.ma.masked_less_equal(f,0.0)
-        
+        c = np.roll(dataset,11,axis=2)
+        d = c[:,79:101,0:100]
+        area2 = np.ma.masked_less_equal(d,0.0)
+
         #-14.5 to -50.5 N; (149.5-179.5)+(-179.5 to -160.5) E
         #[329:360] + [0:20]
-        g = dataset[:,104:141,329:360]
-        h = dataset[:,104:141,0:20]
-        i = np.hstack((g,h))
-        area3 = np.ma.masked_less_equal(i,0.0)
+        e = np.roll(dataset,31,axis=2)
+        f = e[:,104:141,0:50]
+        area3 = np.ma.masked_less_equal(f,0.0)
+
     else:
         raise ValueError('Specify whether ACCESS or HadISST data are being used.')
     return area1,area2,area3
@@ -101,45 +95,27 @@ def baseAreaTPI(dataset,a,b,ACCESS=True):
     elif ACCESS==False:
         #45.5 to 25.5 N; (139.5-179.5)+(-179.5 to -145.5) E
         #[319:360] + [0:35]
-        a = dataset[a:b,44:65,319:360]
-        b = dataset[a:b,44:65,0:35]
-        c = np.hstack((a,b))
-        base_area1 = np.ma.masked_less_equal(c,0.0)
+        c = np.roll(dataset,41,axis=2)
+        d = c[a:b,44:65,0:75]
+        base_area1 = np.ma.masked_less_equal(d,0.0)
         
         #10.5 to -10.5 N; (169.5-179.5)+(-179.5 to -90.5) E
         #[349:360] + [0:90]
-        d = dataset[a:b,79:101,349:360]
-        e = dataset[a:b,79:101,0:90]
-        f = np.hstack((d,e))
+        e = np.roll(dataset,11,axis=2)
+        f = e[a:b,79:101,0:100]
         base_area2 = np.ma.masked_less_equal(f,0.0)
         
         #-14.5 to -50.5 N; (149.5-179.5)+(-179.5 to -160.5) E
         #[329:360] + [0:20]
-        g = dataset[a:b,104:141,329:360]
-        h = dataset[a:b,104:141,0:20]
-        i = np.hstack((g,h))
-        base_area3 = np.ma.masked_less_equal(i,0.0)
+        g = np.roll(dataset,31,axis=2)
+        h = g[a:b,104:141,0:50]
+        base_area3 = np.ma.masked_less_equal(h,0.0)
+
     else:
         raise ValueError('Specify whether ACCESS or HadISST data are being used.')
 
     return base_area1,base_area2,base_area3
 
-"""
-def meanSST(area1,area2,area3):
-
-    A function to calculate the average SST values for each
-    grid point in the three TPI regions for the entire
-    period of analysis.
-
-    Parameters:
-    -----------
-    area1, area2, area3 : the output of areaTPI()
-
-    mean_SST1 = np.mean(area1,axis=0)
-    mean_SST2 = np.mean(area2,axis=0)
-    mean_SST3 = np.mean(area3,axis=0)
-    return mean_SST1, mean_SST2, mean_SST3
-"""
 
 def baseMeanSST(base_area1,base_area2,base_area3):
     """
@@ -221,7 +197,6 @@ def TPIunfil(meanAnom1,meanAnom2,meanAnom3):
     TPI = np.subtract(meanAnom2,div2)
     return TPI
 
-#Revise this to apply to whole TPI unfiltered dataset (not just subsets of it)
 def TPI(dataset,n,rp,wn):
     """
     A function to apply a 13 year Chebyshev low pass filter
