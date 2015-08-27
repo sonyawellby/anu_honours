@@ -234,14 +234,14 @@ def IPOphase(dataset):
     copy = dataset
     count = 0
     
-    ENSOpos = None
-    ENSOneg = None
-    ENSOneutral = None
+    IPOpos = None
+    IPOneg = None
+    IPOneutral = None
 
     for i in dataset:
-        if dataset[count] > sd:
+        if dataset[count] > std:
             IPOneg = np.ma.masked_less_equal(copy, std)
-        elif dataset[count] < sd:
+        elif dataset[count] < -std:
             IPOpos = np.ma.masked_greater_equal(copy,-std)
         else:
             IPOneutral = np.ma.masked_outside(copy, sd, -std)

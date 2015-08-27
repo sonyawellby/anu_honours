@@ -135,10 +135,40 @@ Acc_monthsTPI_r2 = TPI(Acc_monthsTPI_uf_r2,n,rp,wn)
 Acc_monthsTPI_r3 = TPI(Acc_monthsTPI_uf_r3,n,rp,wn)
 
 """
-Write filtered and unfiltered data to CSV files
+Generate IPO phases
+"""
+IPO_phase_Had = IPOphase(Had_monthsTPI)
+(IPOpos, IPOneg, IPOneutral) = IPO_phase_Had
+posHad = IPOpos
+negHad = IPOneg
+neutralHad = IPOneutral
+
+IPO_phase_r1 = IPOphase(Acc_monthsTPI_r1)
+(IPOpos, IPOneg, IPOneutral) = IPO_phase_r1
+posR1 = IPOpos
+negR1 = IPOneg
+neutralR1 = IPOneutral
+
+IPO_phase_r2 = IPOphase(Acc_monthsTPI_r2)
+(IPOpos, IPOneg, IPOneutral) = IPO_phase_r2
+posR2 = IPOpos
+negR2 = IPOneg
+neutralR2 = IPOneutral
+
+IPO_phase_r3 = IPOphase(Acc_monthsTPI_r3)
+(IPOpos, IPOneg, IPOneutral) = IPO_phase_r3
+posR3 = IPOpos
+negR3 = IPOneg
+neutralR3 = IPOneutral
+
+
+
+"""
+#Write filtered and unfiltered data to CSV files
 """
 output = np.column_stack((Had_monthsTPI_uf.flatten(),Had_monthsTPI.flatten(),\
                           Acc_monthsTPI_uf_r1.flatten(),Acc_monthsTPI_r1.flatten(),\
                           Acc_monthsTPI_uf_r2.flatten(),Acc_monthsTPI_r2.flatten(),\
                           Acc_monthsTPI_uf_r3.flatten(),Acc_monthsTPI_r3.flatten()))
 np.savetxt('data/TPI.csv',output,delimiter=',')
+
