@@ -201,7 +201,10 @@ def TPI(dataset,n,rp,wn):
     """
     A function to apply a 13 year Chebyshev low pass filter
     to the unfiltered TPI output, from TPIunfil().  The
-    filter is a digital, type 1 (passband) Chebyshev filter.
+    filter design is a digital, type 1 (passband) Chebyshev filter.
+    The filter itself is a zero-phase filter, as a forward-in-time
+    only filter shifts the signal as it filters (resulting in
+    a delayed signal).
 
     Parameters:
     -----------
@@ -215,7 +218,7 @@ def TPI(dataset,n,rp,wn):
         (Henley et al.: wn = 0.1).
     """
     b, a = signal.cheby1(n, rp, wn, btype='low', analog=False, output='ba')
-    TPI = signal.lfilter(b,a,dataset)
+    TPI = signal.filtfilt(b,a,dataset)
     return TPI
 
 def IPOphase(dataset):
