@@ -12,12 +12,9 @@ baseStart = 70
 baseEnd = 100
 
 #Define Chebyshev low pass filter parameters (for 'tpi_csv.py')
-period = 13.0
-n = 6.0
-rp = 0.1
-fs = 12.0 #as monthly data
-fc = 1/period
-wn = (fc/(0.5*fs))
+n = 6
+rp = 13
+wn = 0.1
 
 #How many standard deviations above the dataset mean result in IPO pos., neg., and neutral
 #Make sure this is a float.

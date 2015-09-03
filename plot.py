@@ -272,11 +272,12 @@ def multi(directory,nrow,ncol,title=''):
     """
     return fig
 
-
-from access_prepare_pr import pr_Annual
-dict2 = mapACCESSpr(pr_Annual)
-plot(pr_Annual[104,0],dict2)
+#Plot AWAP annual data
+from awap_prepare import awap_Annual
+dict1 = mapAWAP(awap_Annual)
+plot(awap_Annual[0,0],dict1)
 plt.show(plot)
+
 
 """
 #Make sure to check vmax!
