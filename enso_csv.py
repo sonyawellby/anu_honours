@@ -3,7 +3,7 @@ Set of routines to compute the Nino3.4 ENSO index
 and write to CSV files.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 26 August 2015.
+Last updated 4 September 2015.
 """
 
 from enso import *
@@ -21,41 +21,41 @@ def Nino34(dataset,baseStart,baseEnd,ACCESS=True):
     -----------
     dataset : the SST dataset of interest.  Either dataFix_Had
             (from 'hadisst_prepare') or 'access_prepare_ts'.
-    baseStart : The first year of the base period.  Give as index
-            (e.g. [0=1900,104=2005].  Defined in 'parameters.py' as 'baseStart'.
-    baseEnd : The last year of the base period.  Give as index 
-            (e.g. [0=1900,104=2005]. Defined in 'parameters.py' as 'baseEnd'.
+    baseStart : The first year of the base period. Defined in
+                'parameters.py' as 'baseStart'.
+    baseEnd : The last year of the base period.  Defined in
+            'parameters.py' as 'baseEnd'.
     ACCESS : (default = True)
             If using ACCESS data, set as 'True'.  Else set as 'False'.
     """
     if ACCESS==True:
         AreaENSO = areaENSO(dataset,ACCESS=True)
-        baseJan = baseAreaENSO(dataset[0::12],70,100,ACCESS=True)
-        baseFeb = baseAreaENSO(dataset[1::12],70,100,ACCESS=True)
-        baseMar = baseAreaENSO(dataset[2::12],70,100,ACCESS=True)
-        baseApr = baseAreaENSO(dataset[3::12],70,100,ACCESS=True)
-        baseMay = baseAreaENSO(dataset[4::12],70,100,ACCESS=True)
-        baseJun = baseAreaENSO(dataset[5::12],70,100,ACCESS=True)
-        baseJul = baseAreaENSO(dataset[6::12],70,100,ACCESS=True)
-        baseAug = baseAreaENSO(dataset[7::12],70,100,ACCESS=True)
-        baseSep = baseAreaENSO(dataset[8::12],70,100,ACCESS=True)
-        baseOct = baseAreaENSO(dataset[9::12],70,100,ACCESS=True)
-        baseNov = baseAreaENSO(dataset[10::12],70,100,ACCESS=True)
-        baseDec = baseAreaENSO(dataset[11::12],70,100,ACCESS=True)
+        baseJan = baseAreaENSO(dataset[0::12],baseStart,baseEnd,ACCESS=True)
+        baseFeb = baseAreaENSO(dataset[1::12],baseStart,baseEnd,ACCESS=True)
+        baseMar = baseAreaENSO(dataset[2::12],baseStart,baseEnd,ACCESS=True)
+        baseApr = baseAreaENSO(dataset[3::12],baseStart,baseEnd,ACCESS=True)
+        baseMay = baseAreaENSO(dataset[4::12],baseStart,baseEnd,ACCESS=True)
+        baseJun = baseAreaENSO(dataset[5::12],baseStart,baseEnd,ACCESS=True)
+        baseJul = baseAreaENSO(dataset[6::12],baseStart,baseEnd,ACCESS=True)
+        baseAug = baseAreaENSO(dataset[7::12],baseStart,baseEnd,ACCESS=True)
+        baseSep = baseAreaENSO(dataset[8::12],baseStart,baseEnd,ACCESS=True)
+        baseOct = baseAreaENSO(dataset[9::12],baseStart,baseEnd,ACCESS=True)
+        baseNov = baseAreaENSO(dataset[10::12],baseStart,baseEnd,ACCESS=True)
+        baseDec = baseAreaENSO(dataset[11::12],baseStart,baseEnd,ACCESS=True)
     elif ACCESS==False:
         AreaENSO = areaENSO(dataset,ACCESS=False)
-        baseJan = baseAreaENSO(dataset[0::12],70,100,ACCESS=False)
-        baseFeb = baseAreaENSO(dataset[1::12],70,100,ACCESS=False)
-        baseMar = baseAreaENSO(dataset[2::12],70,100,ACCESS=False)
-        baseApr = baseAreaENSO(dataset[3::12],70,100,ACCESS=False)
-        baseMay = baseAreaENSO(dataset[4::12],70,100,ACCESS=False)
-        baseJun = baseAreaENSO(dataset[5::12],70,100,ACCESS=False)
-        baseJul = baseAreaENSO(dataset[6::12],70,100,ACCESS=False)
-        baseAug = baseAreaENSO(dataset[7::12],70,100,ACCESS=False)
-        baseSep = baseAreaENSO(dataset[8::12],70,100,ACCESS=False)
-        baseOct = baseAreaENSO(dataset[9::12],70,100,ACCESS=False)
-        baseNov = baseAreaENSO(dataset[10::12],70,100,ACCESS=False)
-        baseDec = baseAreaENSO(dataset[11::12],70,100,ACCESS=False)
+        baseJan = baseAreaENSO(dataset[0::12],baseStart,baseEnd,ACCESS=False)
+        baseFeb = baseAreaENSO(dataset[1::12],baseStart,baseEnd,ACCESS=False)
+        baseMar = baseAreaENSO(dataset[2::12],baseStart,baseEnd,ACCESS=False)
+        baseApr = baseAreaENSO(dataset[3::12],baseStart,baseEnd,ACCESS=False)
+        baseMay = baseAreaENSO(dataset[4::12],baseStart,baseEnd,ACCESS=False)
+        baseJun = baseAreaENSO(dataset[5::12],baseStart,baseEnd,ACCESS=False)
+        baseJul = baseAreaENSO(dataset[6::12],baseStart,baseEnd,ACCESS=False)
+        baseAug = baseAreaENSO(dataset[7::12],baseStart,baseEnd,ACCESS=False)
+        baseSep = baseAreaENSO(dataset[8::12],baseStart,baseEnd,ACCESS=False)
+        baseOct = baseAreaENSO(dataset[9::12],baseStart,baseEnd,ACCESS=False)
+        baseNov = baseAreaENSO(dataset[10::12],baseStart,baseEnd,ACCESS=False)
+        baseDec = baseAreaENSO(dataset[11::12],baseStart,baseEnd,ACCESS=False)
     else:
         raise ValueError('Specify whether ACCESS or HadISST are used.')
 
@@ -180,5 +180,5 @@ neutralR3 = ENSOneutral
 #Cropped running mean output to CSV:
 output = np.column_stack((cropHad.flatten(),cropR1.flatten(),\
                           cropR2.flatten(),cropR3.flatten()))
-np.savetxt('data/Nino3-4.csv',output,delimiter=',')
+np.savetxt('data/Nino3-4_5079.csv',output,delimiter=',')
 

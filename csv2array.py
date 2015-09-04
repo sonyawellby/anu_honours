@@ -2,7 +2,7 @@
 A routine to convert CSV multi-column data into a single array.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 3 September 2015.
+Last updated 4 September 2015.
 """
 
 from cwd import cwdInFunction
@@ -14,6 +14,7 @@ cwdInFunction()
 filename = raw_input('Enter the name of the file: ')
 #data/Mantua_IPO.csv
 #data/Parker_IPO.csv
+#data/HadISST_NCEP_Nino34.csv
 
 index = open(filename,'rU')
 csvReader = csv.reader(index)
