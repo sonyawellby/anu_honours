@@ -15,9 +15,9 @@ NB: 0 = 1900-1901, 104 = 2004-2005
 NB: if want 1970 as end period, choose '70' (code in tpi.py accounts for
     python slicing).
 """
-#Base period
-baseStart = 50
-baseEnd = 79
+#Base period for whole study (1961-1990)
+baseStart = 61
+baseEnd = 90
 
 """
 #Base period TPI/Nino3.4 for this analysis:
