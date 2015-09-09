@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 
 from indices_time import indexTime
 from indices_array import Nino34, TPI
+from pylab import savefig
 from cwd import cwdInFunction
 
 cwdInFunction()
@@ -25,16 +26,30 @@ ipo = indexTime(TPI)
  TPI_Jan, TPI_Feb, TPI_Mar, TPI_Apr, TPI_May,\
  TPI_JJA, TPI_SON, TPI_DJF, TPI_MAM, TPI_annual) = ipo
 
-
+"""
 def xCorrel(index1,index2,num1,num2):
-    """
-    Cross-correlation test.
-    """
-    xcor = signal.correlate(index1[num1],index2[num2])
+"""
+#    Cross-correlation test.
+"""
+    xcor = scipy.signal.correlate(index1[num1],index2[num2])
     return xcor
+"""
 
-#Correlations between Nino 3.4 and TPI data derived from HadISST1 (observations)
+def plotXCorrel(data1,data2,title,filename):
+    a = plt.xcorr(data1,data2)
+    plt.ylabel('Cross-correlation')
+    plt.xlabel('Lag')
+    plt.title(title)
+    savefig(filename)
+    #plt.show()
+    plt.close()
+    return
+
+
 def xCorrelAll(num1,num2):
+    """
+    Correlations between Nino 3.4 and TPI data derived from HadISST1 (observations)
+    """
     June = xCorrel(Nino34_Jun,TPI_Jun,num1,num2)
     July = xCorrel(Nino34_Jul,TPI_Jul,num1,num2)
     August = xCorrel(Nino34_Aug,TPI_Aug,num1,num2)
@@ -55,7 +70,20 @@ def xCorrelAll(num1,num2):
     return June, July, August, September, October, November, December, January,\
            February, March, April, May, JJA, SON, DJF, MAM, annual
 
+#June = Nino34_Jun[1],TPI_Jun[1]
+"""
+xcorrHad = xCorrelAll(0,1)
+(June, July, August, September, October, November, December, January,\
+           February, March, April, May, JJA, SON, DJF, MAM, annual) = xcorrHad
+"""
+"""
 a = plt.xcorr(Nino34_JJA[0],TPI_JJA[0])
 plt.ylabel('Cross-correlation measure')
 plt.xlabel('Lag')
 plt.show(a)
+"""
+plotXCorrel(Nino34_JJA[0],TPI_JJA[0],"JJA","xcorr/JJA_Had.png")
+plotXCorrel(Nino34_SON[0],TPI_SON[0],"SON","xcorr/SON_Had.png")
+
+
+

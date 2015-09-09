@@ -3,11 +3,14 @@ A file to compute Pearson's correlation coefficient and
 significance for the ENSO and the IPO indices.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 8 September 2015.
+Last updated 9 September 2015.
 """
 import netCDF4 as n
 import numpy as np
-import scipy.stats
+from scipy import stats
+import matplotlib.pyplot as plt
+import pylab
+#from statsmodels.stats.multicomp import pairwise_tukeyhsd
 
 from indices_time import indexTime 
 from indices_array import Nino34, TPI
@@ -29,7 +32,7 @@ ipo = indexTime(TPI)
 def normal(data,num):
     #Checks to see if dataset is normally distributed.
     dat = np.array(data[num])
-    z,pval = scipy.stats.mstats.normaltest(dat)
+    z,pval = stats.mstats.normaltest(dat)
     return pval
 
 
@@ -37,7 +40,7 @@ def correl(index1,index2,num1,num2):
     """
     Pearson's correlation coefficient [-1,1]
     """
-    cc = scipy.stats.pearsonr(index1[num1],index2[num2])
+    cc = stats.pearsonr(index1[num1],index2[num2])
     return cc
 
 #Correlations between Nino 3.4 and TPI data derived from HadISST1 (observations)
@@ -61,6 +64,43 @@ def correlAll(num1,num2):
     annual = correl(Nino34_annual,TPI_annual,num1,num2)
     return June, July, August, September, October, November, December, January,\
            February, March, April, May, JJA, SON, DJF, MAM, annual
+
+def scatPlot(data1,data2,title,filename):
+    """
+    Returns a scatterplot of the indices Nino 3.4 and the TPI.
+    """
+    axes = plt.gca()
+    axes.set_xlim([-3.0,3.0])
+    axes.set_ylim([-2.0,2.0])
+    plt.scatter(data1, data2)
+    plt.xlabel("Nino 3.4")
+    plt.ylabel("TPI")
+    plt.title(title)
+    savefig(filename)
+    return
+
+def linePlot(data1,data2):
+    y = [-2.0,-1.5,-1.0,-0.5,0.0,0.5,1.0,1.5,2.0]
+    plt(data1,y)
+    pylab.plot(data2,y)
+    pylab.show()
+    
+
+def corrANOVA(array1,array2,array3,array4):
+    """
+    A function to test if the means of the output from the four correlation
+    datasets (observational, R1, R2, R3) and different.
+    n = 12; N = 48.  DFbtw = 3, DFwthin = 44
+    H0: all means are equal to each other.
+    H1: not all means are equal.
+
+    Parameters:
+    -----------
+    Output: the f_value (not the f table (critical f-value) statistic)
+    """
+    f_val,p_val = stats.f_oneway(array1,array2,array3,array4)
+    return f_val, p_val
+    
 
 #HadISST1
 corr = correlAll(0,1)
@@ -239,6 +279,11 @@ accessR3_sig = np.array([AccR3_June[1], AccR3_July[1], AccR3_August[1],\
                      AccR3_SON[1], \
             AccR3_DJF[1], AccR3_MAM[1], AccR3_annual[1]])
 
+test = corrANOVA(HadISST,accessR1,accessR2,accessR3)
+#test1 = pairwise_tukeyhsd(HadISST,accessR1,accessR2,accessR3)
+#test2 = normal(Nino34,0)
+
+test3 = linePlot(Nino34_annual[0],TPI_annual[0])
 
 """
 #Test to see if this function matches Excel's output:
