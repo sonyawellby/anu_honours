@@ -79,13 +79,12 @@ def scatPlot(data1,data2,title,filename):
     savefig(filename)
     return
 
-"""
 def linePlot(data1,data2):
     y = [-2.0,-1.5,-1.0,-0.5,0.0,0.5,1.0,1.5,2.0]
     plt(data1,y)
     pylab.plot(data2,y)
     pylab.show()
-"""
+    
 
 def corrANOVA(array1,array2,array3,array4):
     """
@@ -284,11 +283,11 @@ test = corrANOVA(HadISST,accessR1,accessR2,accessR3)
 #test1 = pairwise_tukeyhsd(HadISST,accessR1,accessR2,accessR3)
 #test2 = normal(Nino34,0)
 
-#test3 = linePlot(Nino34_annual[0],TPI_annual[0])
+test3 = linePlot(Nino34_annual[0],TPI_annual[0])
 
 
 #Test to see if this function matches Excel's output:
 hey = np.array([Nino34[0],TPI[1]])
 hey1 = np.corrcoef(hey)
-hey2 = stats.pearsonr(Nino34[0],TPI[1])
+hey2 = stats.pearsonr(hey)
 

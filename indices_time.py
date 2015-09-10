@@ -2,7 +2,7 @@
 A file to divide Nino 3.4 and TPI index data into years, seasons and months. 
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 8 September 2015.
+Last updated 10 September 2015.
 """
 import netCDF4 as n
 import numpy as np
@@ -172,7 +172,8 @@ def tpiTime(index,num):
     return TPI_Jun,TPI_Jul,TPI_Aug,TPI_Sep,TPI_Oct,TPI_Nov,TPI_Dec,TPI_Jan,\
            TPI_Feb,TPI_Mar,TPI_Apr,TPI_May,TPI_JJA,TPI_SON,TPI_DJF,TPI_MAM,\
            TPI_annual
-
+"""
+#Observational data
 enso = nino34Time(Nino34,0)
 (Nino34_Jun, Nino34_Jul, Nino34_Aug, Nino34_Sep, Nino34_Oct, Nino34_Nov, \
  Nino34_Dec, Nino34_Jan, Nino34_Feb, Nino34_Mar, Nino34_Apr, Nino34_May,\
@@ -182,5 +183,50 @@ ipo = tpiTime(TPI,1)
 (TPI_Jun, TPI_Jul, TPI_Aug, TPI_Sep, TPI_Oct, TPI_Nov, TPI_Dec, \
  TPI_Jan, TPI_Feb, TPI_Mar, TPI_Apr, TPI_May,\
  TPI_JJA, TPI_SON, TPI_DJF, TPI_MAM, TPI_annual) = ipo
+"""
+
+enso = indexTime(Nino34)
+(Jun, Jul, Aug, Sep, Oct, Nov, Dec, Jan, Feb, Mar, Apr, May,\
+           JJA, SON, DJF, MAM, annual) = enso
+
+Nino34_Jun = Jun
+Nino34_Jul = Jul
+Nino34_Aug = Aug
+Nino34_Sep = Sep
+Nino34_Oct = Oct
+Nino34_Nov = Nov
+Nino34_Dec = Dec
+Nino34_Jan = Jan
+Nino34_Feb = Feb
+Nino34_Mar = Mar
+Nino34_Apr = Apr
+Nino34_May = May
+Nino34_JJA = JJA
+Nino34_SON = SON
+Nino34_DJF = DJF
+Nino34_MAM = MAM
+Nino34_annual = annual
+
+ipo = indexTime(TPI)
+(Jun, Jul, Aug, Sep, Oct, Nov, Dec, Jan, Feb, Mar, Apr, May,\
+           JJA, SON, DJF, MAM, annual) = ipo
+
+TPI_Jun = Jun
+TPI_Jul = Jul
+TPI_Aug = Aug
+TPI_Sep = Sep
+TPI_Oct = Oct
+TPI_Nov = Nov
+TPI_Dec = Dec
+TPI_Jan = Jan
+TPI_Feb = Feb
+TPI_Mar = Mar
+TPI_Apr = Apr
+TPI_May = May
+TPI_JJA = JJA
+TPI_SON = SON
+TPI_DJF = DJF
+TPI_MAM = MAM
+TPI_annual = annual
 
 
