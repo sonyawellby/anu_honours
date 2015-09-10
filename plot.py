@@ -142,6 +142,21 @@ def mapHadisst(dataset):
     dict5['vmax'] = vmax(dataset) # deg Celsius
     return dict5
 
+def mapCorr():
+    """
+    A function to call variables needed to plot correlations between index and
+    precipitation data.
+    """
+    dict6 = {}
+    dict6['lat'] = latACCESS_tr
+    dict6['lon'] = lonACCESS_tr
+    dict6['lat_units'] = latACCESS_units
+    dict6['lon_units'] = lonACCESS_units
+    dict6['var_units'] = 'Correlation coefficient'
+    dict6['vmin'] = -1.0 # deg Celsius
+    dict6['vmax'] = 1.0 # deg Celsius
+    return dict6
+
 def plot(var_time,Dict,labels=False,grid=False,oceans=False,cbar=True):
     """
     A function to plot and display a basic plot of ACCESS,
@@ -272,12 +287,13 @@ def multi(directory,nrow,ncol,title=''):
     """
     return fig
 
+"""
 #Plot AWAP annual data
 from awap_prepare import awap_Annual
 dict1 = mapAWAP(awap_Annual)
 plot(awap_Annual[0,0],dict1)
 plt.show(plot)
-
+"""
 
 """
 #Make sure to check vmax!
