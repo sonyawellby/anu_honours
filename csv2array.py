@@ -2,7 +2,7 @@
 A routine to convert CSV multi-column data into a single array.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 4 September 2015.
+Last updated 15 September 2015.
 """
 
 from cwd import cwdInFunction
@@ -29,6 +29,7 @@ sheet_array = np.array(sheet)
 flat = sheet_array.flatten()
 flat_rm_beg = flat[5:]
 flat_rm_end = flat_rm_beg[:1260]
+#flat_rm_end = flat_rm_beg[:(len(flat_rm_beg)-7)] #for array of uneven length (Jan-Dec)
 final = flat_rm_end.astype(np.float)
 
 filenameNew = raw_input('Enter the name of the new file: ')

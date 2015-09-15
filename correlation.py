@@ -1,5 +1,6 @@
 """
-A file to correlate ENSO with rainfall and the IPO with rainfall.
+A file to collate sub-routines used to correlate ENSO with rainfall
+and the IPO with rainfall.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
 Last updated 8 September 2015.
@@ -8,9 +9,14 @@ import netCDF4 as n
 import numpy as np
 import scipy.stats as stats
 import numpy.ma as ma
+from matplotlib import pyplot as plt
+from plot import plot, mapCorr
 
-from indices_array import Nino34,TPI 
+from indices_array import Nino34,TPI
+from maps_sub import saveFig
 
+from cwd import cwdInFunction
+cwdInFunction()
 
 from indices_time import Nino34_Jun, Nino34_Jul, Nino34_Aug, Nino34_Sep, \
      Nino34_Oct, Nino34_Nov, Nino34_Dec, Nino34_Jan, Nino34_Feb, Nino34_Mar,\
@@ -19,16 +25,8 @@ from indices_time import Nino34_Jun, Nino34_Jul, Nino34_Aug, Nino34_Sep, \
     TPI_Dec, TPI_Jan, TPI_Feb, TPI_Mar, TPI_Apr, TPI_May, TPI_JJA, TPI_SON, \
     TPI_DJF, TPI_MAM, TPI_annual
 
-
 from awap_prepare import awap_June,awap_JJA
 from access_trimmed import trim_June
-
-from matplotlib import pyplot as plt
-from plot import plot, mapCorr
-
-from cwd import cwdInFunction
-cwdInFunction()
-
 
 def corr(rainfall,index,ind_num):
     """
@@ -53,11 +51,25 @@ def corr(rainfall,index,ind_num):
         count1 +=1
         count2 = 0
     return corr_array
-    
 
-#test = corr(awap_June,Nino34_Jun)
-test = corr(awap_JJA,TPI_JJA,1)
-test1 = ma.masked_invalid(test)
+"""
+def plotCorr(rainfall,index,ind_num,title,filepath):
+    
+    A function to produce plots of correlations.
+    
+    plot = corr(rainfall,index,ind_num)
+    mask = ma.masked_invalid(plot)
+    Dict6 = mapCorr()
+    myplot = plot(mask,Dict6,labels=False,grid=False,oceans=False,cbar=True)
+    saveFig(myplot,title,filepath)
+    return
+
+plotCorr(awap_JJA,Nino34_JJA,0,"AWAP rainfall-Nino3.4 correlation - JJA",\
+         "/correlation/nino_awap/JJA")
+"""
+plot = corr(awap_JJA,Nino34_JJA,0)
+mask = ma.masked_invalid(plot)
 Dict6 = mapCorr()
-myplot = plot(test1,Dict6,labels=False,grid=False,oceans=False,cbar=True)
-plt.show(myplot)
+myplot = plot(mask,Dict6,labels=False,grid=False,oceans=False,cbar=True)
+saveFig(myplot,"AWAP rainfall-Nino3.4 correlation - JJA",\
+         "/correlation/nino_awap/JJA")
