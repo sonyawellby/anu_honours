@@ -11,7 +11,9 @@ from awap_prepare import awap_Annual, awap_JJA,awap_SON,awap_DJF,awap_MAM,\
      awap_June, awap_July, awap_August, awap_September, awap_October, awap_November,\
      awap_December,awap_January,awap_February,awap_March,awap_April,awap_May
      
-import access_trimmed
+from access_trimmed import trim_Annual, trim_JJA,trim_SON,trim_DJF,trim_MAM,\
+     trim_June, trim_July, trim_August, trim_September, trim_October, trim_November,\
+     trim_December,trim_January,trim_February,trim_March,trim_April,trim_May
      
 def awapCorrENSO():
     plotCorr(awap_Annual,Nino34_annual,0,"AWAP rainfall-Nino3.4 correlation - annual",\
@@ -89,11 +91,9 @@ def awapCorrIPO():
 
 def accessCorrENSO(num,roundNum):
     print "Computing ACCESS data correlations with ENSO."
-    reload(access_trimmed)
-    print "Have just reloaded 'access_trimmed'"
-    from access_trimmed import trim_Annual, trim_JJA,trim_SON,trim_DJF,trim_MAM,\
-     trim_June, trim_July, trim_August, trim_September, trim_October, trim_November,\
-     trim_December,trim_January,trim_February,trim_March,trim_April,trim_May
+    import access_trimmed
+    import sys
+    reload(sys.modules['access_trimmed'])
     
     plotCorr(trim_Annual,Nino34_annual,num,"ACCESS "+roundNum+" rainfall-Nino3.4 correlation - annual",\
              "/correlation/nino_"+roundNum+"/annual")
@@ -133,12 +133,14 @@ def accessCorrENSO(num,roundNum):
 
 def accessCorrIPO(num,roundNum):
     print "Computing ACCESS data correlations with the IPO."
-    reload(access_trimmed)
-    print "Have just reloaded 'access_trimmed'"
-    from access_trimmed import mask,data_flat,trim_Annual, trim_JJA,trim_SON,trim_DJF,trim_MAM,\
+    import access_trimmed
+    import sys
+    reload(sys.modules['access_trimmed'])
+    """
+    access_trimmed.trim_Annual, trim_JJA,trim_SON,trim_DJF,trim_MAM,\
      trim_June, trim_July, trim_August, trim_September, trim_October, trim_November,\
      trim_December,trim_January,trim_February,trim_March,trim_April,trim_May
-    
+    """    
     plotCorr(trim_Annual,TPI_annual,num,"ACCESS "+roundNum+" rainfall-TPI correlation - annual",\
              "/correlation/tpi_"+roundNum+"/annual")
     plotCorr(trim_JJA,TPI_JJA,num,"ACCESS "+roundNum+" rainfall-TPI correlation - JJA",\
@@ -175,11 +177,13 @@ def accessCorrIPO(num,roundNum):
              "/correlation/tpi_"+roundNum+"/May")
     return
 
-#awapCorrENSO()
+awapCorrENSO()
 #awapCorrIPO()
+"""
 accessCorrENSO(1,"r1")
 accessCorrENSO(2,"r2")
 accessCorrENSO(3,"r3")
 accessCorrIPO(3,"r1")
 accessCorrIPO(5,"r2")
 accessCorrIPO(7,"r3")
+"""
