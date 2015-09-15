@@ -25,9 +25,6 @@ from indices_time import Nino34_Jun, Nino34_Jul, Nino34_Aug, Nino34_Sep, \
     TPI_Dec, TPI_Jan, TPI_Feb, TPI_Mar, TPI_Apr, TPI_May, TPI_JJA, TPI_SON, \
     TPI_DJF, TPI_MAM, TPI_annual
 
-from awap_prepare import awap_June,awap_JJA
-from access_trimmed import trim_June
-
 def corr(rainfall,index,ind_num):
     """
     A function to correlate rainfall (AWAP or ACCESS) with an index
@@ -52,24 +49,13 @@ def corr(rainfall,index,ind_num):
         count2 = 0
     return corr_array
 
-"""
 def plotCorr(rainfall,index,ind_num,title,filepath):
-    
+    """
     A function to produce plots of correlations.
-    
-    plot = corr(rainfall,index,ind_num)
-    mask = ma.masked_invalid(plot)
+    """
+    var = corr(rainfall,index,ind_num)
+    var2 = ma.masked_invalid(var)
     Dict6 = mapCorr()
-    myplot = plot(mask,Dict6,labels=False,grid=False,oceans=False,cbar=True)
+    myplot = plot(var2,Dict6,labels=False,grid=False,oceans=False,cbar=True)
     saveFig(myplot,title,filepath)
     return
-
-plotCorr(awap_JJA,Nino34_JJA,0,"AWAP rainfall-Nino3.4 correlation - JJA",\
-         "/correlation/nino_awap/JJA")
-"""
-plot = corr(awap_JJA,Nino34_JJA,0)
-mask = ma.masked_invalid(plot)
-Dict6 = mapCorr()
-myplot = plot(mask,Dict6,labels=False,grid=False,oceans=False,cbar=True)
-saveFig(myplot,"AWAP rainfall-Nino3.4 correlation - JJA",\
-         "/correlation/nino_awap/JJA")
