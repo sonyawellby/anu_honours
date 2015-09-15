@@ -13,7 +13,7 @@ from matplotlib import pyplot as plt
 from plot import plot, mapCorr
 
 from indices_array import Nino34,TPI
-from maps_sub import saveFig
+import maps_sub
 
 from cwd import cwdInFunction
 cwdInFunction()
@@ -57,5 +57,9 @@ def plotCorr(rainfall,index,ind_num,title,filepath):
     var2 = ma.masked_invalid(var)
     Dict6 = mapCorr()
     myplot = plot(var2,Dict6,labels=False,grid=False,oceans=False,cbar=True)
+    reload(maps_sub)
+    from maps_sub import saveFig
     saveFig(myplot,title,filepath)
     return
+
+

@@ -9,12 +9,12 @@ from correlation import *
 
 from awap_prepare import awap_Annual, awap_JJA,awap_SON,awap_DJF,awap_MAM,\
      awap_June, awap_July, awap_August, awap_September, awap_October, awap_November,\
-     awap_December,awap_January,awap_February,awap_March,awap_May
+     awap_December,awap_January,awap_February,awap_March,awap_April,awap_May
      
 import access_trimmed
      
 def awapCorrENSO():
-    plotCorr(awap_annual,Nino34_annual,0,"AWAP rainfall-Nino3.4 correlation - annual",\
+    plotCorr(awap_Annual,Nino34_annual,0,"AWAP rainfall-Nino3.4 correlation - annual",\
              "/correlation/nino_awap/annual")
     plotCorr(awap_JJA,Nino34_JJA,0,"AWAP rainfall-Nino3.4 correlation - JJA",\
              "/correlation/nino_awap/JJA")
@@ -51,7 +51,7 @@ def awapCorrENSO():
     return
 
 def awapCorrIPO():
-    plotCorr(awap_annual,TPI_annual,1,"AWAP rainfall-TPI correlation - annual",\
+    plotCorr(awap_Annual,TPI_annual,1,"AWAP rainfall-TPI correlation - annual",\
              "/correlation/tpi_awap/annual")
     plotCorr(awap_JJA,TPI_JJA,1,"AWAP rainfall-TPI correlation - JJA",\
              "/correlation/tpi_awap/JJA")
@@ -88,94 +88,98 @@ def awapCorrIPO():
     return
 
 def accessCorrENSO(num,roundNum):
+    print "Computing ACCESS data correlations with ENSO."
     reload(access_trimmed)
+    print "Have just reloaded 'access_trimmed'"
     from access_trimmed import trim_Annual, trim_JJA,trim_SON,trim_DJF,trim_MAM,\
      trim_June, trim_July, trim_August, trim_September, trim_October, trim_November,\
-     trim_December,trim_January,trim_February,trim_March,trim_May
+     trim_December,trim_January,trim_February,trim_March,trim_April,trim_May
     
     plotCorr(trim_Annual,Nino34_annual,num,"ACCESS "+roundNum+" rainfall-Nino3.4 correlation - annual",\
              "/correlation/nino_"+roundNum+"/annual")
     plotCorr(trim_JJA,Nino34_JJA,num,"ACCESS "+roundNum+" rainfall-Nino3.4 correlation - JJA",\
-             "/correlation/nino_"+roundNum+"JJA")
+             "/correlation/nino_"+roundNum+"/JJA")
     plotCorr(trim_SON,Nino34_SON,num,"ACCESS "+roundNum+" rainfall-Nino3.4 correlation - SON",\
-             "/correlation/nino_"+roundNum+"SON")
+             "/correlation/nino_"+roundNum+"/SON")
     plotCorr(trim_DJF,Nino34_DJF,num,"ACCESS "+roundNum+" rainfall-Nino3.4 correlation - DJF",\
-             "/correlation/nino_"+roundNum+"DJF")
+             "/correlation/nino_"+roundNum+"/DJF")
     plotCorr(trim_MAM,Nino34_MAM,num,"ACCESS "+roundNum+" rainfall-Nino3.4 correlation - MAM",\
-             "/correlation/nino_"+roundNum+"MAM")
+             "/correlation/nino_"+roundNum+"/MAM")
     plotCorr(trim_June,Nino34_Jun,num,"ACCESS "+roundNum+" rainfall-Nino3.4 correlation - June",\
-             "/correlation/nino_"+roundNum+"June")
+             "/correlation/nino_"+roundNum+"/June")
     plotCorr(trim_July,Nino34_Jul,num,"ACCESS "+roundNum+" rainfall-Nino3.4 correlation - July",\
-             "/correlation/nino_"+roundNum+"July")
+             "/correlation/nino_"+roundNum+"/July")
     plotCorr(trim_August,Nino34_Aug,num,"ACCESS "+roundNum+" rainfall-Nino3.4 correlation - August",\
-             "/correlation/nino_"+roundNum+"August")
+             "/correlation/nino_"+roundNum+"/August")
     plotCorr(trim_September,Nino34_Sep,num,"ACCESS "+roundNum+" rainfall-Nino3.4 correlation - September",\
-             "/correlation/nino_"+roundNum+"September")
+             "/correlation/nino_"+roundNum+"/September")
     plotCorr(trim_October,Nino34_Oct,num,"ACCESS "+roundNum+" rainfall-Nino3.4 correlation - October",\
-             "/correlation/nino_"+roundNum+"October")
+             "/correlation/nino_"+roundNum+"/October")
     plotCorr(trim_November,Nino34_Nov,num,"ACCESS "+roundNum+" rainfall-Nino3.4 correlation - November",\
-             "/correlation/nino_"+roundNum+"November")
+             "/correlation/nino_"+roundNum+"/November")
     plotCorr(trim_December,Nino34_Dec,num,"ACCESS "+roundNum+" rainfall-Nino3.4 correlation - December",\
-             "/correlation/nino_"+roundNum+"December")
+             "/correlation/nino_"+roundNum+"/December")
     plotCorr(trim_January,Nino34_Jan,num,"ACCESS "+roundNum+" rainfall-Nino3.4 correlation - January",\
-             "/correlation/nino_"+roundNum+"January")
+             "/correlation/nino_"+roundNum+"/January")
     plotCorr(trim_February,Nino34_Feb,num,"ACCESS "+roundNum+" rainfall-Nino3.4 correlation - February",\
-             "/correlation/nino_"+roundNum+"February")
+             "/correlation/nino_"+roundNum+"/February")
     plotCorr(trim_March,Nino34_Mar,num,"ACCESS "+roundNum+" rainfall-Nino3.4 correlation - March",\
-             "/correlation/nino_"+roundNum+"March")
+             "/correlation/nino_"+roundNum+"/March")
     plotCorr(trim_April,Nino34_Apr,num,"ACCESS "+roundNum+" rainfall-Nino3.4 correlation - April",\
-             "/correlation/nino_"+roundNum+"April")
+             "/correlation/nino_"+roundNum+"/April")
     plotCorr(trim_May,Nino34_May,num,"ACCESS "+roundNum+" rainfall-Nino3.4 correlation - May",\
              "/correlation/nino_"+roundNum+"/May")
     return
 
 def accessCorrIPO(num,roundNum):
+    print "Computing ACCESS data correlations with the IPO."
     reload(access_trimmed)
-    from access_trimmed import trim_Annual, trim_JJA,trim_SON,trim_DJF,trim_MAM,\
+    print "Have just reloaded 'access_trimmed'"
+    from access_trimmed import mask,data_flat,trim_Annual, trim_JJA,trim_SON,trim_DJF,trim_MAM,\
      trim_June, trim_July, trim_August, trim_September, trim_October, trim_November,\
-     trim_December,trim_January,trim_February,trim_March,trim_May
+     trim_December,trim_January,trim_February,trim_March,trim_April,trim_May
     
     plotCorr(trim_Annual,TPI_annual,num,"ACCESS "+roundNum+" rainfall-TPI correlation - annual",\
              "/correlation/tpi_"+roundNum+"/annual")
     plotCorr(trim_JJA,TPI_JJA,num,"ACCESS "+roundNum+" rainfall-TPI correlation - JJA",\
-             "/correlation/tpi_"+roundNum+"JJA")
+             "/correlation/tpi_"+roundNum+"/JJA")
     plotCorr(trim_SON,TPI_SON,num,"ACCESS "+roundNum+" rainfall-TPI correlation - SON",\
-             "/correlation/tpi_"+roundNum+"SON")
+             "/correlation/tpi_"+roundNum+"/SON")
     plotCorr(trim_DJF,TPI_DJF,num,"ACCESS "+roundNum+" rainfall-TPI correlation - DJF",\
-             "/correlation/tpi_"+roundNum+"DJF")
+             "/correlation/tpi_"+roundNum+"/DJF")
     plotCorr(trim_MAM,TPI_MAM,num,"ACCESS "+roundNum+" rainfall-TPI correlation - MAM",\
-             "/correlation/tpi_"+roundNum+"MAM")
+             "/correlation/tpi_"+roundNum+"/MAM")
     plotCorr(trim_June,TPI_Jun,num,"ACCESS "+roundNum+" rainfall-TPI correlation - June",\
-             "/correlation/tpi_"+roundNum+"June")
+             "/correlation/tpi_"+roundNum+"/June")
     plotCorr(trim_July,TPI_Jul,num,"ACCESS "+roundNum+" rainfall-TPI correlation - July",\
-             "/correlation/tpi_"+roundNum+"July")
+             "/correlation/tpi_"+roundNum+"/July")
     plotCorr(trim_August,TPI_Aug,num,"ACCESS "+roundNum+" rainfall-TPI correlation - August",\
-             "/correlation/tpi_"+roundNum+"August")
+             "/correlation/tpi_"+roundNum+"/August")
     plotCorr(trim_September,TPI_Sep,num,"ACCESS "+roundNum+" rainfall-TPI correlation - September",\
-             "/correlation/tpi_"+roundNum+"September")
+             "/correlation/tpi_"+roundNum+"/September")
     plotCorr(trim_October,TPI_Oct,num,"ACCESS "+roundNum+" rainfall-TPI correlation - October",\
-             "/correlation/tpi_"+roundNum+"October")
+             "/correlation/tpi_"+roundNum+"/October")
     plotCorr(trim_November,TPI_Nov,num,"ACCESS "+roundNum+" rainfall-TPI correlation - November",\
-             "/correlation/tpi_"+roundNum+"November")
+             "/correlation/tpi_"+roundNum+"/November")
     plotCorr(trim_December,TPI_Dec,num,"ACCESS "+roundNum+" rainfall-TPI correlation - December",\
-             "/correlation/tpi_"+roundNum+"December")
+             "/correlation/tpi_"+roundNum+"/December")
     plotCorr(trim_January,TPI_Jan,num,"ACCESS "+roundNum+" rainfall-TPI correlation - January",\
-             "/correlation/tpi_"+roundNum+"January")
+             "/correlation/tpi_"+roundNum+"/January")
     plotCorr(trim_February,TPI_Feb,num,"ACCESS "+roundNum+" rainfall-TPI correlation - February",\
-             "/correlation/tpi_"+roundNum+"February")
+             "/correlation/tpi_"+roundNum+"/February")
     plotCorr(trim_March,TPI_Mar,num,"ACCESS "+roundNum+" rainfall-TPI correlation - March",\
-             "/correlation/tpi_"+roundNum+"March")
+             "/correlation/tpi_"+roundNum+"/March")
     plotCorr(trim_April,TPI_Apr,num,"ACCESS "+roundNum+" rainfall-TPI correlation - April",\
-             "/correlation/tpi_"+roundNum+"April")
+             "/correlation/tpi_"+roundNum+"/etcApril")
     plotCorr(trim_May,TPI_May,num,"ACCESS "+roundNum+" rainfall-TPI correlation - May",\
              "/correlation/tpi_"+roundNum+"/May")
     return
 
-awapCorrENSO()
-awapCorrIPO()
-accessCorrENSO(3,"r1")
-accessCorrENSO(5,"r2")
-accessCorrENSO(7,"r3")
+#awapCorrENSO()
+#awapCorrIPO()
+accessCorrENSO(1,"r1")
+accessCorrENSO(2,"r2")
+accessCorrENSO(3,"r3")
 accessCorrIPO(3,"r1")
 accessCorrIPO(5,"r2")
 accessCorrIPO(7,"r3")

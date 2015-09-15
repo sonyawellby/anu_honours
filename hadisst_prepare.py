@@ -2,7 +2,7 @@
 A set of routines to prepare HadISST1.1 sea-surface temperature data.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 25 August 2015.
+Last updated 15 September 2015.
 """
 
 import netCDF4 as n
@@ -63,23 +63,6 @@ def bugFix(dataset,ext=False):
         b[989:,:,0:360:359] = -9999.0
     dataFix = np.ma.masked_less_equal(b,-9999.0)
     return dataFix
-
-"""
-#Can only be used with 105 year data.
-def hadisstAnnual():
-    
-    A function to convert flat data to an array with all 105 years
-    and 12 months for all latitudes and longitudes.
-
-    Note: hadisstData[year,month,lat,lon]
-    e.g. hadisstData[104,11,179,359]
-         = May 2005 at 180 deg N (89.5 deg) and 360 deg E (179.5 deg E)
-
-    NB: can currently only be used with 105 year data (e.g. data_flat).
-    
-    data = np.reshape(dataFix,(105,12,180,360))
-    return data
-"""
 
 def hadisstJune(years,start):
     """
@@ -441,6 +424,7 @@ def hadisstMAM(years,start1,start2,start3):
     data = np.reshape(MAM,(years,180,360))
     return MAM
 
+
 #Make lat/lon data accessible for use in other files
 latHad = data.variables['latitude'][:]
 lonHad = data.variables['longitude'][:]
@@ -455,8 +439,6 @@ data_flat_ext = hadisstTrimExt()
 
 #Divide into time bins - June 1900 to May 2005
 dataFix = bugFix(data_flat)
-
-#sst_Annual = hadisstAnnual()
 
 sst_June = hadisstJune(105,0)
 sst_July = hadisstJuly(105,1)

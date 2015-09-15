@@ -4,7 +4,7 @@ as the AWAP dataset (-43.7 deg N to -10.0 deg N, 114.373 deg E to 155.625 deg E)
 This improves the ease of comparing the two datasets.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 17 August 2015.
+Last updated 15 September 2015.
 """
 
 import netCDF4 as n
@@ -14,6 +14,7 @@ from numpy import ma
 from cwd import *
 cwdInFunction()
 
+import access_prepare_pr
 from access_prepare_pr import mask, data_flat
 
 def trimAnnual():
@@ -22,15 +23,22 @@ def trimAnnual():
     114.373 deg E to 153.75 deg E
 
     Note: accessData[year,month,lat,lon]
-    e.g. accessData[104,11,0,0]
-         = May 2005 at -43.75 deg N and 114.375 deg E
+    e.g. accessData[104,0,0]
+         = 2005 at -43.75 deg N and 114.375 deg E
 
     data.variables['lat'][37:64] - corresponds with data_flat[38:65,62:84]
     data.variables['lon'][61:83]
     """
-    dataTrim = data_flat[:,38:65,62:84]
-    data = np.reshape(dataTrim,(105,12,27,22))
-    return data
+    annual_flat = data_flat[0::12,38:65,62:84] + data_flat[1::12,38:65,62:84] \
+               + data_flat[2::12,38:65,62:84] + data_flat[3::12,38:65,62:84] + \
+               data_flat[4::12,38:65,62:84] + data_flat[5::12,38:65,62:84] + \
+               data_flat[6::12,38:65,62:84] + data_flat[7::12,38:65,62:84] + \
+               data_flat[8::12,38:65,62:84] + data_flat[9::12,38:65,62:84] + \
+               data_flat[10::12,38:65,62:84] + data_flat[11::12,38:65,62:84]
+    annual_flat /= 12.0
+    annual = np.ma.masked_less(annual_flat,mask)
+    annual = np.reshape(annual,(105,27,22))
+    return annual
 
 def accessJune():
     """

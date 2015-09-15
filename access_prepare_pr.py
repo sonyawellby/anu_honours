@@ -2,7 +2,7 @@
 Routines to prepare ACCESS1.3 precipitation data for analysis.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 25 August 2015.
+Last updated 15 September 2015.
 """
 
 import netCDF4 as n
@@ -14,7 +14,6 @@ from cwd import *
 cwdInFunction()
 
 
-#Make sure to run with (a) correct data, and (b) all three runs
 """
 Choose data to analyse: access_pr_r1, access_pr_r2, access_pr_r3
 """
@@ -57,18 +56,6 @@ def accessTrim():
     data_flat = dataDay[605:1865]
     data_flat = np.ma.masked_less(data_flat,mask)
     return data_flat
-
-def accessAnnual():
-    """
-    A function to convert flat data to an array with all 105 years
-    and 12 months for all latitudes and longitudes.
-
-    Note: accessData[year,month,lat,lon]
-    e.g. accessData[104,11,144,191]
-         = May 2005 at -180 deg N (-90 deg S) and 0 deg E (0 deg E = prime meridian)
-    """
-    data = np.reshape(data_flat,(105,12,145,192))
-    return data
 
 def accessJune():
     """
@@ -238,6 +225,23 @@ def accessMAM():
     data = np.reshape(MAM,(105,145,192))
     return MAM
 
+def accessAnnual():
+    """
+    A function to convert flat data to an array with all 105 years
+    for all latitudes and longitudes.
+
+    Note: accessData[year,lat,lon]
+    e.g. accessData[104,144,191]
+         = 2005 at -180 deg N (-90 deg S) and 0 deg E (0 deg E = prime meridian)
+    """
+    annual_flat = data_flat[0::12] + data_flat[1::12] + data_flat[2::12] + \
+                  data_flat[3::12] + data_flat[4::12] + data_flat[5::12] + \
+                  data_flat[6::12] + data_flat[7::12] + data_flat[8::12] + \
+                  data_flat[9::12] + data_flat[10::12] + data_flat[11::12]
+    annual_flat /= 12.0
+    annual = np.ma.masked_less(annual_flat,mask)
+    annual = np.reshape(annual,(105,145,192))
+    return annual
 
 #Make lat/lon data accessible for use in other files
 latACCESS = data.variables['lat'][:]

@@ -3,7 +3,7 @@ A set of routines to prepare AWAP precipitation data
 (Run 26j) for analysis.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 17 August 2015.
+Last updated 15 September 2015.
 """
 
 import netCDF4 as n
@@ -64,18 +64,6 @@ def awapTrim():
     data_flat = dataDay[5:1265]
     data_flat = np.ma.masked_less(data_flat,mask)
     return data_flat
-
-def awapAnnual():
-    """
-    A function to convert flat data to an array with all 105 years
-    and 12 months for all latitudes and longitudes.
-
-    Note: awapAnnual[year,month,lat,lon]
-    e.g. awapAnnual[104,11,26,22]
-         = May 2005 at -11.25 deg N and 153.75 deg E
-    """
-    data = np.reshape(data_flat,(105,12,27,22))
-    return data
 
 def awapJune():
     """
@@ -244,6 +232,24 @@ def awapMAM():
     MAM = np.ma.masked_less(MAM_flat,mask)
     data = np.reshape(MAM,(105,27,22))
     return MAM
+
+def awapAnnual():
+    """
+    A function to convert flat data to an array with all 105 years
+    for all latitudes and longitudes.
+
+    Note: awapAnnual[year,lat,lon]
+    e.g. awapAnnual[104,26,22]
+         = 2005 at -11.25 deg N and 153.75 deg E
+    """
+    annual_flat = data_flat[0::12] + data_flat[1::12] + data_flat[2::12] + \
+                  data_flat[3::12] + data_flat[4::12] + data_flat[5::12] + \
+                  data_flat[6::12] + data_flat[7::12] + data_flat[8::12] + \
+                  data_flat[9::12] + data_flat[10::12] + data_flat[11::12]
+    annual_flat /= 12.0
+    annual = np.ma.masked_less(annual_flat,mask)
+    annual = np.reshape(annual,(105,27,22))
+    return annual
 
 #Update lon/lat values
 longitude = lon()
