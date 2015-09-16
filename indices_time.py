@@ -16,7 +16,8 @@ def indexTime(index):
     A function to break indices into annual, seasonal and monthly resolution.
     Parameters:
     -----------
-    The index (as an array) of interest (either Nino34 or TPI).
+    The index (as an array) of interest (either Nino34 or TPI).  Length will vary
+    between 4 and 8.
     """
     Jun = []
     Jul = []
@@ -228,5 +229,3 @@ TPI_SON = SON
 TPI_DJF = DJF
 TPI_MAM = MAM
 TPI_annual = annual
-
-
