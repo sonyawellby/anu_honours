@@ -41,13 +41,11 @@ def corr(rainfall,index,ind_num):
         count2 = 0
         while count2 < 22:
             a = stats.pearsonr(rainfall[:,count1,count2],index[ind_num])
-            #print a
             if a[1] <= 0.05:
                 corr_array[count1,count2] = a[0]
                 count2 += 1
             else:
                 corr_array[count1,count2] = 0.0
-            #print "count2 = ",count2
         count1 +=1
         count2 = 0
     return corr_array

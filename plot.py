@@ -100,8 +100,8 @@ def mapACCESSpr_tr(dataset):
     dict3['lat_units'] = latACCESS_units
     dict3['lon_units'] = lonACCESS_units
     dict3['var_units'] = 'Precipitation (mm/day)'
-    dict3['vmin'] = 0.0 # deg Celsius
-    dict3['vmax'] = vmax(dataset) # deg Celsius
+    dict3['vmin'] = 0.0 # mm/day
+    dict3['vmax'] = vmax(dataset) # mm/day
     return dict3
 
 def mapACCESSts(dataset):
