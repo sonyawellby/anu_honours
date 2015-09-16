@@ -3,7 +3,7 @@ Set of routines to compute the Nino3.4 ENSO index
 and write to CSV files.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 4 September 2015.
+Last updated 15 September 2015.
 """
 
 from enso import *
@@ -115,9 +115,12 @@ def hadisstNino34():
     """
     ENSO_Had = Nino34(dataFix_Had,baseStart=baseStart,baseEnd=baseEnd,ACCESS=False)
     ENSO_running_Had = running(ENSO_Had,2,(len(ENSO_Had)-3))
-
+    
     ENSO_phase_Had = ENSOphase(ENSO_running_Had,2,(len(ENSO_running_Had)-6))
     (ENSOpos, ENSOneg, ENSOneutral) = ENSO_phase_Had
+    ENSOpos = cropRM(ENSOpos)
+    ENSOneg = cropRM(ENSOneg)
+    ENSOneutral = cropRM(ENSOneutral)
 
     ENSO_crop_Had = cropRM(ENSO_running_Had)
 
@@ -134,6 +137,9 @@ def accessNino34():
 
     ENSO_phase_Acc = ENSOphase(ENSO_running_Acc,2,(len(ENSO_running_Acc)-6))
     (ENSOpos, ENSOneg, ENSOneutral) = ENSO_phase_Acc
+    ENSOpos = cropRM(ENSOpos)
+    ENSOneg = cropRM(ENSOneg)
+    ENSOneutral = cropRM(ENSOneutral)
 
     ENSO_crop_Acc = cropRM(ENSO_running_Acc)
 
@@ -176,9 +182,10 @@ posR3 = ENSOpos
 negR3 = ENSOneg
 neutralR3 = ENSOneutral
 
-
+"""
 #Cropped running mean output to CSV:
 output = np.column_stack((cropHad.flatten(),cropR1.flatten(),\
                           cropR2.flatten(),cropR3.flatten()))
 np.savetxt('data/Nino3-4.csv',output,delimiter=',')
 
+"""

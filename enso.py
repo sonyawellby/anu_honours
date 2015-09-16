@@ -171,19 +171,6 @@ def running(dataset,start,end):
         count_running += 1
     return running
 
-def cropRM(dataset):
-    """
-    A function to crop the running mean output (January 1900
-    to December 2005) to study period (June 1900 to May 2005).
-    This output is used for the CSV output (see enso_csv.py).
-
-    Parameters:
-    -----------
-    Dataset : the output of running()
-    """
-    cropRM = dataset[3:((len(dataset))-5)]
-    return cropRM
-
 def ENSOphase(dataset,start,end):
     """
     A function to take a dataset and stratify it according to
@@ -224,12 +211,16 @@ def ENSOphase(dataset,start,end):
         count += 1
     return ENSOpos, ENSOneg, ENSOneutral
 
-def cropPhase(dataset):
+def cropRM(dataset):
     """
-    A function to crop the running mean output (June 1900
-    to December 2005) to study period (June 1900 to May 2005).
+    A function to crop the running mean output (March 1900
+    to October 2005) to study period (June 1900 to May 2005).
+    This output is used for the CSV output (see enso_csv.py)
+    and for cropping ENSOphase data.
 
+    Parameters:
+    -----------
     Dataset : the output of running()
     """
-    cropPhase = dataset[3:((len(dataset))-5),:,:]
-    return cropPhase
+    cropRM = dataset[3:((len(dataset))-5)]
+    return cropRM
