@@ -8,7 +8,7 @@ import numpy as np
 import numpy.ma as ma
 
 import enso_csv
-from tpi_csv
+import tpi_csv
 
 def index2years(data):
     """
@@ -297,7 +297,7 @@ IPO phases
 
 IPO_posHad = index2years(tpi_csv.posHad)
 (Jun,Jul,Aug,Sep,Oct,Nov,Dec,Jan,Feb,Mar,Apr,May,JJA,SON,DJF,\
-           MAM,annual) = IPO_Had
+           MAM,annual) = IPO_posHad
 IPO_posHad_Jun = Jun
 IPO_posHad_Jul = Jul
 IPO_posHad_Aug = Aug

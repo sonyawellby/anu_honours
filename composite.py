@@ -32,14 +32,15 @@ def stratify(rainfall,index):
     count = 0
     for i in copy:
         if isinstance(index[count],float)==False:
-            copy[count,:,:]=False
+            copy[count,:,:]=True
         else:
             pass
         count +=1
-    masked_copy = ma.masked_where(copy==False,copy)
+    masked_copy = ma.masked_where(copy==True,copy)
     return masked_copy
 
-#stratENSO_pos = stratify(awap_prepare.awap_June,indices_phase.posHad_Jun)
+strat_IPOpos = stratify(awap_prepare.awap_June,indices_phase.IPO_posHad_Jun)
+strat_IPOpos_ENSOpos = stratify(strat_IPOpos,indices_phase.ENSO_posHad_Jun)
 
 
 
