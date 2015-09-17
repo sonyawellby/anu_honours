@@ -11,8 +11,8 @@ from composite import *
 num = "1_sd"
 
 """
-AWAP: June
-"""
+#AWAP: June
+
 output(awap_prepare.awap_June,indices_phase.IPO_posHad_Jun,indices_phase.ENSO_posHad_Jun,\
        "","/composite/"+num+"/rainfall/AWAP/June/1","/composite/"+num+"/rainfall_anomalies/AWAP/June/1")
 output(awap_prepare.awap_June,indices_phase.IPO_posHad_Jun,indices_phase.ENSO_neutralHad_Jun,\
@@ -36,9 +36,9 @@ AWAP_June_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_ano
 maps_sub.saveFig(AWAP_June,"","composite/"+num+"_compiled/AWAP/AWAP_June")
 maps_sub.saveFig(AWAP_June_Anom,"","composite/"+num+"_compiled/AWAP/AWAP_June_Anom")
 
-"""
-AWAP: July
-"""
+
+#AWAP: July
+
 output(awap_prepare.awap_July,indices_phase.IPO_posHad_Jul,indices_phase.ENSO_posHad_Jul,\
        "","/composite/"+num+"/rainfall/AWAP/July/1","/composite/"+num+"/rainfall_anomalies/AWAP/July/1")
 output(awap_prepare.awap_July,indices_phase.IPO_posHad_Jul,indices_phase.ENSO_neutralHad_Jul,\
@@ -62,9 +62,9 @@ AWAP_July_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_ano
 maps_sub.saveFig(AWAP_July,"","composite/"+num+"_compiled/AWAP/AWAP_July")
 maps_sub.saveFig(AWAP_July_Anom,"","composite/"+num+"_compiled/AWAP/AWAP_July_Anom")
 
-"""
-AWAP: August
-"""
+
+#AWAP: August
+
 output(awap_prepare.awap_August,indices_phase.IPO_posHad_Aug,indices_phase.ENSO_posHad_Aug,\
        "","/composite/"+num+"/rainfall/AWAP/August/1","/composite/"+num+"/rainfall_anomalies/AWAP/August/1")
 output(awap_prepare.awap_August,indices_phase.IPO_posHad_Aug,indices_phase.ENSO_neutralHad_Aug,\
@@ -88,9 +88,9 @@ AWAP_August_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_a
 maps_sub.saveFig(AWAP_August,"","composite/"+num+"_compiled/AWAP/AWAP_August")
 maps_sub.saveFig(AWAP_August_Anom,"","composite/"+num+"_compiled/AWAP/AWAP_August_Anom")
 
-"""
-AWAP: September
-"""
+
+#AWAP: September
+
 output(awap_prepare.awap_September,indices_phase.IPO_posHad_Sep,indices_phase.ENSO_posHad_Sep,\
        "","/composite/"+num+"/rainfall/AWAP/September/1","/composite/"+num+"/rainfall_anomalies/AWAP/September/1")
 output(awap_prepare.awap_September,indices_phase.IPO_posHad_Sep,indices_phase.ENSO_neutralHad_Sep,\
@@ -114,9 +114,9 @@ AWAP_September_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfal
 maps_sub.saveFig(AWAP_September,"","composite/"+num+"_compiled/AWAP/AWAP_September")
 maps_sub.saveFig(AWAP_September_Anom,"","composite/"+num+"_compiled/AWAP/AWAP_September_Anom")
 
-"""
-AWAP: October
-"""
+
+#AWAP: October
+
 output(awap_prepare.awap_October,indices_phase.IPO_posHad_Oct,indices_phase.ENSO_posHad_Oct,\
        "","/composite/"+num+"/rainfall/AWAP/October/1","/composite/"+num+"/rainfall_anomalies/AWAP/October/1")
 output(awap_prepare.awap_October,indices_phase.IPO_posHad_Oct,indices_phase.ENSO_neutralHad_Oct,\
@@ -140,9 +140,9 @@ AWAP_October_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_
 maps_sub.saveFig(AWAP_October,"","composite/"+num+"_compiled/AWAP/AWAP_October")
 maps_sub.saveFig(AWAP_October_Anom,"","composite/"+num+"_compiled/AWAP/AWAP_October_Anom")
 
-"""
-AWAP: November
-"""
+
+#AWAP: November
+
 output(awap_prepare.awap_November,indices_phase.IPO_posHad_Nov,indices_phase.ENSO_posHad_Nov,\
        "","/composite/"+num+"/rainfall/AWAP/November/1","/composite/"+num+"/rainfall_anomalies/AWAP/November/1")
 output(awap_prepare.awap_November,indices_phase.IPO_posHad_Nov,indices_phase.ENSO_neutralHad_Nov,\
@@ -166,9 +166,9 @@ AWAP_November_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall
 maps_sub.saveFig(AWAP_November,"","composite/"+num+"_compiled/AWAP/AWAP_November")
 maps_sub.saveFig(AWAP_November_Anom,"","composite/"+num+"_compiled/AWAP/AWAP_November_Anom")
 
-"""
-AWAP: December
-"""
+
+#AWAP: December
+
 output(awap_prepare.awap_December,indices_phase.IPO_posHad_Dec,indices_phase.ENSO_posHad_Dec,\
        "","/composite/"+num+"/rainfall/AWAP/December/1","/composite/"+num+"/rainfall_anomalies/AWAP/December/1")
 output(awap_prepare.awap_December,indices_phase.IPO_posHad_Dec,indices_phase.ENSO_neutralHad_Dec,\
@@ -192,9 +192,9 @@ AWAP_December_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall
 maps_sub.saveFig(AWAP_December,"","composite/"+num+"_compiled/AWAP/AWAP_December")
 maps_sub.saveFig(AWAP_December_Anom,"","composite/"+num+"_compiled/AWAP/AWAP_December_Anom")
 
-"""
-AWAP: January
-"""
+
+#AWAP: January
+
 output(awap_prepare.awap_January,indices_phase.IPO_posHad_Jan,indices_phase.ENSO_posHad_Jan,\
        "","/composite/"+num+"/rainfall/AWAP/January/1","/composite/"+num+"/rainfall_anomalies/AWAP/January/1")
 output(awap_prepare.awap_January,indices_phase.IPO_posHad_Jan,indices_phase.ENSO_neutralHad_Jan,\
@@ -218,9 +218,9 @@ AWAP_January_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_
 maps_sub.saveFig(AWAP_January,"","composite/"+num+"_compiled/AWAP/AWAP_January")
 maps_sub.saveFig(AWAP_January_Anom,"","composite/"+num+"_compiled/AWAP/AWAP_January_Anom")
 
-"""
-AWAP: February
-"""
+
+#AWAP: February
+
 output(awap_prepare.awap_February,indices_phase.IPO_posHad_Feb,indices_phase.ENSO_posHad_Feb,\
        "","/composite/"+num+"/rainfall/AWAP/February/1","/composite/"+num+"/rainfall_anomalies/AWAP/February/1")
 output(awap_prepare.awap_February,indices_phase.IPO_posHad_Feb,indices_phase.ENSO_neutralHad_Feb,\
@@ -244,9 +244,9 @@ AWAP_February_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall
 maps_sub.saveFig(AWAP_February,"","composite/"+num+"_compiled/AWAP/AWAP_February")
 maps_sub.saveFig(AWAP_February_Anom,"","composite/"+num+"_compiled/AWAP/AWAP_February_Anom")
 
-"""
-AWAP: March
-"""
+
+#AWAP: March
+
 output(awap_prepare.awap_March,indices_phase.IPO_posHad_Mar,indices_phase.ENSO_posHad_Mar,\
        "","/composite/"+num+"/rainfall/AWAP/March/1","/composite/"+num+"/rainfall_anomalies/AWAP/March/1")
 output(awap_prepare.awap_March,indices_phase.IPO_posHad_Mar,indices_phase.ENSO_neutralHad_Mar,\
@@ -270,9 +270,9 @@ AWAP_March_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_an
 maps_sub.saveFig(AWAP_March,"","composite/"+num+"_compiled/AWAP/AWAP_March")
 maps_sub.saveFig(AWAP_March_Anom,"","composite/"+num+"_compiled/AWAP/AWAP_March_Anom")
 
-"""
-AWAP: April
-"""
+
+#AWAP: April
+
 output(awap_prepare.awap_April,indices_phase.IPO_posHad_Apr,indices_phase.ENSO_posHad_Apr,\
        "","/composite/"+num+"/rainfall/AWAP/April/1","/composite/"+num+"/rainfall_anomalies/AWAP/April/1")
 output(awap_prepare.awap_April,indices_phase.IPO_posHad_Apr,indices_phase.ENSO_neutralHad_Apr,\
@@ -296,9 +296,9 @@ AWAP_April_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_an
 maps_sub.saveFig(AWAP_April,"","composite/"+num+"_compiled/AWAP/AWAP_April")
 maps_sub.saveFig(AWAP_April_Anom,"","composite/"+num+"_compiled/AWAP/AWAP_April_Anom")
 
-"""
-AWAP: May
-"""
+
+#AWAP: May
+
 output(awap_prepare.awap_May,indices_phase.IPO_posHad_May,indices_phase.ENSO_posHad_May,\
        "","/composite/"+num+"/rainfall/AWAP/May/1","/composite/"+num+"/rainfall_anomalies/AWAP/May/1")
 output(awap_prepare.awap_May,indices_phase.IPO_posHad_May,indices_phase.ENSO_neutralHad_May,\
@@ -322,9 +322,9 @@ AWAP_May_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anom
 maps_sub.saveFig(AWAP_May,"","composite/"+num+"_compiled/AWAP/AWAP_May")
 maps_sub.saveFig(AWAP_May_Anom,"","composite/"+num+"_compiled/AWAP/AWAP_May_Anom")
 
-"""
-AWAP: JJA
-"""
+
+#AWAP: JJA
+
 output(awap_prepare.awap_JJA,indices_phase.IPO_posHad_JJA,indices_phase.ENSO_posHad_JJA,\
        "","/composite/"+num+"/rainfall/AWAP/JJA/1","/composite/"+num+"/rainfall_anomalies/AWAP/JJA/1")
 output(awap_prepare.awap_JJA,indices_phase.IPO_posHad_JJA,indices_phase.ENSO_neutralHad_JJA,\
@@ -348,9 +348,9 @@ AWAP_JJA_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anom
 maps_sub.saveFig(AWAP_JJA,"","composite/"+num+"_compiled/AWAP/AWAP_JJA")
 maps_sub.saveFig(AWAP_JJA_Anom,"","composite/"+num+"_compiled/AWAP/AWAP_JJA_Anom")
 
-"""
-AWAP: SON
-"""
+
+#AWAP: SON
+
 output(awap_prepare.awap_SON,indices_phase.IPO_posHad_SON,indices_phase.ENSO_posHad_SON,\
        "","/composite/"+num+"/rainfall/AWAP/SON/1","/composite/"+num+"/rainfall_anomalies/AWAP/SON/1")
 output(awap_prepare.awap_SON,indices_phase.IPO_posHad_SON,indices_phase.ENSO_neutralHad_SON,\
@@ -374,9 +374,9 @@ AWAP_SON_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anom
 maps_sub.saveFig(AWAP_SON,"","composite/"+num+"_compiled/AWAP/AWAP_SON")
 maps_sub.saveFig(AWAP_SON_Anom,"","composite/"+num+"_compiled/AWAP/AWAP_SON_Anom")
 
-"""
-AWAP: DJF
-"""
+
+#AWAP: DJF
+
 output(awap_prepare.awap_DJF,indices_phase.IPO_posHad_DJF,indices_phase.ENSO_posHad_DJF,\
        "","/composite/"+num+"/rainfall/AWAP/DJF/1","/composite/"+num+"/rainfall_anomalies/AWAP/DJF/1")
 output(awap_prepare.awap_DJF,indices_phase.IPO_posHad_DJF,indices_phase.ENSO_neutralHad_DJF,\
@@ -400,9 +400,9 @@ AWAP_DJF_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anom
 maps_sub.saveFig(AWAP_DJF,"","composite/"+num+"_compiled/AWAP/AWAP_DJF")
 maps_sub.saveFig(AWAP_DJF_Anom,"","composite/"+num+"_compiled/AWAP/AWAP_DJF_Anom")
 
-"""
-AWAP: MAM
-"""
+
+#AWAP: MAM
+
 output(awap_prepare.awap_MAM,indices_phase.IPO_posHad_MAM,indices_phase.ENSO_posHad_MAM,\
        "","/composite/"+num+"/rainfall/AWAP/MAM/1","/composite/"+num+"/rainfall_anomalies/AWAP/MAM/1")
 output(awap_prepare.awap_MAM,indices_phase.IPO_posHad_MAM,indices_phase.ENSO_neutralHad_MAM,\
@@ -425,29 +425,29 @@ AWAP_MAM = multi("my_coding_routines/images/composite/"+num+"/rainfall/AWAP/MAM/
 AWAP_MAM_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/AWAP/MAM/*.png",3,3,title='AWAP MAM: mean rainfall anomalies')
 maps_sub.saveFig(AWAP_MAM,"","composite/"+num+"_compiled/AWAP/AWAP_MAM")
 maps_sub.saveFig(AWAP_MAM_Anom,"","composite/"+num+"_compiled/AWAP/AWAP_MAM_Anom")
+"""
 
-"""
-AWAP: annual
-"""
+#AWAP: annual
+
 output(awap_prepare.awap_Annual,indices_phase.IPO_posHad_annual,indices_phase.ENSO_posHad_annual,\
-       "","/composite/"+num+"/rainfall/AWAP/annual/1","/composite/"+num+"/rainfall_anomalies/AWAP/annual/1")
+       "","/composite/"+num+"/rainfall/AWAP/Annual/1","/composite/"+num+"/rainfall_anomalies/AWAP/Annual/1")
 output(awap_prepare.awap_Annual,indices_phase.IPO_posHad_annual,indices_phase.ENSO_neutralHad_annual,\
-       "","/composite/"+num+"/rainfall/AWAP/annual/2","/composite/"+num+"/rainfall_anomalies/AWAP/annual/2")
+       "","/composite/"+num+"/rainfall/AWAP/Annual/2","/composite/"+num+"/rainfall_anomalies/AWAP/Annual/2")
 output(awap_prepare.awap_Annual,indices_phase.IPO_posHad_annual,indices_phase.ENSO_negHad_annual,\
-       "","/composite/"+num+"/rainfall/AWAP/annual/3","/composite/"+num+"/rainfall_anomalies/AWAP/annual/3")
+       "","/composite/"+num+"/rainfall/AWAP/Annual/3","/composite/"+num+"/rainfall_anomalies/AWAP/Annual/3")
 output(awap_prepare.awap_Annual,indices_phase.IPO_neutralHad_annual,indices_phase.ENSO_posHad_annual,\
-       "","/composite/"+num+"/rainfall/AWAP/annual/4","/composite/"+num+"/rainfall_anomalies/AWAP/annual/4")
+       "","/composite/"+num+"/rainfall/AWAP/Annual/4","/composite/"+num+"/rainfall_anomalies/AWAP/Annual/4")
 output(awap_prepare.awap_Annual,indices_phase.IPO_neutralHad_annual,indices_phase.ENSO_neutralHad_annual,\
-       "","/composite/"+num+"/rainfall/AWAP/annual/5","/composite/"+num+"/rainfall_anomalies/AWAP/annual/5")
+       "","/composite/"+num+"/rainfall/AWAP/Annual/5","/composite/"+num+"/rainfall_anomalies/AWAP/Annual/5")
 output(awap_prepare.awap_Annual,indices_phase.IPO_neutralHad_annual,indices_phase.ENSO_negHad_annual,\
-       "","/composite/"+num+"/rainfall/AWAP/annual/6","/composite/"+num+"/rainfall_anomalies/AWAP/annual/6")
+       "","/composite/"+num+"/rainfall/AWAP/Annual/6","/composite/"+num+"/rainfall_anomalies/AWAP/Annual/6")
 output(awap_prepare.awap_Annual,indices_phase.IPO_negHad_annual,indices_phase.ENSO_posHad_annual,\
-       "","/composite/"+num+"/rainfall/AWAP/annual/7","/composite/"+num+"/rainfall_anomalies/AWAP/annual/7")
+       "","/composite/"+num+"/rainfall/AWAP/Annual/7","/composite/"+num+"/rainfall_anomalies/AWAP/Annual/7")
 output(awap_prepare.awap_Annual,indices_phase.IPO_negHad_annual,indices_phase.ENSO_neutralHad_annual,\
-       "","/composite/"+num+"/rainfall/AWAP/annual/8","/composite/"+num+"/rainfall_anomalies/AWAP/annual/8")
+       "","/composite/"+num+"/rainfall/AWAP/Annual/8","/composite/"+num+"/rainfall_anomalies/AWAP/Annual/8")
 output(awap_prepare.awap_Annual,indices_phase.IPO_negHad_annual,indices_phase.ENSO_negHad_annual,\
-       "","/composite/"+num+"/rainfall/AWAP/annual/9","/composite/"+num+"/rainfall_anomalies/AWAP/annual/9")
-AWAP_annual = multi("my_coding_routines/images/composite/"+num+"/rainfall/AWAP/annual/*.png",3,3,title='AWAP annual: mean rainfall')
-AWAP_annual_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/AWAP/annual/*.png",3,3,title='AWAP annual: mean rainfall anomalies')
+       "","/composite/"+num+"/rainfall/AWAP/Annual/9","/composite/"+num+"/rainfall_anomalies/AWAP/Annual/9")
+AWAP_annual = multi("my_coding_routines/images/composite/"+num+"/rainfall/AWAP/Annual/*.png",3,3,title='AWAP annual: mean rainfall')
+AWAP_annual_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/AWAP/Annual/*.png",3,3,title='AWAP annual: mean rainfall anomalies')
 maps_sub.saveFig(AWAP_annual,"","composite/"+num+"_compiled/AWAP/AWAP_annual")
 maps_sub.saveFig(AWAP_annual_Anom,"","composite/"+num+"_compiled/AWAP/AWAP_annual_Anom")

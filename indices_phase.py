@@ -2,7 +2,7 @@
 Set of routines to define ENSO/IPO index data according to oscillation phase.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 16 September 2015.
+Last updated 17 September 2015.
 """
 import numpy as np
 import numpy.ma as ma
