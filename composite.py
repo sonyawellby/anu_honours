@@ -3,7 +3,7 @@ Set of routines to stratify ENSO/IPO and rainfall data
 for composite analysis.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 16 September 2015.
+Last updated 17 September 2015.
 """
 import numpy as np
 import numpy.ma as ma
@@ -123,27 +123,27 @@ def output(rainfall,index_IPO,index_ENSO,title,filepath,filepathA):
 AWAP: June
 """
 output(awap_prepare.awap_June,indices_phase.IPO_posHad_Jun,indices_phase.ENSO_posHad_Jun,\
-       "IpEp","/composite/1_sd/rainfall/AWAP/June/1","/composite/1_sd/rainfall_anomalies/AWAP/June/1")
+       "","/composite/1_sd/rainfall/AWAP/June/1","/composite/1_sd/rainfall_anomalies/AWAP/June/1")
 output(awap_prepare.awap_June,indices_phase.IPO_posHad_Jun,indices_phase.ENSO_neutralHad_Jun,\
-       "IpEne","/composite/1_sd/rainfall/AWAP/June/2","/composite/1_sd/rainfall_anomalies/AWAP/June/2")
+       "","/composite/1_sd/rainfall/AWAP/June/2","/composite/1_sd/rainfall_anomalies/AWAP/June/2")
 output(awap_prepare.awap_June,indices_phase.IPO_posHad_Jun,indices_phase.ENSO_negHad_Jun,\
-       "IpEn","/composite/1_sd/rainfall/AWAP/June/3","/composite/1_sd/rainfall_anomalies/AWAP/June/3")
+       "","/composite/1_sd/rainfall/AWAP/June/3","/composite/1_sd/rainfall_anomalies/AWAP/June/3")
 output(awap_prepare.awap_June,indices_phase.IPO_neutralHad_Jun,indices_phase.ENSO_posHad_Jun,\
-       "IneEp","/composite/1_sd/rainfall/AWAP/June/4","/composite/1_sd/rainfall_anomalies/AWAP/June/4")
+       "","/composite/1_sd/rainfall/AWAP/June/4","/composite/1_sd/rainfall_anomalies/AWAP/June/4")
 output(awap_prepare.awap_June,indices_phase.IPO_neutralHad_Jun,indices_phase.ENSO_neutralHad_Jun,\
-       "IneEne","/composite/1_sd/rainfall/AWAP/June/5","/composite/1_sd/rainfall_anomalies/AWAP/June/5")
+       "","/composite/1_sd/rainfall/AWAP/June/5","/composite/1_sd/rainfall_anomalies/AWAP/June/5")
 output(awap_prepare.awap_June,indices_phase.IPO_neutralHad_Jun,indices_phase.ENSO_negHad_Jun,\
-       "IneEn","/composite/1_sd/rainfall/AWAP/June/6","/composite/1_sd/rainfall_anomalies/AWAP/June/6")
+       "","/composite/1_sd/rainfall/AWAP/June/6","/composite/1_sd/rainfall_anomalies/AWAP/June/6")
 output(awap_prepare.awap_June,indices_phase.IPO_negHad_Jun,indices_phase.ENSO_posHad_Jun,\
-       "InEp","/composite/1_sd/rainfall/AWAP/June/7","/composite/1_sd/rainfall_anomalies/AWAP/June/7")
+       "","/composite/1_sd/rainfall/AWAP/June/7","/composite/1_sd/rainfall_anomalies/AWAP/June/7")
 output(awap_prepare.awap_June,indices_phase.IPO_negHad_Jun,indices_phase.ENSO_neutralHad_Jun,\
-       "InEne","/composite/1_sd/rainfall/AWAP/June/8","/composite/1_sd/rainfall_anomalies/AWAP/June/8")
+       "","/composite/1_sd/rainfall/AWAP/June/8","/composite/1_sd/rainfall_anomalies/AWAP/June/8")
 output(awap_prepare.awap_June,indices_phase.IPO_negHad_Jun,indices_phase.ENSO_negHad_Jun,\
-       "InEn","/composite/1_sd/rainfall/AWAP/June/9","/composite/1_sd/rainfall_anomalies/AWAP/June/9")
+       "","/composite/1_sd/rainfall/AWAP/June/9","/composite/1_sd/rainfall_anomalies/AWAP/June/9")
 AWAP_June = multi("my_coding_routines/images/composite/1_sd/rainfall/AWAP/June/*.png",3,3,title='AWAP June: mean rainfall')
 AWAP_June_Anom = multi("my_coding_routines/images/composite/1_sd/rainfall_anomalies/AWAP/June/*.png",3,3,title='AWAP June: mean rainfall anomalies')
-maps_sub.saveFig(AWAP_June,"AWAP_June","composite/1_sd_compiled/AWAP")
-maps_sub.saveFig(AWAP_June_Anom,"AWAP_June_Anom","composite/1_sd_compiled/AWAP")
+maps_sub.saveFig(AWAP_June,"","composite/1_sd_compiled/AWAP/AWAP_June")
+maps_sub.saveFig(AWAP_June_Anom,"","composite/1_sd_compiled/AWAP/AWAP_June_Anom")
 
 """
 #June: IPO pos, ENSO pos
