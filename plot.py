@@ -291,7 +291,7 @@ def multi(directory,nrow,ncol,title=''):
     
     fileList = glob.glob(directory)
     
-    for i in range((nrow*ncol)+1):
+    for i in range(1,(nrow*ncol)+1):
         a = fig.add_subplot(nrow,ncol,i)
         img = mpimg.imread(fileList[i-1])
         imgplot = plt.imshow(img)

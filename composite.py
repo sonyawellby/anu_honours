@@ -140,10 +140,10 @@ output(awap_prepare.awap_June,indices_phase.IPO_negHad_Jun,indices_phase.ENSO_ne
        "InEne","/composite/1_sd/rainfall/AWAP/June/8","/composite/1_sd/rainfall_anomalies/AWAP/June/8")
 output(awap_prepare.awap_June,indices_phase.IPO_negHad_Jun,indices_phase.ENSO_negHad_Jun,\
        "InEn","/composite/1_sd/rainfall/AWAP/June/9","/composite/1_sd/rainfall_anomalies/AWAP/June/9")
-AWAP_June = multi("/composite/1_sd/rainfall/AWAP/June/*.png",3,3,title='AWAP June: mean rainfall')
-AWAP_June_Anom = multi("/composite/1_sd/rainfall_anomalies/AWAP/June/*.png",3,3,title='AWAP June: mean rainfall anomalies')
-maps_sub.saveFig(AWAP_June,"AWAP_June","/composite/1_sd_compiled/AWAP")
-maps_sub.saveFig(AWAP_June_Anom,"AWA_June_Anom","/composite/1_sd_compiled/AWAP")
+AWAP_June = multi("my_coding_routines/images/composite/1_sd/rainfall/AWAP/June/*.png",3,3,title='AWAP June: mean rainfall')
+AWAP_June_Anom = multi("my_coding_routines/images/composite/1_sd/rainfall_anomalies/AWAP/June/*.png",3,3,title='AWAP June: mean rainfall anomalies')
+maps_sub.saveFig(AWAP_June,"AWAP_June","composite/1_sd_compiled/AWAP")
+maps_sub.saveFig(AWAP_June_Anom,"AWAP_June_Anom","composite/1_sd_compiled/AWAP")
 
 """
 #June: IPO pos, ENSO pos
