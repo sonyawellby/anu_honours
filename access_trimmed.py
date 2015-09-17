@@ -14,7 +14,10 @@ from numpy import ma
 from cwd import *
 cwdInFunction()
 
+
+import access_prepare_pr
 from access_prepare_pr import mask, data_flat
+
 
 def accessJune():
     """
@@ -211,25 +214,36 @@ def trimAnnual():
     annual = np.reshape(annual,(105,27,22))
     return annual
 
+def output():
+    """
+    Produces annual, seasonal and monthly data.
+    """
+    trim_Annual = trimAnnual()
+    trim_June = accessJune()
+    trim_July = accessJuly()
+    trim_August = accessAugust()
+    trim_September = accessSeptember()
+    trim_October = accessOctober()
+    trim_November = accessNovember()
+    trim_December = accessDecember()
+    trim_January = accessJanuary()
+    trim_February = accessFebruary()
+    trim_March = accessMarch()
+    trim_April = accessApril()
+    trim_May = accessMay()
+    trim_JJA = accessJJA()
+    trim_SON = accessSON()
+    trim_DJF = accessDJF()
+    trim_MAM = accessMAM()
 
-trim_Annual = trimAnnual()
+    return trim_Annual,trim_June, trim_July,\
+     trim_August,trim_September,trim_October,trim_November,\
+     trim_December,trim_January,trim_February,trim_March,\
+     trim_April,trim_May,trim_JJA,trim_SON,trim_DJF,trim_MAM
 
-trim_June = accessJune()
-trim_July = accessJuly()
-trim_August = accessAugust()
-trim_September = accessSeptember()
-trim_October = accessOctober()
-trim_November = accessNovember()
-trim_December = accessDecember()
-trim_January = accessJanuary()
-trim_February = accessFebruary()
-trim_March = accessMarch()
-trim_April = accessApril()
-trim_May = accessMay()
-
-trim_JJA = accessJJA()
-trim_SON = accessSON()
-trim_DJF = accessDJF()
-trim_MAM = accessMAM()
-
+trim = output()
+(trim_Annual,trim_June, trim_July,\
+     trim_August,trim_September,trim_October,trim_November,\
+     trim_December,trim_January,trim_February,trim_March,\
+     trim_April,trim_May,trim_JJA,trim_SON,trim_DJF,trim_MAM) = trim
 

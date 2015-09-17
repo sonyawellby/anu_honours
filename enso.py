@@ -201,11 +201,11 @@ def ENSOphase(dataset,start,end):
         if dataset[count] > 0.4 and dataset[count+1] > 0.4 and \
            dataset[count+2] > 0.4 and dataset[count+3] > 0.4 \
            and dataset[count+4] > 0.4 and dataset[count+5] > 0.4:
-            ENSOpos = np.ma.masked_less_equal(copy, 0.4)
+            ENSOneg = np.ma.masked_less_equal(copy, 0.4)
         elif dataset[count] < 0.4 and dataset[count+1] < 0.4 and \
              dataset[count+2] < 0.4 and dataset[count+3] < 0.4 \
                and dataset[count+4] < 0.4 and dataset[count+5] < 0.4:
-            ENSOneg = np.ma.masked_greater_equal(copy,-0.4)
+            ENSOpos = np.ma.masked_greater_equal(copy,-0.4)
         else:
             ENSOneutral = np.ma.masked_outside(copy, 0.4, -0.4)
         count += 1

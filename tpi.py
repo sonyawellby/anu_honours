@@ -224,8 +224,8 @@ def TPI(dataset,n,rp,wn):
 def IPOphase(dataset):
     """
     A function to compute the phase of the TPI. Phases 1.5 standard
-    deviations above or below the mean are classed as IPO negative
-    and IPO positive phases, respectively.
+    deviations above or below the mean are classed as IPO positive
+    and IPO negative phases, respectively.
 
     Parameters:
     ----------
@@ -243,9 +243,9 @@ def IPOphase(dataset):
 
     for i in dataset:
         if dataset[count] > std:
-            IPOneg = np.ma.masked_less_equal(copy, std)
+            IPOpos = np.ma.masked_less_equal(copy, std)
         elif dataset[count] < -std:
-            IPOpos = np.ma.masked_greater_equal(copy,-std)
+            IPOneg = np.ma.masked_greater_equal(copy,-std)
         else:
             IPOneutral = np.ma.masked_outside(copy, sd, -std)
         count += 1

@@ -2,7 +2,7 @@
 Routines to plot HadISST, ACCESS and AWAP datasets. 
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 21 August 2015.
+Last updated 17 September 2015.
 """
 
 import netCDF4 as n
@@ -156,6 +156,46 @@ def mapCorr():
     dict6['vmin'] = -1.0 # deg Celsius
     dict6['vmax'] = 1.0 # deg Celsius
     return dict6
+
+def mapComposite(dataset):
+    """
+    A function to call variables needed to plot AWAP data
+    (can also be used for ACCESS data).
+
+    Parameters:
+    -----------
+    dataset : the name of the dataset to be plotted, as
+            defined in 'awap_prepare.py'.
+    """
+    dict7 = {}
+    dict7['lat'] = latitude
+    dict7['lon'] = longitude
+    dict7['lat_units'] = awap_lat_units
+    dict7['lon_units'] = awap_lon_units
+    dict7['var_units'] = "Precipitation (mm/day)"
+    dict7['vmin'] = 0.0 # mm/day
+    dict7['vmax'] = 10.0 # mm/day.
+    return dict7
+
+def mapCompositeAnom(dataset):
+    """
+    A function to call variables needed to plot rainfall
+    anomalies for AWAP data (can also be used for ACCESS data).
+
+    Parameters:
+    -----------
+    dataset : the name of the dataset to be plotted, as
+            defined in 'awap_prepare.py'.
+    """
+    dict8 = {}
+    dict8['lat'] = latitude
+    dict8['lon'] = longitude
+    dict8['lat_units'] = awap_lat_units
+    dict8['lon_units'] = awap_lon_units
+    dict8['var_units'] = "Precipitation (mm/day)"
+    dict8['vmin'] = -3.0 # mm/day
+    dict8['vmax'] = 3.0 # mm/day.
+    return dict8
 
 def plot(var_time,Dict,labels=False,grid=False,oceans=False,cbar=True):
     """
