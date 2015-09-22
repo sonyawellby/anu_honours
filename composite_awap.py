@@ -10,7 +10,7 @@ from composite import *
 #Change as required to "1_sd", "2_sd", "3_sd"
 num = "1_sd"
 
-"""
+
 #AWAP: June
 
 output(awap_prepare.awap_June,indices_phase.IPO_posHad_Jun,indices_phase.ENSO_posHad_Jun,\
@@ -425,7 +425,7 @@ AWAP_MAM = multi("my_coding_routines/images/composite/"+num+"/rainfall/AWAP/MAM/
 AWAP_MAM_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/AWAP/MAM/*.png",3,3,title='AWAP MAM: mean rainfall anomalies')
 maps_sub.saveFig(AWAP_MAM,"","composite/"+num+"_compiled/AWAP/AWAP_MAM")
 maps_sub.saveFig(AWAP_MAM_Anom,"","composite/"+num+"_compiled/AWAP/AWAP_MAM_Anom")
-"""
+
 
 #AWAP: annual
 
@@ -451,3 +451,4 @@ AWAP_annual = multi("my_coding_routines/images/composite/"+num+"/rainfall/AWAP/A
 AWAP_annual_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/AWAP/Annual/*.png",3,3,title='AWAP annual: mean rainfall anomalies')
 maps_sub.saveFig(AWAP_annual,"","composite/"+num+"_compiled/AWAP/AWAP_annual")
 maps_sub.saveFig(AWAP_annual_Anom,"","composite/"+num+"_compiled/AWAP/AWAP_annual_Anom")
+

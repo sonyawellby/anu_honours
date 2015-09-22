@@ -10,6 +10,7 @@ import csv
 from tpi import *
 from parameters import baseStart,baseEnd,n,rp,wn
 
+
 from hadisst_prepare import sst_January, sst_February, sst_March,\
      sst_April,sst_May,sst_June,sst_July,sst_August,sst_September,\
      sst_October,sst_November,sst_December
@@ -114,6 +115,43 @@ def accUF():
     Acc_monthsTPI_uf = Acc_months_uf.flatten('F')
     return Acc_monthsTPI_uf
 
+
+def hadisstTPI(dataTPI):
+    """
+    Generate IPO TPI index for HadISST and ACCESS data.
+
+    Parameters:
+    ------------
+    dataTPI: either Had_monthsTPI or Acc_monthsTPI_r1 or Acc_monthsTPI_r2
+            or Acc_monthsTPI_r3
+    """
+
+    jja = runningSeasons(dataTPI,3,0,4)
+    IPO_JJA = IPOphase(jja)
+    (IPOpos_JJA,IPOneg_JJA,IPOneutral_JJA) = IPO_JJA
+
+    son = runningSeasons(dataTPI,3,1,4)
+    IPO_SON = IPOphase(son)
+    (IPOpos_SON,IPOneg_SON,IPOneutral_SON) = IPO_SON
+
+    djf = runningSeasons(dataTPI,3,2,4)
+    IPO_DJF = IPOphase(djf)
+    (IPOpos_DJF,IPOneg_DJF,IPOneutral_DJF) = IPO_DJF
+
+    mam = runningSeasons(dataTPI,3,0,4)
+    IPO_MAM = IPOphase(mam)
+    (IPOpos_MAM,IPOneg_MAM,IPOneutral_MAM) = IPO_MAM
+
+    annual = runningSeasons(dataTPI,12,0,1)
+    Annual = IPOphase(annual)
+    (IPOpos_Annual, IPOneg_Annual, IPOneutral_Annual) = Annual
+
+    return IPOpos_JJA,IPOneg_JJA,\
+           IPOneutral_JJA,IPOpos_SON,IPOneg_SON,IPOneutral_SON,IPOpos_DJF,\
+           IPOneg_DJF,IPOneutral_DJF,IPOpos_MAM,IPOneg_MAM,IPOneutral_MAM,\
+           IPOpos_Annual,IPOneg_Annual,IPOneutral_Annual
+     
+
 """
 Compute unfiltered TPI indices
 Enter: access_ts_r1, access_ts_r2,access_ts_r3
@@ -137,11 +175,42 @@ Acc_monthsTPI_r3 = TPI(Acc_monthsTPI_uf_r3,n,rp,wn)
 """
 Generate IPO phases
 """
-IPO_phase_Had = IPOphase(Had_monthsTPI)
-(IPOpos, IPOneg, IPOneutral) = IPO_phase_Had
+#HadISST
+seasons_Had = hadisstTPI(Had_monthsTPI)
+(IPOpos_JJA,IPOneg_JJA,\
+           IPOneutral_JJA,IPOpos_SON,IPOneg_SON,IPOneutral_SON,IPOpos_DJF,\
+           IPOneg_DJF,IPOneutral_DJF,IPOpos_MAM,IPOneg_MAM,IPOneutral_MAM,\
+           IPOpos_Annual,IPOneg_Annual,IPOneutral_Annual) = seasons_Had
+
+IPO_Had = IPOphase(Had_monthsTPI)
+(IPOpos, IPOneg, IPOneutral) = IPO_Had
 posHad = IPOpos
 negHad = IPOneg
 neutralHad = IPOneutral
+
+Had_IPOpos_JJA = IPOpos_JJA
+Had_IPOneg_JJA = IPOneg_JJA
+Had_IPOneutral_JJA = IPOneutral_JJA
+Had_IPOpos_SON = IPOpos_SON
+Had_IPOneg_SON = IPOneg_SON
+Had_IPOneutral_SON = IPOneutral_SON
+Had_IPOpos_DJF = IPOpos_DJF
+Had_IPOneg_DJF = IPOneg_DJF
+Had_IPOneutral_DJF = IPOneutral_DJF
+Had_IPOpos_MAM = IPOpos_MAM
+Had_IPOneg_MAM = IPOneg_MAM
+Had_IPOneutral_MAM = IPOneutral_MAM
+Had_IPOpos_Annual = IPOpos_Annual
+Had_IPOneg_Annual = IPOneg_Annual
+Had_IPOneutral_Annual = IPOneutral_Annual
+
+#ACCESS R1
+
+seasons_R1 = hadisstTPI(Acc_monthsTPI_r1)
+(IPOpos_JJA,IPOneg_JJA,\
+           IPOneutral_JJA,IPOpos_SON,IPOneg_SON,IPOneutral_SON,IPOpos_DJF,\
+           IPOneg_DJF,IPOneutral_DJF,IPOpos_MAM,IPOneg_MAM,IPOneutral_MAM,\
+           IPOpos_Annual,IPOneg_Annual,IPOneutral_Annual) = seasons_R1
 
 IPO_phase_r1 = IPOphase(Acc_monthsTPI_r1)
 (IPOpos, IPOneg, IPOneutral) = IPO_phase_r1
@@ -149,11 +218,59 @@ posR1 = IPOpos
 negR1 = IPOneg
 neutralR1 = IPOneutral
 
+R1_IPOpos_JJA = IPOpos_JJA
+R1_IPOneg_JJA = IPOneg_JJA
+R1_IPOneutral_JJA = IPOneutral_JJA
+R1_IPOpos_SON = IPOpos_SON
+R1_IPOneg_SON = IPOneg_SON
+R1_IPOneutral_SON = IPOneutral_SON
+R1_IPOpos_DJF = IPOpos_DJF
+R1_IPOneg_DJF = IPOneg_DJF
+R1_IPOneutral_DJF = IPOneutral_DJF
+R1_IPOpos_MAM = IPOpos_MAM
+R1_IPOneg_MAM = IPOneg_MAM
+R1_IPOneutral_MAM = IPOneutral_MAM
+R1_IPOpos_Annual = IPOpos_Annual
+R1_IPOneg_Annual = IPOneg_Annual
+R1_IPOneutral_Annual = IPOneutral_Annual
+
+#ACCESS R2
+
+seasons_R2 = hadisstTPI(Acc_monthsTPI_r2)
+(IPOpos_JJA,IPOneg_JJA,\
+           IPOneutral_JJA,IPOpos_SON,IPOneg_SON,IPOneutral_SON,IPOpos_DJF,\
+           IPOneg_DJF,IPOneutral_DJF,IPOpos_MAM,IPOneg_MAM,IPOneutral_MAM,\
+           IPOpos_Annual,IPOneg_Annual,IPOneutral_Annual) = seasons_R2
+
 IPO_phase_r2 = IPOphase(Acc_monthsTPI_r2)
 (IPOpos, IPOneg, IPOneutral) = IPO_phase_r2
 posR2 = IPOpos
 negR2 = IPOneg
 neutralR2 = IPOneutral
+
+R2_IPOpos_JJA = IPOpos_JJA
+R2_IPOneg_JJA = IPOneg_JJA
+R2_IPOneutral_JJA = IPOneutral_JJA
+R2_IPOpos_SON = IPOpos_SON
+R2_IPOneg_SON = IPOneg_SON
+R2_IPOneutral_SON = IPOneutral_SON
+R2_IPOpos_DJF = IPOpos_DJF
+R2_IPOneg_DJF = IPOneg_DJF
+R2_IPOneutral_DJF = IPOneutral_DJF
+R2_IPOpos_MAM = IPOpos_MAM
+R2_IPOneg_MAM = IPOneg_MAM
+R2_IPOneutral_MAM = IPOneutral_MAM
+R2_IPOpos_Annual = IPOpos_Annual
+R2_IPOneg_Annual = IPOneg_Annual
+R2_IPOneutral_Annual = IPOneutral_Annual
+
+#ACCESS R3
+
+seasons_R3 = hadisstTPI(Acc_monthsTPI_r3)
+(IPOpos_JJA,IPOneg_JJA,\
+           IPOneutral_JJA,IPOpos_SON,IPOneg_SON,IPOneutral_SON,IPOpos_DJF,\
+           IPOneg_DJF,IPOneutral_DJF,IPOpos_MAM,IPOneg_MAM,IPOneutral_MAM,\
+           IPOpos_Annual,IPOneg_Annual,IPOneutral_Annual) = seasons_R3
 
 IPO_phase_r3 = IPOphase(Acc_monthsTPI_r3)
 (IPOpos, IPOneg, IPOneutral) = IPO_phase_r3
@@ -161,14 +278,31 @@ posR3 = IPOpos
 negR3 = IPOneg
 neutralR3 = IPOneutral
 
+R3_IPOpos_JJA = IPOpos_JJA
+R3_IPOneg_JJA = IPOneg_JJA
+R3_IPOneutral_JJA = IPOneutral_JJA
+R3_IPOpos_SON = IPOpos_SON
+R3_IPOneg_SON = IPOneg_SON
+R3_IPOneutral_SON = IPOneutral_SON
+R3_IPOpos_DJF = IPOpos_DJF
+R3_IPOneg_DJF = IPOneg_DJF
+R3_IPOneutral_DJF = IPOneutral_DJF
+R3_IPOpos_MAM = IPOpos_MAM
+R3_IPOneg_MAM = IPOneg_MAM
+R3_IPOneutral_MAM = IPOneutral_MAM
+R3_IPOpos_Annual = IPOpos_Annual
+R3_IPOneg_Annual = IPOneg_Annual
+R3_IPOneutral_Annual = IPOneutral_Annual
 
 
 """
 Write filtered and unfiltered data to CSV files
+"""
 """
 output = np.column_stack((Had_monthsTPI_uf.flatten(),Had_monthsTPI.flatten(),\
                           Acc_monthsTPI_uf_r1.flatten(),Acc_monthsTPI_r1.flatten(),\
                           Acc_monthsTPI_uf_r2.flatten(),Acc_monthsTPI_r2.flatten(),\
                           Acc_monthsTPI_uf_r3.flatten(),Acc_monthsTPI_r3.flatten()))
 np.savetxt('data/TPI.csv',output,delimiter=',')
+"""
 

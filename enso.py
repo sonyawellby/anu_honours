@@ -3,13 +3,14 @@ Set of routines to compute the Nino3.4 ENSO index.
 Nino3.4 region: -5 to 5 degrees N, 190 to 240 degrees E
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 26 August 2015.
+Last updated 22 September 2015.
 """
 
 import netCDF4 as n
 import numpy as np
 import numpy.ma
 
+from parameters import num
 from cwd import *
 cwdInFunction()
 
@@ -171,45 +172,141 @@ def running(dataset,start,end):
         count_running += 1
     return running
 
-def ENSOphase(dataset,start,end):
-    """
-    A function to take a dataset and stratify it according to
-    ENSO phase (positive, neutral, negative).  The ENSO definition
-    applied is that of Trenberth et al. 1997 ('The Definition of
-    El Nino',Bulletin of the American Meteorological Society).
-    Three different arrays are returned (positive, negative,
-    and neutral ENSO events).
+def chunks(l,n):
+    n = max(1,n)
+    return [l[i:i+n] for i in range(0,len(l),n)]
 
-    Parameters:
-    -----------
-    dataset : The input datset of running-means (i.e. running() ).
-            It must include five more months of data than are
-            analysing in order to determine whether +- 0.4 deg. Cel.
-            is exceeded for six months or more.
-    start : the index of the first element to analyse.  If using
-            5 month running mean data this is likely to be [2]
-            for June 1900.
-    end : the index of the last element to analyse.  It is likely to
-            be (len(dataset)-6) (the sixth from last element).
+def runningSeasons(dataset,n,m,o):
     """
-    copy = dataset
+    JJA: runningSeasons(mylist,3,0,4)
+    SON: runningSeasons(mylist,3,1,4)
+    DJF: runningSeasons(mylist,3,2,4)
+    MAM: runningSeasons(mylist,3,3,4)
+    years: runningSeasons(mylist,12,0,1)
+    """
+    new = chunks(dataset,n)
+    newlist = []
+
+    list1 = range(m,len(new),o)
+    for i in list1:
+        newlist.append(new[i])
+    newarray = np.asarray(newlist)
+
+    newNewlist = []
+    for i in newarray:
+        newNewlist.append(np.average(i))
+    newNewarray = np.asarray(newNewlist)
+    return newNewarray
+
+def ENSOnegPhaseAnnual(dataset,n,m,o):
+    
+    new = chunks(dataset,n)
+    newlist = []
+
+    list1 = range(m,len(new),o)
+    for i in list1:
+        newlist.append(new[i])
+    newarray = np.asarray(newlist)
+    
+    array = np.zeros([105])
+
     count = 0
-    ENSOpos = None
-    ENSOneg = None
-    ENSOneutral = None
-    for i in dataset[start:(end+1)]:
-        if dataset[count] > 0.4 and dataset[count+1] > 0.4 and \
-           dataset[count+2] > 0.4 and dataset[count+3] > 0.4 \
-           and dataset[count+4] > 0.4 and dataset[count+5] > 0.4:
-            ENSOneg = np.ma.masked_less_equal(copy, 0.4)
-        elif dataset[count] < 0.4 and dataset[count+1] < 0.4 and \
-             dataset[count+2] < 0.4 and dataset[count+3] < 0.4 \
-               and dataset[count+4] < 0.4 and dataset[count+5] < 0.4:
-            ENSOpos = np.ma.masked_greater_equal(copy,-0.4)
+    for i in newarray:
+        if i[0]>0.4 and i[1]>0.4 and i[2]>0.4 and i[3]>0.4 and \
+           i[4]>0.4 and i[5]>0.4:
+            array[count] = np.mean(newarray[count])
+        elif i[1]>0.4 and i[2]>0.4 and i[3]>0.4 and i[4]>0.4 and \
+           i[5]>0.4 and i[6]>0.4:
+            array[count] = np.mean(newarray[count])
+        elif i[2]>0.4 and i[3]>0.4 and i[4]>0.4 and i[5]>0.4 and \
+           i[6]>0.4 and i[7]>0.4:
+            array[count] = np.mean(newarray[count])
+        elif i[3]>0.4 and i[4]>0.4 and i[5]>0.4 and i[6]>0.4 and \
+           i[7]>0.4 and i[8]>0.4:
+            array[count] = np.mean(newarray[count])
+        elif i[4]>0.4 and i[5]>0.4 and i[6]>0.4 and i[7]>0.4 and \
+           i[8]>0.4 and i[9]>0.4:
+            array[count] = np.mean(newarray[count])
+        elif i[5]>0.4 and i[6]>0.4 and i[7]>0.4 and i[8]>0.4 and \
+           i[9]>0.4 and i[10]>0.4:
+            array[count] = np.mean(newarray[count])
+        elif i[6]>0.4 and i[7]>0.4 and i[8]>0.4 and i[9]>0.4 and \
+           i[10]>0.4 and i[11]>0.4:
+            array[count] = np.mean(newarray[count])
         else:
-            ENSOneutral = np.ma.masked_outside(copy, 0.4, -0.4)
+            array[count] = 0.0
         count += 1
-    return ENSOpos, ENSOneg, ENSOneutral
+        
+    negENSO_Annual = np.ma.masked_values(array,0.0)
+    return negENSO_Annual
+
+def ENSOposPhaseAnnual(dataset,n,m,o):
+    """
+    Apply to data with length 1260.
+    """
+    
+    new = chunks(dataset,n)
+    newlist = []
+
+    list1 = range(m,len(new),o)
+    for i in list1:
+        newlist.append(new[i])
+    newarray = np.asarray(newlist)
+    
+    array = np.zeros([105])
+
+    count = 0
+    for i in newarray:
+        if i[0]<-0.4 and i[1]<-0.4 and i[2]<-0.4 and i[3]<-0.4 and \
+           i[4]<-0.4 and i[5]<-0.4:
+            array[count] = np.mean(newarray[count])
+        elif i[1]<-0.4 and i[2]<-0.4 and i[3]<-0.4 and i[4]<-0.4 and \
+           i[5]<-0.4 and i[6]<-0.4:
+            array[count] = np.mean(newarray[count])
+        elif i[2]<-0.4 and i[3]<-0.4 and i[4]<-0.4 and i[5]<-0.4 and \
+           i[6]<-0.4 and i[7]<-0.4:
+            array[count] = np.mean(newarray[count])
+        elif i[3]<-0.4 and i[4]<-0.4 and i[5]<-0.4 and i[6]<-0.4 and \
+           i[7]<-0.4 and i[8]<-0.4:
+            array[count] = np.mean(newarray[count])
+        elif i[4]<-0.4 and i[5]<-0.4 and i[6]<-0.4 and i[7]<-0.4 and \
+           i[8]<-0.4 and i[9]<-0.4:
+            array[count] = np.mean(newarray[count])
+        elif i[5]<-0.4 and i[6]<-0.4 and i[7]<-0.4 and i[8]<-0.4 and \
+           i[9]<-0.4 and i[10]<-0.4:
+            array[count] = np.mean(newarray[count])
+        elif i[6]<-0.4 and i[7]<-0.4 and i[8]<-0.4 and i[9]<-0.4 and \
+           i[10]<-0.4 and i[11]<-0.4:
+            array[count] = np.mean(newarray[count])
+        else:
+            array[count] = 0.0
+        count += 1
+        
+    posENSO_Annual = np.ma.masked_values(array,0.0)
+    return posENSO_Annual
+
+def ENSOneutralPhaseAnnual(dataset,n,m,o):
+
+    new = chunks(dataset,n)
+    newlist = []
+
+    list1 = range(m,len(new),o)
+    for i in list1:
+        newlist.append(new[i])
+    newarray = np.asarray(newlist)
+
+    array = np.empty([105])
+    count = 0
+    while count < len(array):
+        array[count] = np.mean(newarray[count])
+        count += 1
+    
+    neg = ENSOnegPhaseAnnual(dataset,12,0,1)
+    pos = ENSOposPhaseAnnual(dataset,12,0,1)
+
+    neutral = np.ma.masked_where(neg.mask==False,array)
+    neutralENSO_Annual = np.ma.masked_where(pos.mask==False,neutral)
+    return neutralENSO_Annual
 
 def cropRM(dataset):
     """
@@ -224,3 +321,22 @@ def cropRM(dataset):
     """
     cropRM = dataset[3:((len(dataset))-5)]
     return cropRM
+
+def ensoSD(dataset,sd=num,crop=False):
+    """
+    A function to startify SST data according to standard deviations.
+
+    Parameters:
+    -----------
+    dataset : output of running().
+    sd : standard deviations.  Currently set to number in "parameters.py".
+    """
+    if crop == True:
+        data = cropRM(dataset)
+    else:
+        data = dataset
+    std = np.std(dataset)*sd
+    ENSOneutral = numpy.ma.masked_outside(data,std,-std)
+    ENSOpos = numpy.ma.masked_greater_equal(data,-std)
+    ENSOneg = numpy.ma.masked_less_equal(data,std)
+    return data, ENSOpos, ENSOneg, ENSOneutral

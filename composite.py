@@ -108,3 +108,10 @@ def output(rainfall,index_IPO,index_ENSO,title,filepath,filepathA):
     plotStrat(rainStrat,rainfall,title,filepath)
     plotStratAnom(rainAnom,rainfall,title,filepathA)
     return
+
+def number(rainfall,index_IPO,index_ENSO):
+    strat_IPO = stratify(rainfall,index_IPO)
+    strat_IPO_ENSO = stratify(strat_IPO,index_ENSO)
+    rainStrat = stratifyAverage(strat_IPO_ENSO)
+    number = rainStrat.count()
+    return number

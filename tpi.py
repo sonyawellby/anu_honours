@@ -221,7 +221,34 @@ def TPI(dataset,n,rp,wn):
     TPI = signal.filtfilt(b,a,dataset)
     return TPI
 
-def IPOphase(dataset):
+def chunks(l,n):
+    n = max(1,n)
+    return [l[i:i+n] for i in range(0,len(l),n)]
+
+def runningSeasons(dataset,n,m,o):
+    """
+    JJA: runningSeasons(mylist,3,0,4)
+    SON: runningSeasons(mylist,3,1,4)
+    DJF: runningSeasons(mylist,3,2,4)
+    MAM: runningSeasons(mylist,3,3,4)
+    years: runningSeasons(mylist,12,0,1)
+    """
+    new = chunks(dataset,n)
+    newlist = []
+
+    list1 = range(m,len(new),o)
+    for i in list1:
+        newlist.append(new[i])
+    newarray = np.asarray(newlist)
+
+    newNewlist = []
+    for i in newarray:
+        newNewlist.append(np.average(i))
+    newNewarray = np.asarray(newNewlist)
+
+    return newNewarray
+
+def IPOphase(dataset,sd=num):
     """
     A function to compute the phase of the TPI. Phases 1.5 standard
     deviations above or below the mean are classed as IPO positive
@@ -231,22 +258,12 @@ def IPOphase(dataset):
     ----------
     dataset : dataset of filtered TPI values. 
     """
-    sd = np.std(dataset)
-    std = sd * num
+    std = np.std(dataset)*sd
 
     copy = dataset
-    count = 0
     
-    IPOpos = None
-    IPOneg = None
-    IPOneutral = None
-
-    for i in dataset:
-        if dataset[count] > std:
-            IPOpos = np.ma.masked_less_equal(copy, std)
-        elif dataset[count] < -std:
-            IPOneg = np.ma.masked_greater_equal(copy,-std)
-        else:
-            IPOneutral = np.ma.masked_outside(copy, sd, -std)
-        count += 1
+    IPOpos = np.ma.masked_less_equal(copy, std)
+    IPOneg = np.ma.masked_greater_equal(copy,-std)
+    IPOneutral = np.ma.masked_outside(copy, std, -std)
+        
     return IPOpos, IPOneg, IPOneutral

@@ -1,0 +1,224 @@
+"""
+A script to determine how many time-steps of stratified data are
+ENSO/IPO positive/negative.
+
+Submitted by Sonya Wellby for ENVS4055, 2015.
+Last updated 18 September 2015.
+"""
+from composite import *
+
+array = np.empty([126])
+
+#AWAP: June
+
+np.append(array, number(awap_prepare.awap_June,indices_phase.IPO_posHad_Jun,indices_phase.ENSO_posHad_Jun))
+
+#number(awap_prepare.awap_June,indices_phase.IPO_posHad_Jun,indices_phase.ENSO_posHad_Jun)
+"""
+number(awap_prepare.awap_June,indices_phase.IPO_posHad_Jun,indices_phase.ENSO_neutralHad_Jun)
+number(awap_prepare.awap_June,indices_phase.IPO_posHad_Jun,indices_phase.ENSO_negHad_Jun)
+number(awap_prepare.awap_June,indices_phase.IPO_neutralHad_Jun,indices_phase.ENSO_posHad_Jun)
+number(awap_prepare.awap_June,indices_phase.IPO_neutralHad_Jun,indices_phase.ENSO_neutralHad_Jun)
+number(awap_prepare.awap_June,indices_phase.IPO_neutralHad_Jun,indices_phase.ENSO_negHad_Jun)
+number(awap_prepare.awap_June,indices_phase.IPO_negHad_Jun,indices_phase.ENSO_posHad_Jun
+number(awap_prepare.awap_June,indices_phase.IPO_negHad_Jun,indices_phase.ENSO_neutralHad_Jun)
+number(awap_prepare.awap_June,indices_phase.IPO_negHad_Jun,indices_phase.ENSO_negHad_Jun)
+
+#AWAP: July
+
+number(awap_prepare.awap_July,indices_phase.IPO_posHad_Jul,indices_phase.ENSO_posHad_Jul)
+number(awap_prepare.awap_July,indices_phase.IPO_posHad_Jul,indices_phase.ENSO_neutralHad_Jul)
+number(awap_prepare.awap_July,indices_phase.IPO_posHad_Jul,indices_phase.ENSO_negHad_Jul)
+number(awap_prepare.awap_July,indices_phase.IPO_neutralHad_Jul,indices_phase.ENSO_posHad_Jul)
+number(awap_prepare.awap_July,indices_phase.IPO_neutralHad_Jul,indices_phase.ENSO_neutralHad_Jul)
+number(awap_prepare.awap_July,indices_phase.IPO_neutralHad_Jul,indices_phase.ENSO_negHad_Jul)
+number(awap_prepare.awap_July,indices_phase.IPO_negHad_Jul,indices_phase.ENSO_posHad_Jul)
+number(awap_prepare.awap_July,indices_phase.IPO_negHad_Jul,indices_phase.ENSO_neutralHad_Jul)
+number(awap_prepare.awap_July,indices_phase.IPO_negHad_Jul,indices_phase.ENSO_negHad_Jul)
+
+#AWAP: August
+
+number(awap_prepare.awap_August,indices_phase.IPO_posHad_Aug,indices_phase.ENSO_posHad_Aug)
+number(awap_prepare.awap_August,indices_phase.IPO_posHad_Aug,indices_phase.ENSO_neutralHad_Aug)
+number(awap_prepare.awap_August,indices_phase.IPO_posHad_Aug,indices_phase.ENSO_negHad_Aug)
+number(awap_prepare.awap_August,indices_phase.IPO_neutralHad_Aug,indices_phase.ENSO_posHad_Aug)
+number(awap_prepare.awap_August,indices_phase.IPO_neutralHad_Aug,indices_phase.ENSO_neutralHad_Aug)
+number(awap_prepare.awap_August,indices_phase.IPO_neutralHad_Aug,indices_phase.ENSO_negHad_Aug)
+number(awap_prepare.awap_August,indices_phase.IPO_negHad_Aug,indices_phase.ENSO_posHad_Aug)
+number(awap_prepare.awap_August,indices_phase.IPO_negHad_Aug,indices_phase.ENSO_neutralHad_Aug)
+number(awap_prepare.awap_August,indices_phase.IPO_negHad_Aug,indices_phase.ENSO_negHad_Aug)
+
+#AWAP: September
+
+number(awap_prepare.awap_September,indices_phase.IPO_posHad_Sep,indices_phase.ENSO_posHad_Sep)
+number(awap_prepare.awap_September,indices_phase.IPO_posHad_Sep,indices_phase.ENSO_neutralHad_Sep)
+number(awap_prepare.awap_September,indices_phase.IPO_posHad_Sep,indices_phase.ENSO_negHad_Sep)
+number(awap_prepare.awap_September,indices_phase.IPO_neutralHad_Sep,indices_phase.ENSO_posHad_Sep)
+number(awap_prepare.awap_September,indices_phase.IPO_neutralHad_Sep,indices_phase.ENSO_neutralHad_Sep)
+number(awap_prepare.awap_September,indices_phase.IPO_neutralHad_Sep,indices_phase.ENSO_negHad_Sep)
+number(awap_prepare.awap_September,indices_phase.IPO_negHad_Sep,indices_phase.ENSO_posHad_Sep)
+number(awap_prepare.awap_September,indices_phase.IPO_negHad_Sep,indices_phase.ENSO_neutralHad_Sep)
+number(awap_prepare.awap_September,indices_phase.IPO_negHad_Sep,indices_phase.ENSO_negHad_Sep)
+
+
+#AWAP: October
+
+number(awap_prepare.awap_October,indices_phase.IPO_posHad_Oct,indices_phase.ENSO_posHad_Oct)
+number(awap_prepare.awap_October,indices_phase.IPO_posHad_Oct,indices_phase.ENSO_neutralHad_Oct)
+number(awap_prepare.awap_October,indices_phase.IPO_posHad_Oct,indices_phase.ENSO_negHad_Oct)
+number(awap_prepare.awap_October,indices_phase.IPO_neutralHad_Oct,indices_phase.ENSO_posHad_Oct)
+number(awap_prepare.awap_October,indices_phase.IPO_neutralHad_Oct,indices_phase.ENSO_neutralHad_Oct)
+number(awap_prepare.awap_October,indices_phase.IPO_neutralHad_Oct,indices_phase.ENSO_negHad_Oct)
+number(awap_prepare.awap_October,indices_phase.IPO_negHad_Oct,indices_phase.ENSO_posHad_Oct)
+number(awap_prepare.awap_October,indices_phase.IPO_negHad_Oct,indices_phase.ENSO_neutralHad_Oct)
+number(awap_prepare.awap_October,indices_phase.IPO_negHad_Oct,indices_phase.ENSO_negHad_Oct)
+
+
+#AWAP: November
+
+number(awap_prepare.awap_November,indices_phase.IPO_posHad_Nov,indices_phase.ENSO_posHad_Nov)
+number(awap_prepare.awap_November,indices_phase.IPO_posHad_Nov,indices_phase.ENSO_neutralHad_Nov)
+number(awap_prepare.awap_November,indices_phase.IPO_posHad_Nov,indices_phase.ENSO_negHad_Nov)
+number(awap_prepare.awap_November,indices_phase.IPO_neutralHad_Nov,indices_phase.ENSO_posHad_Nov)
+number(awap_prepare.awap_November,indices_phase.IPO_neutralHad_Nov,indices_phase.ENSO_neutralHad_Nov)
+number(awap_prepare.awap_November,indices_phase.IPO_neutralHad_Nov,indices_phase.ENSO_negHad_Nov)
+number(awap_prepare.awap_November,indices_phase.IPO_negHad_Nov,indices_phase.ENSO_posHad_Nov)
+number(awap_prepare.awap_November,indices_phase.IPO_negHad_Nov,indices_phase.ENSO_neutralHad_Nov)
+number(awap_prepare.awap_November,indices_phase.IPO_negHad_Nov,indices_phase.ENSO_negHad_Nov)
+
+
+#AWAP: December
+
+number(awap_prepare.awap_December,indices_phase.IPO_posHad_Dec,indices_phase.ENSO_posHad_Dec)
+number(awap_prepare.awap_December,indices_phase.IPO_posHad_Dec,indices_phase.ENSO_neutralHad_Dec)
+number(awap_prepare.awap_December,indices_phase.IPO_posHad_Dec,indices_phase.ENSO_negHad_Dec)
+number(awap_prepare.awap_December,indices_phase.IPO_neutralHad_Dec,indices_phase.ENSO_posHad_Dec)
+number(awap_prepare.awap_December,indices_phase.IPO_neutralHad_Dec,indices_phase.ENSO_neutralHad_Dec)
+number(awap_prepare.awap_December,indices_phase.IPO_neutralHad_Dec,indices_phase.ENSO_negHad_Dec)
+number(awap_prepare.awap_December,indices_phase.IPO_negHad_Dec,indices_phase.ENSO_posHad_Dec)
+number(awap_prepare.awap_December,indices_phase.IPO_negHad_Dec,indices_phase.ENSO_neutralHad_Dec)
+number(awap_prepare.awap_December,indices_phase.IPO_negHad_Dec,indices_phase.ENSO_negHad_Dec)
+
+
+#AWAP: January
+
+number(awap_prepare.awap_January,indices_phase.IPO_posHad_Jan,indices_phase.ENSO_posHad_Jan)
+number(awap_prepare.awap_January,indices_phase.IPO_posHad_Jan,indices_phase.ENSO_neutralHad_Jan)
+number(awap_prepare.awap_January,indices_phase.IPO_posHad_Jan,indices_phase.ENSO_negHad_Jan)
+number(awap_prepare.awap_January,indices_phase.IPO_neutralHad_Jan,indices_phase.ENSO_posHad_Jan)
+number(awap_prepare.awap_January,indices_phase.IPO_neutralHad_Jan,indices_phase.ENSO_neutralHad_Jan)
+number(awap_prepare.awap_January,indices_phase.IPO_neutralHad_Jan,indices_phase.ENSO_negHad_Jan)
+number(awap_prepare.awap_January,indices_phase.IPO_negHad_Jan,indices_phase.ENSO_posHad_Jan)
+number(awap_prepare.awap_January,indices_phase.IPO_negHad_Jan,indices_phase.ENSO_neutralHad_Jan)
+number(awap_prepare.awap_January,indices_phase.IPO_negHad_Jan,indices_phase.ENSO_negHad_Jan)
+
+
+#AWAP: February
+
+number(awap_prepare.awap_February,indices_phase.IPO_posHad_Feb,indices_phase.ENSO_posHad_Feb)
+number(awap_prepare.awap_February,indices_phase.IPO_posHad_Feb,indices_phase.ENSO_neutralHad_Feb)
+number(awap_prepare.awap_February,indices_phase.IPO_posHad_Feb,indices_phase.ENSO_negHad_Feb)
+number(awap_prepare.awap_February,indices_phase.IPO_neutralHad_Feb,indices_phase.ENSO_posHad_Feb)
+number(awap_prepare.awap_February,indices_phase.IPO_neutralHad_Feb,indices_phase.ENSO_neutralHad_Feb)
+number(awap_prepare.awap_February,indices_phase.IPO_neutralHad_Feb,indices_phase.ENSO_negHad_Feb)
+number(awap_prepare.awap_February,indices_phase.IPO_negHad_Feb,indices_phase.ENSO_posHad_Feb)
+number(awap_prepare.awap_February,indices_phase.IPO_negHad_Feb,indices_phase.ENSO_neutralHad_Feb)
+number(awap_prepare.awap_February,indices_phase.IPO_negHad_Feb,indices_phase.ENSO_negHad_Feb)
+
+#AWAP: March
+
+number(awap_prepare.awap_March,indices_phase.IPO_posHad_Mar,indices_phase.ENSO_posHad_Mar)
+number(awap_prepare.awap_March,indices_phase.IPO_posHad_Mar,indices_phase.ENSO_neutralHad_Mar)
+number(awap_prepare.awap_March,indices_phase.IPO_posHad_Mar,indices_phase.ENSO_negHad_Mar)
+number(awap_prepare.awap_March,indices_phase.IPO_neutralHad_Mar,indices_phase.ENSO_posHad_Mar)
+number(awap_prepare.awap_March,indices_phase.IPO_neutralHad_Mar,indices_phase.ENSO_neutralHad_Mar)
+number(awap_prepare.awap_March,indices_phase.IPO_neutralHad_Mar,indices_phase.ENSO_negHad_Mar)
+number(awap_prepare.awap_March,indices_phase.IPO_negHad_Mar,indices_phase.ENSO_posHad_Mar)
+number(awap_prepare.awap_March,indices_phase.IPO_negHad_Mar,indices_phase.ENSO_neutralHad_Mar)
+number(awap_prepare.awap_March,indices_phase.IPO_negHad_Mar,indices_phase.ENSO_negHad_Mar)
+
+#AWAP: April
+
+number(awap_prepare.awap_April,indices_phase.IPO_posHad_Apr,indices_phase.ENSO_posHad_Apr)
+number(awap_prepare.awap_April,indices_phase.IPO_posHad_Apr,indices_phase.ENSO_neutralHad_Apr)
+number(awap_prepare.awap_April,indices_phase.IPO_posHad_Apr,indices_phase.ENSO_negHad_Apr)
+number(awap_prepare.awap_April,indices_phase.IPO_neutralHad_Apr,indices_phase.ENSO_posHad_Apr)
+number(awap_prepare.awap_April,indices_phase.IPO_neutralHad_Apr,indices_phase.ENSO_neutralHad_Apr)
+number(awap_prepare.awap_April,indices_phase.IPO_neutralHad_Apr,indices_phase.ENSO_negHad_Apr)
+number(awap_prepare.awap_April,indices_phase.IPO_negHad_Apr,indices_phase.ENSO_posHad_Apr)
+number(awap_prepare.awap_April,indices_phase.IPO_negHad_Apr,indices_phase.ENSO_neutralHad_Apr)
+number(awap_prepare.awap_April,indices_phase.IPO_negHad_Apr,indices_phase.ENSO_negHad_Apr)
+
+
+#AWAP: May
+
+number(awap_prepare.awap_May,indices_phase.IPO_posHad_May,indices_phase.ENSO_posHad_May)
+number(awap_prepare.awap_May,indices_phase.IPO_posHad_May,indices_phase.ENSO_neutralHad_May)
+number(awap_prepare.awap_May,indices_phase.IPO_posHad_May,indices_phase.ENSO_negHad_May)
+number(awap_prepare.awap_May,indices_phase.IPO_neutralHad_May,indices_phase.ENSO_posHad_May)
+number(awap_prepare.awap_May,indices_phase.IPO_neutralHad_May,indices_phase.ENSO_neutralHad_May)
+number(awap_prepare.awap_May,indices_phase.IPO_neutralHad_May,indices_phase.ENSO_negHad_May)
+number(awap_prepare.awap_May,indices_phase.IPO_negHad_May,indices_phase.ENSO_posHad_May)
+number(awap_prepare.awap_May,indices_phase.IPO_negHad_May,indices_phase.ENSO_neutralHad_May)
+number(awap_prepare.awap_May,indices_phase.IPO_negHad_May,indices_phase.ENSO_negHad_May)
+
+#AWAP: JJA
+
+number(awap_prepare.awap_JJA,indices_phase.IPO_posHad_JJA,indices_phase.ENSO_posHad_JJA)
+number(awap_prepare.awap_JJA,indices_phase.IPO_posHad_JJA,indices_phase.ENSO_neutralHad_JJA)
+number(awap_prepare.awap_JJA,indices_phase.IPO_posHad_JJA,indices_phase.ENSO_negHad_JJA)
+number(awap_prepare.awap_JJA,indices_phase.IPO_neutralHad_JJA,indices_phase.ENSO_posHad_JJA)
+number(awap_prepare.awap_JJA,indices_phase.IPO_neutralHad_JJA,indices_phase.ENSO_neutralHad_JJA)
+number(awap_prepare.awap_JJA,indices_phase.IPO_neutralHad_JJA,indices_phase.ENSO_negHad_JJA)
+number(awap_prepare.awap_JJA,indices_phase.IPO_negHad_JJA,indices_phase.ENSO_posHad_JJA)
+number(awap_prepare.awap_JJA,indices_phase.IPO_negHad_JJA,indices_phase.ENSO_neutralHad_JJA)
+number(awap_prepare.awap_JJA,indices_phase.IPO_negHad_JJA,indices_phase.ENSO_negHad_JJA)
+
+#AWAP: SON
+
+number(awap_prepare.awap_SON,indices_phase.IPO_posHad_SON,indices_phase.ENSO_posHad_SON)
+number(awap_prepare.awap_SON,indices_phase.IPO_posHad_SON,indices_phase.ENSO_neutralHad_SON)
+number(awap_prepare.awap_SON,indices_phase.IPO_posHad_SON,indices_phase.ENSO_negHad_SON)
+number(awap_prepare.awap_SON,indices_phase.IPO_neutralHad_SON,indices_phase.ENSO_posHad_SON)
+number(awap_prepare.awap_SON,indices_phase.IPO_neutralHad_SON,indices_phase.ENSO_neutralHad_SON)
+number(awap_prepare.awap_SON,indices_phase.IPO_neutralHad_SON,indices_phase.ENSO_negHad_SON)
+number(awap_prepare.awap_SON,indices_phase.IPO_negHad_SON,indices_phase.ENSO_posHad_SON)
+number(awap_prepare.awap_SON,indices_phase.IPO_negHad_SON,indices_phase.ENSO_neutralHad_SON)
+number(awap_prepare.awap_SON,indices_phase.IPO_negHad_SON,indices_phase.ENSO_negHad_SON)
+
+#AWAP: DJF
+
+number(awap_prepare.awap_DJF,indices_phase.IPO_posHad_DJF,indices_phase.ENSO_posHad_DJF)
+number(awap_prepare.awap_DJF,indices_phase.IPO_posHad_DJF,indices_phase.ENSO_neutralHad_DJF)
+number(awap_prepare.awap_DJF,indices_phase.IPO_posHad_DJF,indices_phase.ENSO_negHad_DJF)
+number(awap_prepare.awap_DJF,indices_phase.IPO_neutralHad_DJF,indices_phase.ENSO_posHad_DJF)
+number(awap_prepare.awap_DJF,indices_phase.IPO_neutralHad_DJF,indices_phase.ENSO_neutralHad_DJF)
+number(awap_prepare.awap_DJF,indices_phase.IPO_neutralHad_DJF,indices_phase.ENSO_negHad_DJF)
+number(awap_prepare.awap_DJF,indices_phase.IPO_negHad_DJF,indices_phase.ENSO_posHad_DJF)
+number(awap_prepare.awap_DJF,indices_phase.IPO_negHad_DJF,indices_phase.ENSO_neutralHad_DJF)
+number(awap_prepare.awap_DJF,indices_phase.IPO_negHad_DJF,indices_phase.ENSO_negHad_DJF)
+
+#AWAP: MAM
+
+number(awap_prepare.awap_MAM,indices_phase.IPO_posHad_MAM,indices_phase.ENSO_posHad_MAM)
+number(awap_prepare.awap_MAM,indices_phase.IPO_posHad_MAM,indices_phase.ENSO_neutralHad_MAM)
+number(awap_prepare.awap_MAM,indices_phase.IPO_posHad_MAM,indices_phase.ENSO_negHad_MAM)
+number(awap_prepare.awap_MAM,indices_phase.IPO_neutralHad_MAM,indices_phase.ENSO_posHad_MAM)
+number(awap_prepare.awap_MAM,indices_phase.IPO_neutralHad_MAM,indices_phase.ENSO_neutralHad_MAM)
+number(awap_prepare.awap_MAM,indices_phase.IPO_neutralHad_MAM,indices_phase.ENSO_negHad_MAM)
+number(awap_prepare.awap_MAM,indices_phase.IPO_negHad_MAM,indices_phase.ENSO_posHad_MAM)
+number(awap_prepare.awap_MAM,indices_phase.IPO_negHad_MAM,indices_phase.ENSO_neutralHad_MAM)
+number(awap_prepare.awap_MAM,indices_phase.IPO_negHad_MAM,indices_phase.ENSO_negHad_MAM)
+
+#AWAP: annual
+
+number(awap_prepare.awap_Annual,indices_phase.IPO_posHad_annual,indices_phase.ENSO_posHad_annual)
+number(awap_prepare.awap_Annual,indices_phase.IPO_posHad_annual,indices_phase.ENSO_neutralHad_annual)
+number(awap_prepare.awap_Annual,indices_phase.IPO_posHad_annual,indices_phase.ENSO_negHad_annual)
+number(awap_prepare.awap_Annual,indices_phase.IPO_neutralHad_annual,indices_phase.ENSO_posHad_annual)
+number(awap_prepare.awap_Annual,indices_phase.IPO_neutralHad_annual,indices_phase.ENSO_neutralHad_annual)
+number(awap_prepare.awap_Annual,indices_phase.IPO_neutralHad_annual,indices_phase.ENSO_negHad_annual)
+number(awap_prepare.awap_Annual,indices_phase.IPO_negHad_annual,indices_phase.ENSO_posHad_annual)
+number(awap_prepare.awap_Annual,indices_phase.IPO_negHad_annual,indices_phase.ENSO_neutralHad_annual)
+number(awap_prepare.awap_Annual,indices_phase.IPO_negHad_annual,indices_phase.ENSO_negHad_annual)
+"""

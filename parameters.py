@@ -58,8 +58,8 @@ fc = 1/period
 wn = (fc/(0.5*fs))
 
 """
-IPO PHASES
+IPO AND ENSO PHASES
 """
 #How many standard deviations above the dataset mean result in IPO pos., neg., and neutral
 #Make sure this is a float.
-num = 1.0
+num = 0.5
