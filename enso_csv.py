@@ -128,7 +128,7 @@ def hadisstNino34(var):
         ENSOneg1 = ENSOneg
         ENSOneutral1 = ENSOneutral
         
-        jja = runningSeasons(ENSO_running_Had,3,0,4)
+        jja = runningSeasons(ENSO_crop_Had,3,0,4)
         ENSO_JJA = ensoSD(jja)
         (data,ENSOpos,ENSOneg,ENSOneutral) = ENSO_JJA
         ENSOpos_JJA = ENSOpos

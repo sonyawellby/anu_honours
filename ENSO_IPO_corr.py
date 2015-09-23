@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import pylab
 #from statsmodels.stats.multicomp import pairwise_tukeyhsd
 
-from indices_time import indexTime 
+from indices_time import indexTime
 from indices_array import Nino34, TPI
 from cwd import cwdInFunction
 
@@ -41,6 +41,13 @@ def correl(index1,index2,num1,num2):
     Pearson's correlation coefficient [-1,1]
     """
     cc = stats.pearsonr(index1[num1],index2[num2])
+    return cc
+
+def correlStrat(array1,array2):
+    """
+    Pearson's correlation coefficient [-1,1]
+    """
+    cc = stats.pearsonr(array1,array2)
     return cc
 
 #Correlations between Nino 3.4 and TPI data derived from HadISST1 (observations)
@@ -90,7 +97,7 @@ def linePlot(data1,data2):
 def corrANOVA(array1,array2,array3,array4):
     """
     A function to test if the means of the output from the four correlation
-    datasets (observational, R1, R2, R3) and different.
+    datasets (observational, R1, R2, R3) are different.
     n = 12; N = 48.  DFbtw = 3, DFwthin = 44
     H0: all means are equal to each other.
     H1: not all means are equal.
