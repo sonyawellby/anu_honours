@@ -3,7 +3,7 @@ A file to collate sub-routines used to correlate ENSO with rainfall
 and the IPO with rainfall.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 8 September 2015.
+Last updated 24 September 2015.
 """
 import netCDF4 as n
 import numpy as np
@@ -16,20 +16,9 @@ from indices_array import Nino34,TPI
 import maps_sub
 import math
 
-#
-from awap_prepare import awap_Annual
-from access_trimmed import trim_Annual
-#
-
 from cwd import cwdInFunction
 cwdInFunction()
 
-from indices_time import Nino34_Jun, Nino34_Jul, Nino34_Aug, Nino34_Sep, \
-     Nino34_Oct, Nino34_Nov, Nino34_Dec, Nino34_Jan, Nino34_Feb, Nino34_Mar,\
-     Nino34_Apr, Nino34_May, Nino34_JJA, Nino34_SON, Nino34_DJF, Nino34_MAM,\
-    Nino34_annual, TPI_Jun, TPI_Jul, TPI_Aug, TPI_Sep, TPI_Oct, TPI_Nov,\
-    TPI_Dec, TPI_Jan, TPI_Feb, TPI_Mar, TPI_Apr, TPI_May, TPI_JJA, TPI_SON, \
-    TPI_DJF, TPI_MAM, TPI_annual
 
 def corr(rainfall,index,ind_num):
     """
@@ -57,33 +46,6 @@ def corr(rainfall,index,ind_num):
     corr_array_masked = np.ma.masked_where(corr_array == 0.0, corr_array)
     return corr_array_masked
 
-def corrDiff(array1,array2):
-    """
-    Return an array with the differences between observational (array1) and
-    modelled (array2) data, only showing points where differences in observations
-    are statistically significant (95% level, z-statistic). 
-    """
-    mean_array1 = np.ma.mean(array1)
-    sd_array1 = np.ma.std(array1)
-    #for i in array2:
-    #    if (array2[i]-mean_array1)/(sd_array1/math.sqrt(mean_array1.count())) <= 1.65:
-            
-    #t_stat = 
-    #pr_t_stat =
-    diff = np.ma.subtract(array1,array2)
-    diff_array_z_stat = (array2-mean_array1)/(sd_array1/math.sqrt(array1.count()))
-    new_array = np.ma.masked_inside(diff_array_z_stat,-1.96,1.96)
-    print new_array
-    new_array2 = np.ma.masked_where(new_array == True,diff)
-    #new_array2 = np.ma.masked_where(array2 <= pr_t_stat,array2)
-    #diff = np.ma.subtract(new_array1,new_array2)
-    return new_array2
-"""
-def test(array1,array2):
-    mean_array1 = np.ma.mean(array1)
-    sd_array1 = np.ma.std(array1)
-    new_array = np.ma.masked_where(((array2-mean_array1)/(sd_array1/math.sqrt(mean_array1.count()))) <= 1.65,diff)
-"""
 def plotCorr(rainfall,index,ind_num,title,filepath):
     """
     A function to produce plots of correlations.
@@ -97,6 +59,46 @@ def plotCorr(rainfall,index,ind_num,title,filepath):
     saveFig(myplot,title,filepath)
     return
 
-arrayA = corr(awap_Annual,Nino34_annual,0)
-arrayB = corr(trim_Annual,Nino34_annual,0)
-test = corrDiff(arrayA,arrayB)
+def corrDiff(array1,array2):
+    """
+    Return an array with the differences between observational (array1) and
+    modelled (array2) data, only showing points where differences in observations
+    are statistically significant (95% level, z-statistic if n > 30,
+    t-statistic if n < 30; two-tailed). 
+    """
+    mean_array1 = np.ma.mean(array1)
+    sd_array1 = np.ma.std(array1)
+    diff = np.ma.subtract(array1,array2)
+    if array1.count() > 30:
+        diff_array_stat = (array2-mean_array1)/(sd_array1/math.sqrt(array1.count()))
+        new_array = np.ma.masked_inside(diff_array_stat,-1.96,1.96)
+    elif array1.count() <= 1:
+        return
+    else:
+        df = array1.count() - 1
+        df_list = [12.7065,4.3026,3.1824,2.7764,2.5706,2.4469,2.3646,2.3060,2.2621,2.2282,\
+         2.2010,2.1788,2.1604,2.1448,2.1314,2.1199,2.1098,2.1009,2.0930,2.0860,\
+         2.0796,2.0739,2.0686,2.0639,2.0596,2.0555,2.0518,2.0484,2.0452,2.0423]
+        df_t = df_list[df-1]
+        
+        diff_array_stat = (array2-mean_array1)/(sd_array1/math.sqrt(array1.count()))
+        new_array = np.ma.masked_inside(diff_array_stat,-df_t,df_t)
+    new_array2 = np.ma.masked_where(new_array == True,diff)
+    return new_array2
+
+def plotCorrDiff(array1,array2,title,filepath):
+    """
+    A function to produce plots of correlation differences.
+
+    Parameters:
+    -----------
+    array1 : observational dataset.  Output of corr()
+    array2 : modelled dataset. Output of corr()
+    """
+    corrDiff_array = corrDiff(array1,array2)
+    Dict6 = mapCorr()
+    myplot = plot(corrDiff_array,Dict6,labels=False,grid=False,oceans=False,cbar=True)
+    reload(maps_sub)
+    from maps_sub import saveFig
+    saveFig(myplot,title,filepath)
+    return
