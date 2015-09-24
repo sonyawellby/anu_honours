@@ -83,6 +83,7 @@ def corrDiff(array1,array2):
         
         diff_array_stat = (array2-mean_array1)/(sd_array1/math.sqrt(array1.count()))
         new_array = np.ma.masked_inside(diff_array_stat,-df_t,df_t)
+        
     new_array2 = np.ma.masked_where(new_array == True,diff)
     return new_array2
 
