@@ -14,6 +14,12 @@ from plot import plot, mapCorr
 
 from indices_array import Nino34,TPI
 import maps_sub
+import math
+
+#
+from awap_prepare import awap_Annual
+from access_trimmed import trim_Annual
+#
 
 from cwd import cwdInFunction
 cwdInFunction()
@@ -28,7 +34,7 @@ from indices_time import Nino34_Jun, Nino34_Jul, Nino34_Aug, Nino34_Sep, \
 def corr(rainfall,index,ind_num):
     """
     A function to correlate rainfall (AWAP or ACCESS) with an index
-    (e.g. IPO, ENSO).
+    (e.g. IPO, ENSO).  Masks non-significant values (p > 0.05).
 
     Parameters:
     -----------
@@ -43,13 +49,41 @@ def corr(rainfall,index,ind_num):
             a = stats.pearsonr(rainfall[:,count1,count2],index[ind_num])
             if a[1] <= 0.05:
                 corr_array[count1,count2] = a[0]
-                count2 += 1
             else:
                 corr_array[count1,count2] = 0.0
-        count1 +=1
+            count2 += 1
         count2 = 0
-    return corr_array
+        count1 += 1
+    corr_array_masked = np.ma.masked_where(corr_array == 0.0, corr_array)
+    return corr_array_masked
 
+def corrDiff(array1,array2):
+    """
+    Return an array with the differences between observational (array1) and
+    modelled (array2) data, only showing points where differences in observations
+    are statistically significant (95% level, z-statistic). 
+    """
+    mean_array1 = np.ma.mean(array1)
+    sd_array1 = np.ma.std(array1)
+    #for i in array2:
+    #    if (array2[i]-mean_array1)/(sd_array1/math.sqrt(mean_array1.count())) <= 1.65:
+            
+    #t_stat = 
+    #pr_t_stat =
+    diff = np.ma.subtract(array1,array2)
+    diff_array_z_stat = (array2-mean_array1)/(sd_array1/math.sqrt(array1.count()))
+    new_array = np.ma.masked_inside(diff_array_z_stat,-1.96,1.96)
+    print new_array
+    new_array2 = np.ma.masked_where(new_array == True,diff)
+    #new_array2 = np.ma.masked_where(array2 <= pr_t_stat,array2)
+    #diff = np.ma.subtract(new_array1,new_array2)
+    return new_array2
+"""
+def test(array1,array2):
+    mean_array1 = np.ma.mean(array1)
+    sd_array1 = np.ma.std(array1)
+    new_array = np.ma.masked_where(((array2-mean_array1)/(sd_array1/math.sqrt(mean_array1.count()))) <= 1.65,diff)
+"""
 def plotCorr(rainfall,index,ind_num,title,filepath):
     """
     A function to produce plots of correlations.
@@ -63,4 +97,6 @@ def plotCorr(rainfall,index,ind_num,title,filepath):
     saveFig(myplot,title,filepath)
     return
 
-
+arrayA = corr(awap_Annual,Nino34_annual,0)
+arrayB = corr(trim_Annual,Nino34_annual,0)
+test = corrDiff(arrayA,arrayB)
