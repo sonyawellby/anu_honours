@@ -1,5 +1,6 @@
 """
-A file to correlate ENSO with ACCESS R1 rainfall and the IPO with ACCESS R1 rainfall.
+A file to correlate ENSO with ACCESS R1 rainfall and the IPO with ACCESS R1
+rainfall.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
 Last updated 24 September 2015.
@@ -94,23 +95,23 @@ def accessCorrIPO(num,roundNum):
     return
 
 def R1CorrENSO_data():
-    annual = corr(trim_Annual,Nino34_annual,1)
-    JJA = corr(trim_JJA,Nino34_JJA,1)
-    SON = corr(trim_SON,Nino34_SON,1)
-    DJF = corr(trim_DJF,Nino34_DJF,1)
-    MAM = corr(trim_MAM,Nino34_MAM,1)
-    Jun = corr(trim_June,Nino34_Jun,1)
-    Jul = corr(trim_July,Nino34_Jul,1)
-    Aug = corr(trim_August,Nino34_Aug,1)
-    Sep = corr(trim_September,Nino34_Sep,1)
-    Oct = corr(trim_October,Nino34_Oct,1)
-    Nov = corr(trim_November,Nino34_Nov,1)
-    Dec = corr(trim_December,Nino34_Dec,1)
-    Jan = corr(trim_January,Nino34_Jan,1)
-    Feb = corr(trim_February,Nino34_Feb,1)
-    Mar = corr(trim_March,Nino34_Mar,1)
-    Apr = corr(trim_April,Nino34_Apr,1)
-    May = corr(trim_May,Nino34_May,1)
+    R1CorrENSO_annual = corr(trim_Annual,Nino34_annual,1)
+    R1CorrENSO_JJA = corr(trim_JJA,Nino34_JJA,1)
+    R1CorrENSO_SON = corr(trim_SON,Nino34_SON,1)
+    R1CorrENSO_DJF = corr(trim_DJF,Nino34_DJF,1)
+    R1CorrENSO_MAM = corr(trim_MAM,Nino34_MAM,1)
+    R1CorrENSO_Jun = corr(trim_June,Nino34_Jun,1)
+    R1CorrENSO_Jul = corr(trim_July,Nino34_Jul,1)
+    R1CorrENSO_Aug = corr(trim_August,Nino34_Aug,1)
+    R1CorrENSO_Sep = corr(trim_September,Nino34_Sep,1)
+    R1CorrENSO_Oct = corr(trim_October,Nino34_Oct,1)
+    R1CorrENSO_Nov = corr(trim_November,Nino34_Nov,1)
+    R1CorrENSO_Dec = corr(trim_December,Nino34_Dec,1)
+    R1CorrENSO_Jan = corr(trim_January,Nino34_Jan,1)
+    R1CorrENSO_Feb = corr(trim_February,Nino34_Feb,1)
+    R1CorrENSO_Mar = corr(trim_March,Nino34_Mar,1)
+    R1CorrENSO_Apr = corr(trim_April,Nino34_Apr,1)
+    R1CorrENSO_May = corr(trim_May,Nino34_May,1)
     return R1CorrENSO_annual, R1CorrENSO_JJA, R1CorrENSO_SON, R1CorrENSO_DJF,\
            R1CorrENSO_MAM,R1CorrENSO_Jun,R1CorrENSO_Jul,R1CorrENSO_Aug,\
            R1CorrENSO_Sep,R1CorrENSO_Oct,R1CorrENSO_Nov,R1CorrENSO_Dec,\
@@ -118,23 +119,23 @@ def R1CorrENSO_data():
            R1CorrENSO_May
 
 def R1CorrTPI_data():
-    annual = corr(trim_Annual,TPI_annual,3)
-    JJA = corr(trim_JJA,TPI_JJA,3)
-    SON = corr(trim_SON,TPI_SON,3)
-    DJF = corr(trim_DJF,TPI_DJF,3)
-    MAM = corr(trim_MAM,TPI_MAM,3)
-    Jun = corr(trim_June,TPI_Jun,3)
-    Jul = corr(trim_July,TPI_Jul,3)
-    Aug = corr(trim_August,TPI_Aug,3)
-    Sep = corr(trim_September,TPI_Sep,3)
-    Oct = corr(trim_October,TPI_Oct,3)
-    Nov = corr(trim_November,TPI_Nov,3)
-    Dec = corr(trim_December,TPI_Dec,3)
-    Jan = corr(trim_January,TPI_Jan,3)
-    Feb = corr(trim_February,TPI_Feb,3)
-    Mar = corr(trim_March,TPI_Mar,3)
-    Apr = corr(trim_April,TPI_Apr,3)
-    May = corr(trim_May,TPI_May,3)
+    R1CorrTPI_annual = corr(trim_Annual,TPI_annual,3)
+    R1CorrTPI_JJA = corr(trim_JJA,TPI_JJA,3)
+    R1CorrTPI_SON = corr(trim_SON,TPI_SON,3)
+    R1CorrTPI_DJF = corr(trim_DJF,TPI_DJF,3)
+    R1CorrTPI_MAM = corr(trim_MAM,TPI_MAM,3)
+    R1CorrTPI_Jun = corr(trim_June,TPI_Jun,3)
+    R1CorrTPI_Jul = corr(trim_July,TPI_Jul,3)
+    R1CorrTPI_Aug = corr(trim_August,TPI_Aug,3)
+    R1CorrTPI_Sep = corr(trim_September,TPI_Sep,3)
+    R1CorrTPI_Oct = corr(trim_October,TPI_Oct,3)
+    R1CorrTPI_Nov = corr(trim_November,TPI_Nov,3)
+    R1CorrTPI_Dec = corr(trim_December,TPI_Dec,3)
+    R1CorrTPI_Jan = corr(trim_January,TPI_Jan,3)
+    R1CorrTPI_Feb = corr(trim_February,TPI_Feb,3)
+    R1CorrTPI_Mar = corr(trim_March,TPI_Mar,3)
+    R1CorrTPI_Apr = corr(trim_April,TPI_Apr,3)
+    R1CorrTPI_May = corr(trim_May,TPI_May,3)
     return R1CorrTPI_annual, R1CorrTPI_JJA, R1CorrTPI_SON, R1CorrTPI_DJF,\
            R1CorrTPI_MAM,R1CorrTPI_Jun,R1CorrTPI_Jul,R1CorrTPI_Aug,\
            R1CorrTPI_Sep,R1CorrTPI_Oct,R1CorrTPI_Nov,R1CorrTPI_Dec,\
@@ -179,39 +180,39 @@ def corrDiffENSO_R1():
     return
 
 def corrDiffTPI_R1():
-    plotCorrDiff(awapCorrTPI_annual,R1CorrTPI_annual,"Difference between AWAP and ACCESS1.3 R1 correlations with TPI - annual",\
+    plotCorrDiff(awapCorrTPI_annual,R1CorrTPI_annual,"Difference between AWAP and ACCESS1.3 R1 correlations with IPO - annual",\
              "/correlation/diff_tpi_r1/annual")
-    plotCorrDiff(awapCorrTPI_JJA,R1CorrTPI_JJA,"Difference between AWAP and ACCESS1.3 R1 correlations with TPI - JJA",\
+    plotCorrDiff(awapCorrTPI_JJA,R1CorrTPI_JJA,"Difference between AWAP and ACCESS1.3 R1 correlations with IPO - JJA",\
              "/correlation/diff_tpi_r1/JJA")
-    plotCorrDiff(awapCorrTPI_SON,R1CorrTPI_SON,"Difference between AWAP and ACCESS1.3 R1 correlations with TPI - SON",\
+    plotCorrDiff(awapCorrTPI_SON,R1CorrTPI_SON,"Difference between AWAP and ACCESS1.3 R1 correlations with IPO - SON",\
              "/correlation/diff_tpi_r1/SON")
-    plotCorrDiff(awapCorrTPI_DJF,R1CorrTPI_DJF,"Difference between AWAP and ACCESS1.3 R1 correlations with TPI - DJF",\
+    plotCorrDiff(awapCorrTPI_DJF,R1CorrTPI_DJF,"Difference between AWAP and ACCESS1.3 R1 correlations with IPO - DJF",\
              "/correlation/diff_tpi_r1/DJF")
-    plotCorrDiff(awapCorrTPI_MAM,R1CorrTPI_MAM,"Difference between AWAP and ACCESS1.3 R1 correlations with TPI - MAM",\
+    plotCorrDiff(awapCorrTPI_MAM,R1CorrTPI_MAM,"Difference between AWAP and ACCESS1.3 R1 correlations with IPO - MAM",\
              "/correlation/diff_tpi_r1/MAM")
-    plotCorrDiff(awapCorrTPI_June,R1CorrTPI_Jun,"Difference between AWAP and ACCESS1.3 R1 correlations with TPI - June",\
+    plotCorrDiff(awapCorrTPI_June,R1CorrTPI_Jun,"Difference between AWAP and ACCESS1.3 R1 correlations with IPO - June",\
              "/correlation/diff_tpi_r1/June")
-    plotCorrDiff(awapCorrTPI_July,R1CorrTPI_Jul,"Difference between AWAP and ACCESS1.3 R1 correlations with TPI - July",\
+    plotCorrDiff(awapCorrTPI_July,R1CorrTPI_Jul,"Difference between AWAP and ACCESS1.3 R1 correlations with IPO - July",\
              "/correlation/diff_tpi_r1/July")
-    plotCorrDiff(awapCorrTPI_August,R1CorrTPI_Aug,"Difference between AWAP and ACCESS1.3 R1 correlations with TPI - August",\
+    plotCorrDiff(awapCorrTPI_August,R1CorrTPI_Aug,"Difference between AWAP and ACCESS1.3 R1 correlations with IPO - August",\
              "/correlation/diff_tpi_r1/August")
-    plotCorrDiff(awapCorrTPI_September,R1CorrTPI_Sep,"Difference between AWAP and ACCESS1.3 R1 correlations with TPI - September",\
+    plotCorrDiff(awapCorrTPI_September,R1CorrTPI_Sep,"Difference between AWAP and ACCESS1.3 R1 correlations with IPO - September",\
              "/correlation/diff_tpi_r1/September")
-    plotCorrDiff(awapCorrTPI_October,R1CorrTPI_Oct,"Difference between AWAP and ACCESS1.3 R1 correlations with TPI - October",\
+    plotCorrDiff(awapCorrTPI_October,R1CorrTPI_Oct,"Difference between AWAP and ACCESS1.3 R1 correlations with IPO - October",\
              "/correlation/diff_tpi_r1/October")
-    plotCorrDiff(awapCorrTPI_November,R1CorrTPI_Nov,"Difference between AWAP and ACCESS1.3 R1 correlations with TPI - November",\
+    plotCorrDiff(awapCorrTPI_November,R1CorrTPI_Nov,"Difference between AWAP and ACCESS1.3 R1 correlations with IPO - November",\
              "/correlation/diff_tpi_r1/November")
-    plotCorrDiff(awapCorrTPI_December,R1CorrTPI_Dec,"Difference between AWAP and ACCESS1.3 R1 correlations with TPI - December",\
+    plotCorrDiff(awapCorrTPI_December,R1CorrTPI_Dec,"Difference between AWAP and ACCESS1.3 R1 correlations with IPO - December",\
              "/correlation/diff_tpi_r1/December")
-    plotCorrDiff(awapCorrTPI_January,R1CorrTPI_Jan,"Difference between AWAP and ACCESS1.3 R1 correlations with TPI - January",\
+    plotCorrDiff(awapCorrTPI_January,R1CorrTPI_Jan,"Difference between AWAP and ACCESS1.3 R1 correlations with IPO - January",\
              "/correlation/diff_tpi_r1/January")
-    plotCorrDiff(awapCorrTPI_February,R1CorrTPI_Feb,"Difference between AWAP and ACCESS1.3 R1 correlations with TPI - February",\
+    plotCorrDiff(awapCorrTPI_February,R1CorrTPI_Feb,"Difference between AWAP and ACCESS1.3 R1 correlations with IPO - February",\
              "/correlation/diff_tpi_r1/February")
-    plotCorrDiff(awapCorrTPI_March,R1CorrTPI_Mar,"Difference between AWAP and ACCESS1.3 R1 correlations with TPI - March",\
+    plotCorrDiff(awapCorrTPI_March,R1CorrTPI_Mar,"Difference between AWAP and ACCESS1.3 R1 correlations with IPO - March",\
              "/correlation/diff_tpi_r1/March")
-    plotCorrDiff(awapCorrTPI_April,R1CorrTPI_Apr,"Difference between AWAP and ACCESS1.3 R1 correlations with TPI - April",\
+    plotCorrDiff(awapCorrTPI_April,R1CorrTPI_Apr,"Difference between AWAP and ACCESS1.3 R1 correlations with IPO - April",\
              "/correlation/diff_tpi_r1/April")
-    plotCorrDiff(awapCorrTPI_May,R1CorrTPI_May,"Difference between AWAP and ACCESS1.3 R1 correlations with TPI - May",\
+    plotCorrDiff(awapCorrTPI_May,R1CorrTPI_May,"Difference between AWAP and ACCESS1.3 R1 correlations with IPO - May",\
              "/correlation/diff_tpi_r1/May")
     return
 
@@ -248,12 +249,4 @@ accessCorrENSO(1,"r1")
 accessCorrIPO(3,"r1")
 corrDiffENSO_R1()
 corrDiffTPI_R1()
-"""
-"""
-accessCorrENSO(1,"r1")
-accessCorrENSO(2,"r2")
-accessCorrENSO(3,"r3")
-accessCorrIPO(3,"r1")
-accessCorrIPO(5,"r2")
-accessCorrIPO(7,"r3")
 """
