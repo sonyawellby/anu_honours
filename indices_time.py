@@ -4,6 +4,8 @@ A file to divide Nino 3.4 and TPI index data into years, seasons and months.
 Submitted by Sonya Wellby for ENVS4055, 2015.
 Last updated 10 September 2015.
 """
+#25 September: I don't think I need this  file still.  But check.
+
 import netCDF4 as n
 import numpy as np
 from indices_array import Nino34, TPI

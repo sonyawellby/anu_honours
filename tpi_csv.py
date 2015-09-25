@@ -3,7 +3,7 @@ Set of routines to compute the TPI IPO index and return
 its output in the .csv file format.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 27 August 2015.
+Last updated 25 September 2015.
 """
 
 import csv
@@ -116,7 +116,7 @@ def accUF():
     return Acc_monthsTPI_uf
 
 
-def hadisstTPI(dataTPI):
+def hadisst_access_TPI(dataTPI):
     """
     Generate IPO TPI index for HadISST and ACCESS data.
 
@@ -172,11 +172,36 @@ Acc_monthsTPI_r1 = TPI(Acc_monthsTPI_uf_r1,n,rp,wn)
 Acc_monthsTPI_r2 = TPI(Acc_monthsTPI_uf_r2,n,rp,wn)
 Acc_monthsTPI_r3 = TPI(Acc_monthsTPI_uf_r3,n,rp,wn)
 
+IPO_had_JJA = runningSeasons(Had_monthsTPI,3,0,4)
+IPO_had_SON = runningSeasons(Had_monthsTPI,3,1,4)
+IPO_had_DJF = runningSeasons(Had_monthsTPI,3,2,4)
+IPO_had_MAM = runningSeasons(Had_monthsTPI,3,3,4)
+IPO_had_Annual = runningSeasons(Had_monthsTPI,12,0,1)
+
+IPO_R1_JJA = runningSeasons(Acc_monthsTPI_r1,3,0,4)
+IPO_R1_SON = runningSeasons(Acc_monthsTPI_r1,3,1,4)
+IPO_R1_DJF = runningSeasons(Acc_monthsTPI_r1,3,2,4)
+IPO_R1_MAM = runningSeasons(Acc_monthsTPI_r1,3,3,4)
+IPO_R1_Annual = runningSeasons(Acc_monthsTPI_r1,12,0,1)
+
+IPO_R2_JJA = runningSeasons(Acc_monthsTPI_r2,3,0,4)
+IPO_R2_SON = runningSeasons(Acc_monthsTPI_r2,3,1,4)
+IPO_R2_DJF = runningSeasons(Acc_monthsTPI_r2,3,2,4)
+IPO_R2_MAM = runningSeasons(Acc_monthsTPI_r2,3,3,4)
+IPO_R2_Annual = runningSeasons(Acc_monthsTPI_r2,12,0,1)
+
+IPO_R3_JJA = runningSeasons(Acc_monthsTPI_r3,3,0,4)
+IPO_R3_SON = runningSeasons(Acc_monthsTPI_r3,3,1,4)
+IPO_R3_DJF = runningSeasons(Acc_monthsTPI_r3,3,2,4)
+IPO_R3_MAM = runningSeasons(Acc_monthsTPI_r3,3,3,4)
+IPO_R3_Annual = runningSeasons(Acc_monthsTPI_r3,12,0,1)
+
+
 """
 Generate IPO phases
 """
 #HadISST
-seasons_Had = hadisstTPI(Had_monthsTPI)
+seasons_Had = hadisst_access_TPI(Had_monthsTPI)
 (IPOpos_JJA,IPOneg_JJA,\
            IPOneutral_JJA,IPOpos_SON,IPOneg_SON,IPOneutral_SON,IPOpos_DJF,\
            IPOneg_DJF,IPOneutral_DJF,IPOpos_MAM,IPOneg_MAM,IPOneutral_MAM,\
@@ -206,7 +231,7 @@ Had_IPOneutral_Annual = IPOneutral_Annual
 
 #ACCESS R1
 
-seasons_R1 = hadisstTPI(Acc_monthsTPI_r1)
+seasons_R1 = hadisst_access_TPI(Acc_monthsTPI_r1)
 (IPOpos_JJA,IPOneg_JJA,\
            IPOneutral_JJA,IPOpos_SON,IPOneg_SON,IPOneutral_SON,IPOpos_DJF,\
            IPOneg_DJF,IPOneutral_DJF,IPOpos_MAM,IPOneg_MAM,IPOneutral_MAM,\
@@ -236,7 +261,7 @@ R1_IPOneutral_Annual = IPOneutral_Annual
 
 #ACCESS R2
 
-seasons_R2 = hadisstTPI(Acc_monthsTPI_r2)
+seasons_R2 = hadisst_access_TPI(Acc_monthsTPI_r2)
 (IPOpos_JJA,IPOneg_JJA,\
            IPOneutral_JJA,IPOpos_SON,IPOneg_SON,IPOneutral_SON,IPOpos_DJF,\
            IPOneg_DJF,IPOneutral_DJF,IPOpos_MAM,IPOneg_MAM,IPOneutral_MAM,\
@@ -266,7 +291,7 @@ R2_IPOneutral_Annual = IPOneutral_Annual
 
 #ACCESS R3
 
-seasons_R3 = hadisstTPI(Acc_monthsTPI_r3)
+seasons_R3 = hadisst_access_TPI(Acc_monthsTPI_r3)
 (IPOpos_JJA,IPOneg_JJA,\
            IPOneutral_JJA,IPOpos_SON,IPOneg_SON,IPOneutral_SON,IPOpos_DJF,\
            IPOneg_DJF,IPOneutral_DJF,IPOpos_MAM,IPOneg_MAM,IPOneutral_MAM,\

@@ -31,10 +31,132 @@ def index2years(data):
     return Jun,Jul,Aug,Sep,Oct,Nov,Dec,Jan,Feb,Mar,Apr,May
 
 """
+ENSO and IPO months (not accounting for phases)
+"""
+enso_cropHad = index2years(enso_csv.cropHad)
+(Jun,Jul,Aug,Sep,Oct,Nov,Dec,Jan,Feb,Mar,Apr,May) = enso_cropHad
+enso_Jun_Had = Jun
+enso_Jul_Had = Jul
+enso_Aug_Had = Aug
+enso_Sep_Had = Sep
+enso_Oct_Had = Oct
+enso_Nov_Had = Nov
+enso_Dec_Had = Dec
+enso_Jan_Had = Jan
+enso_Feb_Had = Feb
+enso_Mar_Had = Mar
+enso_Apr_Had = Apr
+enso_May_Had = May
+
+enso_cropR1 = index2years(enso_csv.cropR1)
+(Jun,Jul,Aug,Sep,Oct,Nov,Dec,Jan,Feb,Mar,Apr,May) = enso_cropR1
+enso_Jun_R1 = Jun
+enso_Jul_R1 = Jul
+enso_Aug_R1 = Aug
+enso_Sep_R1 = Sep
+enso_Oct_R1 = Oct
+enso_Nov_R1 = Nov
+enso_Dec_R1 = Dec
+enso_Jan_R1 = Jan
+enso_Feb_R1 = Feb
+enso_Mar_R1 = Mar
+enso_Apr_R1 = Apr
+enso_May_R1 = May
+
+enso_cropR2 = index2years(enso_csv.cropR2)
+(Jun,Jul,Aug,Sep,Oct,Nov,Dec,Jan,Feb,Mar,Apr,May) = enso_cropR2
+enso_Jun_R2 = Jun
+enso_Jul_R2 = Jul
+enso_Aug_R2 = Aug
+enso_Sep_R2 = Sep
+enso_Oct_R2 = Oct
+enso_Nov_R2 = Nov
+enso_Dec_R2 = Dec
+enso_Jan_R2 = Jan
+enso_Feb_R2 = Feb
+enso_Mar_R2 = Mar
+enso_Apr_R2 = Apr
+enso_May_R2 = May
+
+enso_cropR3 = index2years(enso_csv.cropR3)
+(Jun,Jul,Aug,Sep,Oct,Nov,Dec,Jan,Feb,Mar,Apr,May) = enso_cropR3
+enso_Jun_R3 = Jun
+enso_Jul_R3 = Jul
+enso_Aug_R3 = Aug
+enso_Sep_R3 = Sep
+enso_Oct_R3 = Oct
+enso_Nov_R3 = Nov
+enso_Dec_R3 = Dec
+enso_Jan_R3 = Jan
+enso_Feb_R3 = Feb
+enso_Mar_R3 = Mar
+enso_Apr_R3 = Apr
+enso_May_R3 = May
+
+ipo_HadISST = index2years(tpi_csv.Had_monthsTPI)
+(Jun,Jul,Aug,Sep,Oct,Nov,Dec,Jan,Feb,Mar,Apr,May) = ipo_HadISST
+IPO_had_Jun = Jun
+IPO_had_Jul = Jul
+IPO_had_Aug = Aug
+IPO_had_Sep = Sep
+IPO_had_Oct = Oct
+IPO_had_Nov = Nov
+IPO_had_Dec = Dec
+IPO_had_Jan = Jan
+IPO_had_Feb = Feb
+IPO_had_Mar = Mar
+IPO_had_Apr = Apr
+IPO_had_May = May
+
+ipo_R1 = index2years(tpi_csv.Acc_monthsTPI_r1)
+(Jun,Jul,Aug,Sep,Oct,Nov,Dec,Jan,Feb,Mar,Apr,May) = ipo_R1
+IPO_R1_Jun = Jun
+IPO_R1_Jul = Jul
+IPO_R1_Aug = Aug
+IPO_R1_Sep = Sep
+IPO_R1_Oct = Oct
+IPO_R1_Nov = Nov
+IPO_R1_Dec = Dec
+IPO_R1_Jan = Jan
+IPO_R1_Feb = Feb
+IPO_R1_Mar = Mar
+IPO_R1_Apr = Apr
+IPO_R1_May = May
+
+ipo_R2 = index2years(tpi_csv.Acc_monthsTPI_r2)
+(Jun,Jul,Aug,Sep,Oct,Nov,Dec,Jan,Feb,Mar,Apr,May) = ipo_R2
+IPO_R2_Jun = Jun
+IPO_R2_Jul = Jul
+IPO_R2_Aug = Aug
+IPO_R2_Sep = Sep
+IPO_R2_Oct = Oct
+IPO_R2_Nov = Nov
+IPO_R2_Dec = Dec
+IPO_R2_Jan = Jan
+IPO_R2_Feb = Feb
+IPO_R2_Mar = Mar
+IPO_R2_Apr = Apr
+IPO_R2_May = May
+
+ipo_R3 = index2years(tpi_csv.Acc_monthsTPI_r3)
+(Jun,Jul,Aug,Sep,Oct,Nov,Dec,Jan,Feb,Mar,Apr,May) = ipo_R3
+IPO_R3_Jun = Jun
+IPO_R3_Jul = Jul
+IPO_R3_Aug = Aug
+IPO_R3_Sep = Sep
+IPO_R3_Oct = Oct
+IPO_R3_Nov = Nov
+IPO_R3_Dec = Dec
+IPO_R3_Jan = Jan
+IPO_R3_Feb = Feb
+IPO_R3_Mar = Mar
+IPO_R3_Apr = Apr
+IPO_R3_May = May
+
+"""
 ENSO phases
 """
 #HadISST data
-
 ENSO_posHad = index2years(enso_csv.posHad)
 (Jun,Jul,Aug,Sep,Oct,Nov,Dec,Jan,Feb,Mar,Apr,May) = ENSO_posHad
 ENSO_posHad_Jun = Jun
@@ -96,10 +218,8 @@ ENSO_neutralHad_MAM = enso_csv.ENSOneutral_MAM_Had
 ENSO_neutralHad_annual = enso_csv.ENSOneutral_Annual_Had
 
 #ACCESS R1
-
 ENSO_posR1 = index2years(enso_csv.posR1)
 (Jun,Jul,Aug,Sep,Oct,Nov,Dec,Jan,Feb,Mar,Apr,May) = ENSO_posR1
-
 ENSO_posR1_Jun = Jun
 ENSO_posR1_Jul = Jul
 ENSO_posR1_Aug = Aug
@@ -220,7 +340,6 @@ ENSO_neutralR2_MAM = enso_csv.ENSOneutral_MAM_R2
 ENSO_neutralR2_annual = enso_csv.ENSOneutral_Annual_R2
 
 #ACCESS R3
-
 ENSO_posR3 = index2years(enso_csv.posR3)
 (Jun,Jul,Aug,Sep,Oct,Nov,Dec,Jan,Feb,Mar,Apr,May) = ENSO_posR3
 ENSO_posR3_Jun = Jun

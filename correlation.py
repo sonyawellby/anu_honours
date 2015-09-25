@@ -69,6 +69,7 @@ def corrDiff(array1,array2):
     mean_array1 = np.ma.mean(array1)
     sd_array1 = np.ma.std(array1)
     diff = np.ma.subtract(array1,array2)
+    
     if array1.count() > 30:
         diff_array_stat = (array2-mean_array1)/(sd_array1/math.sqrt(array1.count()))
         new_array = np.ma.masked_inside(diff_array_stat,-1.96,1.96)
@@ -85,6 +86,7 @@ def corrDiff(array1,array2):
         new_array = np.ma.masked_inside(diff_array_stat,-df_t,df_t)
         
     new_array2 = np.ma.masked_where(new_array == True,diff)
+    
     return new_array2
 
 def plotCorrDiff(array1,array2,title,filepath):

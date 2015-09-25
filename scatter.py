@@ -88,3 +88,4 @@ def scatter():
 
     return
 
+#scatter()

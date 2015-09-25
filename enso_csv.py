@@ -131,6 +131,7 @@ def hadisstNino34(var):
         jja = runningSeasons(ENSO_crop_Had,3,0,4)
         ENSO_JJA = ensoSD(jja)
         (data,ENSOpos,ENSOneg,ENSOneutral) = ENSO_JJA
+        ensoJJA = data
         ENSOpos_JJA = ENSOpos
         ENSOneg_JJA = ENSOneg
         ENSOneutral_JJA = ENSOneutral
@@ -138,6 +139,7 @@ def hadisstNino34(var):
         son = runningSeasons(ENSO_crop_Had,3,1,4)
         ENSO_SON = ensoSD(son)
         (data,ENSOpos,ENSOneg,ENSOneutral) = ENSO_SON
+        ensoSON = data
         ENSOpos_SON = ENSOpos
         ENSOneg_SON = ENSOneg
         ENSOneutral_SON = ENSOneutral
@@ -145,6 +147,7 @@ def hadisstNino34(var):
         djf = runningSeasons(ENSO_crop_Had,3,2,4)
         ENSO_DJF = ensoSD(djf)
         (data,ENSOpos,ENSOneg,ENSOneutral) = ENSO_DJF
+        ensoDJF = data
         ENSOpos_DJF = ENSOpos
         ENSOneg_DJF = ENSOneg
         ENSOneutral_DJF = ENSOneutral
@@ -152,6 +155,7 @@ def hadisstNino34(var):
         mam = runningSeasons(ENSO_crop_Had,3,0,4)
         ENSO_MAM = ensoSD(mam)
         (data,ENSOpos,ENSOneg,ENSOneutral) = ENSO_MAM
+        ensoMAM = data
         ENSOpos_MAM = ENSOpos
         ENSOneg_MAM = ENSOneg
         ENSOneutral_MAM = ENSOneutral
@@ -159,14 +163,15 @@ def hadisstNino34(var):
         annual = runningSeasons(ENSO_crop_Had,12,0,1)
         Annual = ensoSD(annual)
         (data, ENSOpos, ENSOneg, ENSOneutral) = Annual
+        ensoAnnual = data
         ENSOpos_Annual = ENSOpos
         ENSOneg_Annual = ENSOneg
         ENSOneutral_Annual = ENSOneutral
 
-        return ENSO_crop_Had,ENSOpos1,ENSOneg1,ENSOneutral1,ENSOpos_JJA,ENSOneg_JJA,\
-           ENSOneutral_JJA,ENSOpos_SON,ENSOneg_SON,ENSOneutral_SON,ENSOpos_DJF,\
-           ENSOneg_DJF,ENSOneutral_DJF,ENSOpos_MAM,ENSOneg_MAM,ENSOneutral_MAM,\
-           ENSOpos_Annual,ENSOneg_Annual,ENSOneutral_Annual
+        return ENSO_crop_Had,ENSOpos1,ENSOneg1,ENSOneutral1,ensoJJA,ENSOpos_JJA,ENSOneg_JJA,\
+           ENSOneutral_JJA,ensoSON,ENSOpos_SON,ENSOneg_SON,ENSOneutral_SON,ensoDJF,ENSOpos_DJF,\
+           ENSOneg_DJF,ENSOneutral_DJF,ensoMAM,ENSOpos_MAM,ENSOneg_MAM,ENSOneutral_MAM,\
+           ensoAnnual,ENSOpos_Annual,ENSOneg_Annual,ENSOneutral_Annual
         
     elif var == 'n':
         ENSO_Had = Nino34(dataFix_Had,baseStart=baseStart,baseEnd=baseEnd,ACCESS=False)
@@ -182,6 +187,7 @@ def hadisstNino34(var):
         jja = runningSeasons(ENSO_crop_Had,3,0,4)
         ENSO_JJA = ensoSD(jja)
         (data,ENSOpos,ENSOneg,ENSOneutral) = ENSO_JJA
+        ensoJJA = data
         ENSOpos_JJA = ENSOpos
         ENSOneg_JJA = ENSOneg
         ENSOneutral_JJA = ENSOneutral
@@ -189,6 +195,7 @@ def hadisstNino34(var):
         son = runningSeasons(ENSO_crop_Had,3,1,4)
         ENSO_SON = ensoSD(son)
         (data,ENSOpos,ENSOneg,ENSOneutral) = ENSO_SON
+        ensoSON = data
         ENSOpos_SON = ENSOpos
         ENSOneg_SON = ENSOneg
         ENSOneutral_SON = ENSOneutral
@@ -196,6 +203,7 @@ def hadisstNino34(var):
         djf = runningSeasons(ENSO_crop_Had,3,2,4)
         ENSO_DJF = ensoSD(djf)
         (data,ENSOpos,ENSOneg,ENSOneutral) = ENSO_DJF
+        ensoDJF = data
         ENSOpos_DJF = ENSOpos
         ENSOneg_DJF = ENSOneg
         ENSOneutral_DJF = ENSOneutral
@@ -203,6 +211,7 @@ def hadisstNino34(var):
         mam = runningSeasons(ENSO_crop_Had,3,0,4)
         ENSO_MAM = ensoSD(mam)
         (data,ENSOpos,ENSOneg,ENSOneutral) = ENSO_MAM
+        ensoMAM = data
         ENSOpos_MAM = ENSOpos
         ENSOneg_MAM = ENSOneg
         ENSOneutral_MAM = ENSOneutral
@@ -210,14 +219,15 @@ def hadisstNino34(var):
         annual = runningSeasons(ENSO_crop_Had,12,0,1)
         Annual = ensoSD(annual)
         (data, ENSOpos, ENSOneg, ENSOneutral) = Annual
+        ensoAnnual = data
         ENSOpos_Annual = ENSOpos
         ENSOneg_Annual = ENSOneg
         ENSOneutral_Annual = ENSOneutral
 
-        return ENSO_crop_Had,ENSOpos1,ENSOneg1,ENSOneutral1,ENSOpos_JJA,ENSOneg_JJA,\
-           ENSOneutral_JJA,ENSOpos_SON,ENSOneg_SON,ENSOneutral_SON,ENSOpos_DJF,\
-           ENSOneg_DJF,ENSOneutral_DJF,ENSOpos_MAM,ENSOneg_MAM,ENSOneutral_MAM,\
-            ENSOpos_Annual,ENSOneg_Annual,ENSOneutral_Annual
+        return ENSO_crop_Had,ENSOpos1,ENSOneg1,ENSOneutral1,ensoJJA,ENSOpos_JJA,ENSOneg_JJA,\
+           ENSOneutral_JJA,ensoSON,ENSOpos_SON,ENSOneg_SON,ENSOneutral_SON,ensoDJF,ENSOpos_DJF,\
+           ENSOneg_DJF,ENSOneutral_DJF,ensoMAM,ENSOpos_MAM,ENSOneg_MAM,ENSOneutral_MAM,\
+           ensoAnnual,ENSOpos_Annual,ENSOneg_Annual,ENSOneutral_Annual
         
     else:
         pass
@@ -247,6 +257,7 @@ def accessNino34(var):
         jja = runningSeasons(ENSO_crop_Acc,3,0,4)
         ENSO_JJA = ensoSD(jja)
         (data,ENSOpos,ENSOneg,ENSOneutral) = ENSO_JJA
+        ensoJJA = data
         ENSOpos_JJA = ENSOpos
         ENSOneg_JJA = ENSOneg
         ENSOneutral_JJA = ENSOneutral
@@ -254,6 +265,7 @@ def accessNino34(var):
         son = runningSeasons(ENSO_crop_Acc,3,1,4)
         ENSO_SON = ensoSD(son)
         (data,ENSOpos,ENSOneg,ENSOneutral) = ENSO_SON
+        ensoSON = data
         ENSOpos_SON = ENSOpos
         ENSOneg_SON = ENSOneg
         ENSOneutral_SON = ENSOneutral
@@ -261,6 +273,7 @@ def accessNino34(var):
         djf = runningSeasons(ENSO_crop_Acc,3,2,4)
         ENSO_DJF = ensoSD(djf)
         (data,ENSOpos,ENSOneg,ENSOneutral) = ENSO_DJF
+        ensoDJF = data
         ENSOpos_DJF = ENSOpos
         ENSOneg_DJF = ENSOneg
         ENSOneutral_DJF = ENSOneutral
@@ -268,6 +281,7 @@ def accessNino34(var):
         mam = runningSeasons(ENSO_crop_Acc,3,0,4)
         ENSO_MAM = ensoSD(mam)
         (data,ENSOpos,ENSOneg,ENSOneutral) = ENSO_MAM
+        ensoMAM = data
         ENSOpos_MAM = ENSOpos
         ENSOneg_MAM = ENSOneg
         ENSOneutral_MAM = ENSOneutral
@@ -275,14 +289,15 @@ def accessNino34(var):
         annual = runningSeasons(ENSO_crop_Acc,12,0,1)
         Annual = ensoSD(annual)
         (data, ENSOpos, ENSOneg, ENSOneutral) = Annual
+        ensoAnnual = data
         ENSOpos_Annual = ENSOpos
         ENSOneg_Annual = ENSOneg
         ENSOneutral_Annual = ENSOneutral
 
-        return ENSO_crop_Acc,ENSOpos1,ENSOneg1,ENSOneutral1,ENSOpos_JJA,ENSOneg_JJA,\
-           ENSOneutral_JJA,ENSOpos_SON,ENSOneg_SON,ENSOneutral_SON,ENSOpos_DJF,\
-           ENSOneg_DJF,ENSOneutral_DJF,ENSOpos_MAM,ENSOneg_MAM,ENSOneutral_MAM,\
-           ENSOpos_Annual,ENSOneg_Annual,ENSOneutral_Annual
+        return ENSO_crop_Acc,ENSOpos1,ENSOneg1,ENSOneutral1,ensoJJA,ENSOpos_JJA,ENSOneg_JJA,\
+           ENSOneutral_JJA,ensoSON,ENSOpos_SON,ENSOneg_SON,ENSOneutral_SON,ensoDJF,ENSOpos_DJF,\
+           ENSOneg_DJF,ENSOneutral_DJF,ensoMAM,ENSOpos_MAM,ENSOneg_MAM,ENSOneutral_MAM,\
+           ensoAnnual,ENSOpos_Annual,ENSOneg_Annual,ENSOneutral_Annual
         
     elif var == 'n':
         ENSO_Acc = Nino34(access_prepare_ts.dataFix_Acc,baseStart=baseStart,baseEnd=baseEnd,ACCESS=True)
@@ -298,6 +313,7 @@ def accessNino34(var):
         jja = runningSeasons(ENSO_crop_Acc,3,0,4)
         ENSO_JJA = ensoSD(jja)
         (data,ENSOpos,ENSOneg,ENSOneutral) = ENSO_JJA
+        ensoJJA = data
         ENSOpos_JJA = ENSOpos
         ENSOneg_JJA = ENSOneg
         ENSOneutral_JJA = ENSOneutral
@@ -305,6 +321,7 @@ def accessNino34(var):
         son = runningSeasons(ENSO_crop_Acc,3,1,4)
         ENSO_SON = ensoSD(son)
         (data,ENSOpos,ENSOneg,ENSOneutral) = ENSO_SON
+        ensoSON = data
         ENSOpos_SON = ENSOpos
         ENSOneg_SON = ENSOneg
         ENSOneutral_SON = ENSOneutral
@@ -312,6 +329,7 @@ def accessNino34(var):
         djf = runningSeasons(ENSO_crop_Acc,3,2,4)
         ENSO_DJF = ensoSD(djf)
         (data,ENSOpos,ENSOneg,ENSOneutral) = ENSO_DJF
+        ensoDJF = data
         ENSOpos_DJF = ENSOpos
         ENSOneg_DJF = ENSOneg
         ENSOneutral_DJF = ENSOneutral
@@ -319,6 +337,7 @@ def accessNino34(var):
         mam = runningSeasons(ENSO_crop_Acc,3,0,4)
         ENSO_MAM = ensoSD(mam)
         (data,ENSOpos,ENSOneg,ENSOneutral) = ENSO_MAM
+        ensoMAM = data
         ENSOpos_MAM = ENSOpos
         ENSOneg_MAM = ENSOneg
         ENSOneutral_MAM = ENSOneutral
@@ -326,14 +345,15 @@ def accessNino34(var):
         annual = runningSeasons(ENSO_crop_Acc,12,0,1)
         Annual = ensoSD(annual)
         (data, ENSOpos, ENSOneg, ENSOneutral) = Annual
+        ensoAnnual = data
         ENSOpos_Annual = ENSOpos
         ENSOneg_Annual = ENSOneg
         ENSOneutral_Annual = ENSOneutral
 
-        return ENSO_crop_Acc,ENSOpos1,ENSOneg1,ENSOneutral1,ENSOpos_JJA,ENSOneg_JJA,\
-           ENSOneutral_JJA,ENSOpos_SON,ENSOneg_SON,ENSOneutral_SON,ENSOpos_DJF,\
-           ENSOneg_DJF,ENSOneutral_DJF,ENSOpos_MAM,ENSOneg_MAM,ENSOneutral_MAM,\
-           ENSOpos_Annual,ENSOneg_Annual,ENSOneutral_Annual
+        return ENSO_crop_Acc,ENSOpos1,ENSOneg1,ENSOneutral1,ensoJJA,ENSOpos_JJA,ENSOneg_JJA,\
+           ENSOneutral_JJA,ensoSON,ENSOpos_SON,ENSOneg_SON,ENSOneutral_SON,ensoDJF,ENSOpos_DJF,\
+           ENSOneg_DJF,ENSOneutral_DJF,ensoMAM,ENSOpos_MAM,ENSOneg_MAM,ENSOneutral_MAM,\
+           ensoAnnual,ENSOpos_Annual,ENSOneg_Annual,ENSOneutral_Annual
 
     else:
         pass
@@ -343,16 +363,21 @@ var = raw_input("Are you computing normal standard deviations (i.e. not 2sd, 3sd
 
 #HadISST data
 HadNino = hadisstNino34(var)
-(ENSO_crop_Had,ENSOpos,ENSOneg,ENSOneutral,ENSOpos_JJA,ENSOneg_JJA,\
- ENSOneutral_JJA,ENSOpos_SON,ENSOneg_SON,ENSOneutral_SON,ENSOpos_DJF,\
- ENSOneg_DJF,ENSOneutral_DJF,ENSOpos_MAM,ENSOneg_MAM,ENSOneutral_MAM,\
- ENSOpos_Annual,ENSOneg_Annual,ENSOneutral_Annual) = HadNino
+(ENSO_crop_Had,ENSOpos1,ENSOneg1,ENSOneutral1,ensoJJA,ENSOpos_JJA,ENSOneg_JJA,\
+ ENSOneutral_JJA,ensoSON,ENSOpos_SON,ENSOneg_SON,ENSOneutral_SON,ensoDJF,ENSOpos_DJF,\
+ ENSOneg_DJF,ENSOneutral_DJF,ensoMAM,ENSOpos_MAM,ENSOneg_MAM,ENSOneutral_MAM,\
+ ensoAnnual,ENSOpos_Annual,ENSOneg_Annual,ENSOneutral_Annual) = HadNino
 
 cropHad = ENSO_crop_Had
-posHad = ENSOpos
-negHad = ENSOneg
-neutralHad = ENSOneutral
+posHad = ENSOpos1
+negHad = ENSOneg1
+neutralHad = ENSOneutral1
 
+enso_JJA_Had = ensoJJA
+enso_SON_Had = ensoSON
+enso_DJF_Had = ensoDJF
+enso_MAM_Had = ensoMAM
+enso_Annual_Had = ensoAnnual
 ENSOpos_JJA_Had = ENSOpos_JJA
 ENSOneg_JJA_Had = ENSOneg_JJA
 ENSOneutral_JJA_Had = ENSOneutral_JJA
@@ -371,16 +396,21 @@ ENSOneutral_Annual_Had = ENSOneutral_Annual
 
 #access_ts_r1 data
 r1 = accessNino34(var)
-(ENSO_crop_Acc,ENSOpos,ENSOneg,ENSOneutral,ENSOpos_JJA,ENSOneg_JJA,\
- ENSOneutral_JJA,ENSOpos_SON,ENSOneg_SON,ENSOneutral_SON,ENSOpos_DJF,\
- ENSOneg_DJF,ENSOneutral_DJF,ENSOpos_MAM,ENSOneg_MAM,ENSOneutral_MAM,\
- ENSOpos_Annual,ENSOneg_Annual,ENSOneutral_Annual) = r1
+(ENSO_crop_Acc,ENSOpos1,ENSOneg1,ENSOneutral1,ensoJJA,ENSOpos_JJA,ENSOneg_JJA,\
+ ENSOneutral_JJA,ensoSON,ENSOpos_SON,ENSOneg_SON,ENSOneutral_SON,ensoDJF,ENSOpos_DJF,\
+ ENSOneg_DJF,ENSOneutral_DJF,ensoMAM,ENSOpos_MAM,ENSOneg_MAM,ENSOneutral_MAM,\
+ ensoAnnual,ENSOpos_Annual,ENSOneg_Annual,ENSOneutral_Annual) = r1
 
 cropR1 = ENSO_crop_Acc
-posR1 = ENSOpos
-negR1 = ENSOneg
-neutralR1 = ENSOneutral
+posR1 = ENSOpos1
+negR1 = ENSOneg1
+neutralR1 = ENSOneutral1
 
+enso_JJA_R1 = ensoJJA
+enso_SON_R1 = ensoSON
+enso_DJF_R1 = ensoDJF
+enso_MAM_R1 = ensoMAM
+enso_Annual_R1 = ensoAnnual
 ENSOpos_JJA_R1 = ENSOpos_JJA
 ENSOneg_JJA_R1 = ENSOneg_JJA
 ENSOneutral_JJA_R1 = ENSOneutral_JJA
@@ -399,16 +429,21 @@ ENSOneutral_Annual_R1 = ENSOneutral_Annual
 
 #access_ts_r2 data
 r2 = accessNino34(var)
-(ENSO_crop_Acc,ENSOpos,ENSOneg,ENSOneutral,ENSOpos_JJA,ENSOneg_JJA,\
- ENSOneutral_JJA,ENSOpos_SON,ENSOneg_SON,ENSOneutral_SON,ENSOpos_DJF,\
- ENSOneg_DJF,ENSOneutral_DJF,ENSOpos_MAM,ENSOneg_MAM,ENSOneutral_MAM,\
- ENSOpos_Annual,ENSOneg_Annual,ENSOneutral_Annual) = r2
+(ENSO_crop_Acc,ENSOpos1,ENSOneg1,ENSOneutral1,ensoJJA,ENSOpos_JJA,ENSOneg_JJA,\
+ ENSOneutral_JJA,ensoSON,ENSOpos_SON,ENSOneg_SON,ENSOneutral_SON,ensoDJF,ENSOpos_DJF,\
+ ENSOneg_DJF,ENSOneutral_DJF,ensoMAM,ENSOpos_MAM,ENSOneg_MAM,ENSOneutral_MAM,\
+ ensoAnnual,ENSOpos_Annual,ENSOneg_Annual,ENSOneutral_Annual) = r2
 
 cropR2 = ENSO_crop_Acc
-posR2 = ENSOpos
-negR2 = ENSOneg
-neutralR2 = ENSOneutral
+posR2 = ENSOpos1
+negR2 = ENSOneg1
+neutralR2 = ENSOneutral1
 
+enso_JJA_R2 = ensoJJA
+enso_SON_R2 = ensoSON
+enso_DJF_R2 = ensoDJF
+enso_MAM_R2 = ensoMAM
+enso_Annual_R2 = ensoAnnual
 ENSOpos_JJA_R2 = ENSOpos_JJA
 ENSOneg_JJA_R2 = ENSOneg_JJA
 ENSOneutral_JJA_R2 = ENSOneutral_JJA
@@ -429,16 +464,21 @@ ENSOneutral_Annual_R2 = ENSOneutral_Annual
 
 #access_ts_r3 data
 r3 = accessNino34(var)
-(ENSO_crop_Acc,ENSOpos,ENSOneg,ENSOneutral,ENSOpos_JJA,ENSOneg_JJA,\
- ENSOneutral_JJA,ENSOpos_SON,ENSOneg_SON,ENSOneutral_SON,ENSOpos_DJF,\
- ENSOneg_DJF,ENSOneutral_DJF,ENSOpos_MAM,ENSOneg_MAM,ENSOneutral_MAM,\
- ENSOpos_Annual,ENSOneg_Annual,ENSOneutral_Annual) = r3
+(ENSO_crop_Acc,ENSOpos1,ENSOneg1,ENSOneutral1,ensoJJA,ENSOpos_JJA,ENSOneg_JJA,\
+ ENSOneutral_JJA,ensoSON,ENSOpos_SON,ENSOneg_SON,ENSOneutral_SON,ensoDJF,ENSOpos_DJF,\
+ ENSOneg_DJF,ENSOneutral_DJF,ensoMAM,ENSOpos_MAM,ENSOneg_MAM,ENSOneutral_MAM,\
+ ensoAnnual,ENSOpos_Annual,ENSOneg_Annual,ENSOneutral_Annual) = r3
 
 cropR3 = ENSO_crop_Acc
-posR3 = ENSOpos
-negR3 = ENSOneg
-neutralR3 = ENSOneutral
+posR3 = ENSOpos1
+negR3 = ENSOneg1
+neutralR3 = ENSOneutral1
 
+enso_JJA_R3 = ensoJJA
+enso_SON_R3 = ensoSON
+enso_DJF_R3 = ensoDJF
+enso_MAM_R3 = ensoMAM
+enso_Annual_R3 = ensoAnnual
 ENSOpos_JJA_R3 = ENSOpos_JJA
 ENSOneg_JJA_R3 = ENSOneg_JJA
 ENSOneutral_JJA_R3 = ENSOneutral_JJA
