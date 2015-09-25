@@ -2,7 +2,7 @@
 Routines to plot HadISST, ACCESS and AWAP datasets. 
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 17 September 2015.
+Last updated 25 September 2015.
 """
 
 import netCDF4 as n
@@ -326,6 +326,97 @@ def multi(directory,nrow,ncol,title=''):
     pylab.colorbar(cax=cax,ticks=[0, 0.5, 1.5],label=units)
     """
     return fig
+
+
+def multiScatter(directory,nrow,ncol,title=''):
+    """
+    A file to plot nine pre-plotted images in a three-by-three image.
+    Parameters:
+    -----------
+    directory : The directory (str; with wildcards and extension) of the
+                images to be plotted.
+                E.g. 'my_coding_routines/images/test/*.png'
+    nrow : The number of rows of images in the file.
+    ncol : The number of columns of images in the file.
+    title : (default = '')
+            The title of the graph (str).  By default, none is added.
+    """
+    fig = plt.figure(facecolor='white') # removing 'facecolor' sets it to 'None'
+
+    mainTitle = title
+    plt.suptitle(mainTitle,fontsize = 18)
+    
+    fileList = glob.glob(directory)
+    
+    for i in range(1,(nrow*ncol)+1):
+        a = fig.add_subplot(nrow,ncol,i)
+        img = mpimg.imread(fileList[i-1])
+        imgplot = plt.imshow(img)
+        plt.tick_params(
+            axis='both',        # Apply to both x- and y-axes
+            which='both',       # Turns major and minor ticks off
+            left = 'off',       # Turns axis ticks off
+            right = 'off',
+            bottom='off',      
+            top='off',         
+            labelbottom='off',  # Turns axis labels off
+            labelleft='off')
+        if i == 1:
+            a.set_title('HadISST1')
+            a.set_ylabel('TPI',fontsize=10)
+            a.set_xlabel('ENSO',fontsize=10)
+        elif i == 2:
+            a.set_title('ACCESS1.3 R1')
+            a.set_ylabel('TPI',fontsize=10)
+            a.set_xlabel('ENSO',fontsize=10)
+        elif i == 3:
+            a.set_title('ACCESS1.3 R2')
+            a.set_ylabel('TPI',fontsize=10)
+            a.set_xlabel('ENSO',fontsize=10)
+        elif i == 4:
+            a.set_title('ACCESS1.3 R3')
+            a.set_ylabel('TPI',fontsize=10)
+            a.set_xlabel('ENSO',fontsize=10)
+        else:
+            pass
+
+    return fig
+
+def multiGeneral(directory,nrow,ncol,title=''):
+    """
+    A file to plot nine pre-plotted images in a three-by-three image.
+    Parameters:
+    -----------
+    directory : The directory (str; with wildcards and extension) of the
+                images to be plotted.
+                E.g. 'my_coding_routines/images/test/*.png'
+    nrow : The number of rows of images in the file.
+    ncol : The number of columns of images in the file.
+    title : (default = '')
+            The title of the graph (str).  By default, none is added.
+    """
+    fig = plt.figure(facecolor='white') # removing 'facecolor' sets it to 'None'
+
+    mainTitle = title
+    plt.suptitle(mainTitle,fontsize = 18)
+    
+    fileList = glob.glob(directory)
+    
+    for i in range(1,(nrow*ncol)+1):
+        a = fig.add_subplot(nrow,ncol,i)
+        img = mpimg.imread(fileList[i-1])
+        imgplot = plt.imshow(img)
+        plt.tick_params(
+            axis='both',        # Apply to both x- and y-axes
+            which='both',       # Turns major and minor ticks off
+            left = 'off',       # Turns axis ticks off
+            right = 'off',
+            bottom='off',      
+            top='off',         
+            labelbottom='off',  # Turns axis labels off
+            labelleft='off')
+    return fig
+
 
 """
 #Plot AWAP annual data

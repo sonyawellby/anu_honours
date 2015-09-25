@@ -3,7 +3,7 @@ A file to compute Pearson's correlation coefficient and
 significance for the ENSO and the IPO indices.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 25 September 2015.
+Last updated 9 September 2015.
 """
 import netCDF4 as n
 import numpy as np
@@ -12,104 +12,63 @@ import matplotlib.pyplot as plt
 import pylab
 #from statsmodels.stats.multicomp import pairwise_tukeyhsd
 
-from enso_csv import enso_JJA_Had, enso_SON_Had, enso_DJF_Had,\
-     enso_MAM_Had, enso_Annual_Had, enso_JJA_R1, enso_SON_R1,\
-     enso_DJF_R1,enso_MAM_R1, enso_Annual_R1,enso_JJA_R2, \
-     enso_SON_R2, enso_DJF_R2,enso_MAM_R2, enso_Annual_R2,\
-     enso_JJA_R3, enso_SON_R3, enso_DJF_R3,enso_MAM_R3, \
-     enso_Annual_R3
-
-from tpi_csv import IPO_had_JJA,IPO_had_SON,IPO_had_DJF,\
-     IPO_had_MAM,IPO_had_Annual,IPO_R1_JJA,IPO_R1_SON,\
-     IPO_R1_DJF,IPO_R1_MAM,IPO_R1_Annual,IPO_R2_JJA,\
-     IPO_R2_SON,IPO_R2_DJF,IPO_R2_MAM,IPO_R2_Annual,\
-     IPO_R3_JJA,IPO_R3_SON,IPO_R3_DJF,IPO_R3_MAM,IPO_R3_Annual
-
+from indices_time import indexTime
+from indices_array import Nino34, TPI
 from cwd import cwdInFunction
+
 cwdInFunction()
 
-from indices_phase import enso_Jun_Had,enso_Jul_Had,enso_Aug_Had,enso_Sep_Had,\
-     enso_Oct_Had,enso_Nov_Had,enso_Dec_Had,enso_Jan_Had,\
-     enso_Feb_Had,enso_Mar_Had,enso_Apr_Had,enso_May_Had,\
-     enso_Jun_R1,enso_Jul_R1,enso_Aug_R1,enso_Sep_R1,\
-     enso_Oct_R1,enso_Nov_R1,enso_Dec_R1,enso_Jan_R1,\
-     enso_Feb_R1,enso_Mar_R1,enso_Apr_R1,enso_May_R1,\
-     enso_Jun_R2,enso_Jul_R2,enso_Aug_R2,enso_Sep_R2,\
-     enso_Oct_R2,enso_Nov_R2,enso_Dec_R2,enso_Jan_R2,\
-     enso_Feb_R2,enso_Mar_R2,enso_Apr_R2,enso_May_R2,\
-     enso_Jun_R3,enso_Jul_R3,enso_Aug_R3,enso_Sep_R3,\
-     enso_Oct_R3,enso_Nov_R3,enso_Dec_R3,enso_Jan_R3,\
-     enso_Feb_R3,enso_Mar_R3,enso_Apr_R3,enso_May_R3,\
-     IPO_had_Jun,IPO_had_Jul,IPO_had_Aug,IPO_had_Sep,\
-     IPO_had_Oct,IPO_had_Nov,IPO_had_Dec,IPO_had_Jan,\
-     IPO_had_Feb,IPO_had_Mar,IPO_had_Apr,IPO_had_May,\
-     IPO_R1_Jun,IPO_R1_Jul,IPO_R1_Aug,IPO_R1_Sep,\
-     IPO_R1_Oct,IPO_R1_Nov,IPO_R1_Dec,IPO_R1_Jan,\
-     IPO_R1_Feb,IPO_R1_Mar,IPO_R1_Apr,IPO_R1_May,\
-     IPO_R2_Jun,IPO_R2_Jul,IPO_R2_Aug,IPO_R2_Sep,\
-     IPO_R2_Oct,IPO_R2_Nov,IPO_R2_Dec,IPO_R2_Jan,\
-     IPO_R2_Feb,IPO_R2_Mar,IPO_R2_Apr,IPO_R2_May,\
-     IPO_R3_Jun,IPO_R3_Jul,IPO_R3_Aug,IPO_R3_Sep,\
-     IPO_R3_Oct,IPO_R3_Nov,IPO_R3_Dec,IPO_R3_Jan,\
-     IPO_R3_Feb,IPO_R3_Mar,IPO_R3_Apr,IPO_R3_May
+enso = indexTime(Nino34)
+(Nino34_Jun, Nino34_Jul, Nino34_Aug, Nino34_Sep, Nino34_Oct, Nino34_Nov, \
+ Nino34_Dec, Nino34_Jan, Nino34_Feb, Nino34_Mar, Nino34_Apr, Nino34_May,\
+ Nino34_JJA, Nino34_SON, Nino34_DJF, Nino34_MAM, Nino34_annual) = enso
 
-from enso_csv import enso_JJA_Had, enso_SON_Had, enso_DJF_Had,\
-     enso_MAM_Had, enso_Annual_Had, enso_JJA_R1, enso_SON_R1,\
-     enso_DJF_R1,enso_MAM_R1, enso_Annual_R1,enso_JJA_R2, \
-     enso_SON_R2, enso_DJF_R2,enso_MAM_R2, enso_Annual_R2,\
-     enso_JJA_R3, enso_SON_R3, enso_DJF_R3,enso_MAM_R3, \
-     enso_Annual_R3
+ipo = indexTime(TPI)
+(TPI_Jun, TPI_Jul, TPI_Aug, TPI_Sep, TPI_Oct, TPI_Nov, TPI_Dec, \
+ TPI_Jan, TPI_Feb, TPI_Mar, TPI_Apr, TPI_May,\
+ TPI_JJA, TPI_SON, TPI_DJF, TPI_MAM, TPI_annual) = ipo
 
-from tpi_csv import IPO_had_JJA,IPO_had_SON,IPO_had_DJF,\
-     IPO_had_MAM,IPO_had_Annual,IPO_R1_JJA,IPO_R1_SON,\
-     IPO_R1_DJF,IPO_R1_MAM,IPO_R1_Annual,IPO_R2_JJA,\
-     IPO_R2_SON,IPO_R2_DJF,IPO_R2_MAM,IPO_R2_Annual,\
-     IPO_R3_JJA,IPO_R3_SON,IPO_R3_DJF,IPO_R3_MAM,IPO_R3_Annual
 
-def normal(data):
+def normal(data,num):
     #Checks to see if dataset is normally distributed.
-    dat = np.array(data)
+    dat = np.array(data[num])
     z,pval = stats.mstats.normaltest(dat)
     return pval
 
 
-def correl(index1,index2):
+def correl(index1,index2,num1,num2):
     """
     Pearson's correlation coefficient [-1,1]
     """
-    cc = stats.pearsonr(index1,index2)
+    cc = stats.pearsonr(index1[num1],index2[num2])
     return cc
 
-"""
 def correlStrat(array1,array2):
-    
+    """
     Pearson's correlation coefficient [-1,1]
-    
+    """
     cc = stats.pearsonr(array1,array2)
     return cc
-"""
 
-def correlAll(list1,list2):
-    """
-    Correlations between Nino 3.4 and TPI data derived from HadISST1 (observations)
-    """
-    June = correl(list1[0],list2[0])
-    July = correl(list1[1],list2[1])
-    August = correl(list1[2],list2[2])
-    September = correl(list1[3],list2[3])
-    October = correl(list1[4],list2[4])
-    November = correl(list1[5],list2[5])
-    December = correl(list1[6],list2[6])
-    January = correl(list1[7],list2[7])
-    February = correl(list1[8],list2[8])
-    March = correl(list1[9],list2[9])
-    April = correl(list1[10],list2[10])
-    May = correl(list1[11],list2[11])
-    JJA = correl(list1[12],list2[12])
-    SON = correl(list1[13],list2[13])
-    DJF = correl(list1[14],list2[14])
-    MAM = correl(list1[15],list2[15])
-    annual = correl(list1[16],list2[16])
+#Correlations between Nino 3.4 and TPI data derived from HadISST1 (observations)
+def correlAll(num1,num2):
+    June = correl(Nino34_Jun,TPI_Jun,num1,num2)
+    July = correl(Nino34_Jul,TPI_Jul,num1,num2)
+    August = correl(Nino34_Aug,TPI_Aug,num1,num2)
+    September = correl(Nino34_Sep,TPI_Sep,num1,num2)
+    October = correl(Nino34_Oct,TPI_Oct,num1,num2)
+    November = correl(Nino34_Nov,TPI_Nov,num1,num2)
+    December = correl(Nino34_Dec,TPI_Dec,num1,num2)
+    January = correl(Nino34_Jan,TPI_Jan,num1,num2)
+    February = correl(Nino34_Feb,TPI_Feb,num1,num2)
+    March = correl(Nino34_Mar,TPI_Mar,num1,num2)
+    April = correl(Nino34_Apr,TPI_Apr,num1,num2)
+    May = correl(Nino34_May,TPI_May,num1,num2)
+    JJA = correl(Nino34_JJA,TPI_JJA,num1,num2)
+    SON = correl(Nino34_SON,TPI_SON,num1,num2)
+    DJF = correl(Nino34_DJF,TPI_DJF,num1,num2)
+    MAM = correl(Nino34_MAM,TPI_MAM,num1,num2)
+    annual = correl(Nino34_annual,TPI_annual,num1,num2)
     return June, July, August, September, October, November, December, January,\
            February, March, April, May, JJA, SON, DJF, MAM, annual
 
@@ -149,51 +108,10 @@ def corrANOVA(array1,array2,array3,array4):
     """
     f_val,p_val = stats.f_oneway(array1,array2,array3,array4)
     return f_val, p_val
+    
 
-hadISST_ENSO = [enso_Jun_Had,enso_Jul_Had,enso_Aug_Had,enso_Sep_Had,\
-                enso_Oct_Had,enso_Nov_Had,enso_Dec_Had,enso_Jan_Had,\
-                enso_Feb_Had,enso_Mar_Had,enso_Apr_Had,enso_May_Had,\
-                enso_JJA_Had, enso_SON_Had, enso_DJF_Had,enso_MAM_Had,\
-                enso_Annual_Had]
-R1_ENSO = [enso_Jun_R1,enso_Jul_R1,enso_Aug_R1,enso_Sep_R1,\
-           enso_Oct_R1,enso_Nov_R1,enso_Dec_R1,enso_Jan_R1,\
-           enso_Feb_R1,enso_Mar_R1,enso_Apr_R1,enso_May_R1,\
-           enso_JJA_R1, enso_SON_R1,enso_DJF_R1,enso_MAM_R1,\
-           enso_Annual_R1]
-R2_ENSO = [enso_Jun_R2,enso_Jul_R2,enso_Aug_R2,enso_Sep_R2,\
-           enso_Oct_R2,enso_Nov_R2,enso_Dec_R2,enso_Jan_R2,\
-           enso_Feb_R2,enso_Mar_R2,enso_Apr_R2,enso_May_R2,\
-           enso_JJA_R2, enso_SON_R2,enso_DJF_R2,enso_MAM_R2,\
-           enso_Annual_R2]
-R3_ENSO = [enso_Jun_R3,enso_Jul_R3,enso_Aug_R3,enso_Sep_R3,\
-           enso_Oct_R3,enso_Nov_R3,enso_Dec_R3,enso_Jan_R3,\
-           enso_Feb_R3,enso_Mar_R3,enso_Apr_R3,enso_May_R3,\
-           enso_JJA_R3, enso_SON_R3,enso_DJF_R3,enso_MAM_R3,\
-           enso_Annual_R3]
-
-hadISST_IPO = [IPO_had_Jun,IPO_had_Jul,IPO_had_Aug,IPO_had_Sep,\
-               IPO_had_Oct,IPO_had_Nov,IPO_had_Dec,IPO_had_Jan,\
-               IPO_had_Feb,IPO_had_Mar,IPO_had_Apr,IPO_had_May,\
-               IPO_had_JJA,IPO_had_SON,IPO_had_DJF,IPO_had_MAM,\
-               IPO_had_Annual]
-R1_IPO = [IPO_R1_Jun,IPO_R1_Jul,IPO_R1_Aug,IPO_R1_Sep,\
-          IPO_R1_Oct,IPO_R1_Nov,IPO_R1_Dec,IPO_R1_Jan,\
-          IPO_R1_Feb,IPO_R1_Mar,IPO_R1_Apr,IPO_R1_May,\
-          IPO_R1_JJA,IPO_R1_SON,IPO_R1_DJF,IPO_R1_MAM,\
-          IPO_R1_Annual]
-R2_IPO = [IPO_R2_Jun,IPO_R2_Jul,IPO_R2_Aug,IPO_R2_Sep,\
-          IPO_R2_Oct,IPO_R2_Nov,IPO_R2_Dec,IPO_R2_Jan,\
-          IPO_R2_Feb,IPO_R2_Mar,IPO_R2_Apr,IPO_R2_May,\
-          IPO_R2_JJA,IPO_R2_SON,IPO_R2_DJF,IPO_R2_MAM,\
-          IPO_R2_Annual]
-R3_IPO = [IPO_R3_Jun,IPO_R3_Jul,IPO_R3_Aug,IPO_R3_Sep,\
-          IPO_R3_Oct,IPO_R3_Nov,IPO_R3_Dec,IPO_R3_Jan,\
-          IPO_R3_Feb,IPO_R3_Mar,IPO_R3_Apr,IPO_R3_May,\
-          IPO_R3_JJA,IPO_R3_SON,IPO_R3_DJF,IPO_R3_MAM,\
-          IPO_R3_Annual]
-
-#Correlations - HadISST1
-corr = correlAll(hadISST_ENSO,hadISST_IPO)
+#HadISST1
+corr = correlAll(0,1)
 (June, July, August, September, October, November, December, January,\
            February, March, April, May, JJA, SON, DJF, MAM, annual) = corr
 
@@ -235,7 +153,7 @@ HadISST_sig = np.array([Had_June[1], Had_July[1], Had_August[1], Had_September[1
 
 
 #ACCESS1.3 R1
-corr = correlAll(R1_ENSO,R1_IPO)
+corr = correlAll(1,3)
 (June, July, August, September, October, November, December, January,\
            February, March, April, May, JJA, SON, DJF, MAM, annual) = corr
 
@@ -280,7 +198,7 @@ accessR1_sig = np.array([AccR1_June[1], AccR1_July[1], AccR1_August[1],\
             AccR1_DJF[1], AccR1_MAM[1], AccR1_annual[1]])
 
 #ACCESS1.3 R2
-corr = correlAll(R2_ENSO,R2_IPO)
+corr = correlAll(2,5)
 (June, July, August, September, October, November, December, January,\
            February, March, April, May, JJA, SON, DJF, MAM, annual) = corr
 
@@ -325,7 +243,7 @@ accessR2_sig = np.array([AccR2_June[1], AccR2_July[1], AccR2_August[1],\
             AccR2_DJF[1], AccR2_MAM[1], AccR2_annual[1]])
 
 #ACCESS1.3 R3
-corr = correlAll(R3_ENSO,R3_IPO)
+corr = correlAll(3,7)
 (June, July, August, September, October, November, December, January,\
            February, March, April, May, JJA, SON, DJF, MAM, annual) = corr
 
@@ -369,8 +287,6 @@ accessR3_sig = np.array([AccR3_June[1], AccR3_July[1], AccR3_August[1],\
                      AccR3_SON[1], \
             AccR3_DJF[1], AccR3_MAM[1], AccR3_annual[1]])
 
-##################
-"""
 test = corrANOVA(HadISST,accessR1,accessR2,accessR3)
 #test1 = pairwise_tukeyhsd(HadISST,accessR1,accessR2,accessR3)
 #test2 = normal(Nino34,0)
@@ -382,4 +298,4 @@ test = corrANOVA(HadISST,accessR1,accessR2,accessR3)
 hey = np.array([Nino34[0],TPI[1]])
 hey1 = np.corrcoef(hey)
 hey2 = stats.pearsonr(Nino34[0],TPI[1])
-"""
+
