@@ -38,7 +38,7 @@ maps_sub.saveFig(AWAP_June_Anom,"","composite/"+num+"_compiled/AWAP/AWAP_June_An
 
 
 #AWAP: July
-"""
+
 output(awap_prepare.awap_July,indices_phase.IPO_posHad_Jul,indices_phase.ENSO_posHad_Jul,\
        "","/composite/"+num+"/rainfall/AWAP/July/1","/composite/"+num+"/rainfall_anomalies/AWAP/July/1")
 output(awap_prepare.awap_July,indices_phase.IPO_posHad_Jul,indices_phase.ENSO_neutralHad_Jul,\
@@ -451,4 +451,4 @@ AWAP_annual = multi("my_coding_routines/images/composite/"+num+"/rainfall/AWAP/A
 AWAP_annual_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/AWAP/Annual/*.png",3,3,title='AWAP annual: mean rainfall anomalies')
 maps_sub.saveFig(AWAP_annual,"","composite/"+num+"_compiled/AWAP/AWAP_annual")
 maps_sub.saveFig(AWAP_annual_Anom,"","composite/"+num+"_compiled/AWAP/AWAP_annual_Anom")
-"""
+
