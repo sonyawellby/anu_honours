@@ -21,6 +21,7 @@ def Nino34(dataset,baseStart,baseEnd,ACCESS=True):
     -----------
     dataset : the SST dataset of interest.  Either dataFix_Had
             (from 'hadisst_prepare') or 'access_prepare_ts'.
+            Length 1272.
     baseStart : The first year of the base period. Defined in
                 'parameters.py' as 'baseStart'.
     baseEnd : The last year of the base period.  Defined in
@@ -28,6 +29,8 @@ def Nino34(dataset,baseStart,baseEnd,ACCESS=True):
     ACCESS : (default = True)
             If using ACCESS data, set as 'True'.  Else set as 'False'.
     """
+
+    #Compute: (a) whole dataset for Nino3.4 area and (b) months for the base period.
     if ACCESS==True:
         AreaENSO = areaENSO(dataset,ACCESS=True)
         baseJan = baseAreaENSO(dataset[0::12],baseStart,baseEnd,ACCESS=True)
@@ -59,9 +62,11 @@ def Nino34(dataset,baseStart,baseEnd,ACCESS=True):
     else:
         raise ValueError('Specify whether ACCESS or HadISST are used.')
 
+    #Compute months for entire period (Jan 1900 - Dec 2005).
     AreaMonth = areaMonth(AreaENSO)
     (Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec) = AreaMonth
 
+    #Calculate average SST for each grid cell for the base period.
     MeanJanBase = baseMeanSST(baseJan)
     MeanFebBase = baseMeanSST(baseFeb)
     MeanMarBase = baseMeanSST(baseMar)
@@ -75,6 +80,8 @@ def Nino34(dataset,baseStart,baseEnd,ACCESS=True):
     MeanNovBase = baseMeanSST(baseNov)
     MeanDecBase = baseMeanSST(baseDec)
 
+    #Calculate the SST anomalies in the Nino 3.4 area, for each grid cell,
+    #for Jan 1900 - Dec 2005.
     anomJan = anomalies(Jan,MeanJanBase)
     anomFeb = anomalies(Feb,MeanFebBase)
     anomMar = anomalies(Mar,MeanMarBase)
@@ -88,6 +95,8 @@ def Nino34(dataset,baseStart,baseEnd,ACCESS=True):
     anomNov = anomalies(Nov,MeanNovBase)
     anomDec = anomalies(Dec,MeanDecBase)
 
+    #Calculate the average SST anomalies in the whole Nino 3.4 area
+    #for Jan 1900 - Dec 2005.
     anomJanFinal = meanAnom(anomJan)
     anomFebFinal = meanAnom(anomFeb)
     anomMarFinal = meanAnom(anomMar)
@@ -121,52 +130,38 @@ def hadisstNino34(var):
         ENSO_Had = Nino34(dataFix_Had,baseStart=baseStart,baseEnd=baseEnd,ACCESS=False)
         ENSO_running_Had = running(ENSO_Had,2,(len(ENSO_Had)-3))
 
-        ENSOsd = ensoSD(ENSO_running_Had,crop=True)
-        (data,ENSOpos, ENSOneg, ENSOneutral) = ENSOsd
+        ENSO = enso(ENSO_running_Had,12,0,1,crop=True)
+        (data,ENSOpos, ENSOneg, ENSOneutral,posAll,negAll,neutralAll) = ENSO
         ENSO_crop_Had = data
-        ENSOpos1 = ENSOpos
-        ENSOneg1 = ENSOneg
-        ENSOneutral1 = ENSOneutral
-        
-        jja = runningSeasons(ENSO_crop_Had,3,0,4)
-        ENSO_JJA = ensoSD(jja)
-        (data,ENSOpos,ENSOneg,ENSOneutral) = ENSO_JJA
-        ensoJJA = data
-        ENSOpos_JJA = ENSOpos
-        ENSOneg_JJA = ENSOneg
-        ENSOneutral_JJA = ENSOneutral
+        ensoAnnual = ENSO_crop_Had
+        ENSOpos1 = posAll
+        ENSOneg1 = negAll
+        ENSOneutral1 = neutralAll
 
-        son = runningSeasons(ENSO_crop_Had,3,1,4)
-        ENSO_SON = ensoSD(son)
-        (data,ENSOpos,ENSOneg,ENSOneutral) = ENSO_SON
-        ensoSON = data
-        ENSOpos_SON = ENSOpos
-        ENSOneg_SON = ENSOneg
-        ENSOneutral_SON = ENSOneutral
-
-        djf = runningSeasons(ENSO_crop_Had,3,2,4)
-        ENSO_DJF = ensoSD(djf)
-        (data,ENSOpos,ENSOneg,ENSOneutral) = ENSO_DJF
-        ensoDJF = data
-        ENSOpos_DJF = ENSOpos
-        ENSOneg_DJF = ENSOneg
-        ENSOneutral_DJF = ENSOneutral
-
-        mam = runningSeasons(ENSO_crop_Had,3,0,4)
-        ENSO_MAM = ensoSD(mam)
-        (data,ENSOpos,ENSOneg,ENSOneutral) = ENSO_MAM
-        ensoMAM = data
-        ENSOpos_MAM = ENSOpos
-        ENSOneg_MAM = ENSOneg
-        ENSOneutral_MAM = ENSOneutral
-
-        annual = runningSeasons(ENSO_crop_Had,12,0,1)
-        Annual = ensoSD(annual)
-        (data, ENSOpos, ENSOneg, ENSOneutral) = Annual
-        ensoAnnual = data
+        #These are the values for ENSO derived from Trenberth et al. (1997).
         ENSOpos_Annual = ENSOpos
         ENSOneg_Annual = ENSOneg
         ENSOneutral_Annual = ENSOneutral
+
+        ensoJJA = runningSeasons(ENSO_crop_Had,3,0,4)
+        ENSOpos_JJA = numpy.ma.masked_greater(ensoJJA,-0.4)
+        ENSOneg_JJA = numpy.ma.masked_less(ensoJJA,0.4)
+        ENSOneutral_JJA = numpy.ma.masked_outside(ensoJJA,-0.4,0.4)
+
+        ensoSON = runningSeasons(ENSO_crop_Had,3,1,4)
+        ENSOpos_SON = numpy.ma.masked_greater(ensoSON,-0.4)
+        ENSOneg_SON = numpy.ma.masked_less(ensoSON,0.4)
+        ENSOneutral_SON = numpy.ma.masked_outside(ensoSON,-0.4,0.4)
+
+        ensoDJF = runningSeasons(ENSO_crop_Had,3,2,4)
+        ENSOpos_DJF = numpy.ma.masked_greater(ensoDJF,-0.4)
+        ENSOneg_DJF = numpy.ma.masked_less(ensoDJF,0.4)
+        ENSOneutral_DJF = numpy.ma.masked_outside(ensoDJF,-0.4,0.4)
+
+        ensoMAM = runningSeasons(ENSO_crop_Had,3,3,4)
+        ENSOpos_MAM = numpy.ma.masked_greater(ensoMAM,-0.4)
+        ENSOneg_MAM = numpy.ma.masked_less(ensoMAM,0.4)
+        ENSOneutral_MAM = numpy.ma.masked_outside(ensoMAM,-0.4,0.4)
 
         return ENSO_crop_Had,ENSOpos1,ENSOneg1,ENSOneutral1,ensoJJA,ENSOpos_JJA,ENSOneg_JJA,\
            ENSOneutral_JJA,ensoSON,ENSOpos_SON,ENSOneg_SON,ENSOneutral_SON,ensoDJF,ENSOpos_DJF,\
@@ -247,52 +242,38 @@ def accessNino34(var):
         ENSO_Acc = Nino34(access_prepare_ts.dataFix_Acc,baseStart=baseStart,baseEnd=baseEnd,ACCESS=True)
         ENSO_running_Acc = running(ENSO_Acc,2,(len(ENSO_Acc)-3))
 
-        ENSOsd = ensoSD(ENSO_running_Acc,crop=True)
-        (data,ENSOpos, ENSOneg, ENSOneutral) = ENSOsd
+        ENSO = enso(ENSO_running_Acc,12,0,1,crop=True)
+        (data,ENSOpos, ENSOneg, ENSOneutral,posAll,negAll,neutralAll) = ENSO
         ENSO_crop_Acc = data
-        ENSOpos1 = ENSOpos
-        ENSOneg1 = ENSOneg
-        ENSOneutral1 = ENSOneutral
-        
-        jja = runningSeasons(ENSO_crop_Acc,3,0,4)
-        ENSO_JJA = ensoSD(jja)
-        (data,ENSOpos,ENSOneg,ENSOneutral) = ENSO_JJA
-        ensoJJA = data
-        ENSOpos_JJA = ENSOpos
-        ENSOneg_JJA = ENSOneg
-        ENSOneutral_JJA = ENSOneutral
+        ensoAnnual = ENSO_crop_Acc
+        ENSOpos1 = posAll
+        ENSOneg1 = negAll
+        ENSOneutral1 = neutralAll
 
-        son = runningSeasons(ENSO_crop_Acc,3,1,4)
-        ENSO_SON = ensoSD(son)
-        (data,ENSOpos,ENSOneg,ENSOneutral) = ENSO_SON
-        ensoSON = data
-        ENSOpos_SON = ENSOpos
-        ENSOneg_SON = ENSOneg
-        ENSOneutral_SON = ENSOneutral
-
-        djf = runningSeasons(ENSO_crop_Acc,3,2,4)
-        ENSO_DJF = ensoSD(djf)
-        (data,ENSOpos,ENSOneg,ENSOneutral) = ENSO_DJF
-        ensoDJF = data
-        ENSOpos_DJF = ENSOpos
-        ENSOneg_DJF = ENSOneg
-        ENSOneutral_DJF = ENSOneutral
-
-        mam = runningSeasons(ENSO_crop_Acc,3,0,4)
-        ENSO_MAM = ensoSD(mam)
-        (data,ENSOpos,ENSOneg,ENSOneutral) = ENSO_MAM
-        ensoMAM = data
-        ENSOpos_MAM = ENSOpos
-        ENSOneg_MAM = ENSOneg
-        ENSOneutral_MAM = ENSOneutral
-
-        annual = runningSeasons(ENSO_crop_Acc,12,0,1)
-        Annual = ensoSD(annual)
-        (data, ENSOpos, ENSOneg, ENSOneutral) = Annual
-        ensoAnnual = data
+        #These are the values for ENSO derived from Trenberth et al. (1997).
         ENSOpos_Annual = ENSOpos
         ENSOneg_Annual = ENSOneg
         ENSOneutral_Annual = ENSOneutral
+
+        ensoJJA = runningSeasons(ENSO_crop_Acc,3,0,4)
+        ENSOpos_JJA = numpy.ma.masked_greater(ensoJJA,-0.4)
+        ENSOneg_JJA = numpy.ma.masked_less(ensoJJA,0.4)
+        ENSOneutral_JJA = numpy.ma.masked_outside(ensoJJA,-0.4,0.4)
+
+        ensoSON = runningSeasons(ENSO_crop_Acc,3,1,4)
+        ENSOpos_SON = numpy.ma.masked_greater(ensoSON,-0.4)
+        ENSOneg_SON = numpy.ma.masked_less(ensoSON,0.4)
+        ENSOneutral_SON = numpy.ma.masked_outside(ensoSON,-0.4,0.4)
+
+        ensoDJF = runningSeasons(ENSO_crop_Acc,3,2,4)
+        ENSOpos_DJF = numpy.ma.masked_greater(ensoDJF,-0.4)
+        ENSOneg_DJF = numpy.ma.masked_less(ensoDJF,0.4)
+        ENSOneutral_DJF = numpy.ma.masked_outside(ensoDJF,-0.4,0.4)
+
+        ensoMAM = runningSeasons(ENSO_crop_Acc,3,3,4)
+        ENSOpos_MAM = numpy.ma.masked_greater(ensoMAM,-0.4)
+        ENSOneg_MAM = numpy.ma.masked_less(ensoMAM,0.4)
+        ENSOneutral_MAM = numpy.ma.masked_outside(ensoMAM,-0.4,0.4)
 
         return ENSO_crop_Acc,ENSOpos1,ENSOneg1,ENSOneutral1,ensoJJA,ENSOpos_JJA,ENSOneg_JJA,\
            ENSOneutral_JJA,ensoSON,ENSOpos_SON,ENSOneg_SON,ENSOneutral_SON,ensoDJF,ENSOpos_DJF,\
@@ -341,6 +322,7 @@ def accessNino34(var):
         ENSOpos_MAM = ENSOpos
         ENSOneg_MAM = ENSOneg
         ENSOneutral_MAM = ENSOneutral
+
 
         annual = runningSeasons(ENSO_crop_Acc,12,0,1)
         Annual = ensoSD(annual)

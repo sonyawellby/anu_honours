@@ -31,7 +31,10 @@ def index2years(data):
     return Jun,Jul,Aug,Sep,Oct,Nov,Dec,Jan,Feb,Mar,Apr,May
 
 """
-ENSO and IPO months (not accounting for phases)
+ENSO and IPO months (not accounting for phases).
+-------------------------------------------------
+Non-masked seasons and annual data are defined in
+enso_csv.py and tpi_csv.py
 """
 enso_cropHad = index2years(enso_csv.cropHad)
 (Jun,Jul,Aug,Sep,Oct,Nov,Dec,Jan,Feb,Mar,Apr,May) = enso_cropHad

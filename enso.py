@@ -14,7 +14,6 @@ from parameters import num
 from cwd import *
 cwdInFunction()
 
-
 def areaENSO(dataset,ACCESS=True):
     """
     A function to define the Nino3.4 area for entire time period.
@@ -45,6 +44,8 @@ def areaENSO(dataset,ACCESS=True):
 def areaMonth(dataset):
     """
     A function to slice the original dataset into its constituent months.
+    This data is used later when computing SST anomalies (comparing each month
+    in the dataset with the average value for that month for the base period).
 
     Parameters:
     -----------
@@ -114,8 +115,8 @@ def baseMeanSST(base_area):
 def anomalies(area,base_SST):
     """
     A function to compute the SST anomalies (degrees Celsius)
-    in the Nino3.4 region.  The base period mean values, baseMeanSST(),
-    for each grid cell is subtracted from each grid cell of the Nino3.4 area
+    in the Nino3.4 region.  The base period mean values - baseMeanSST() - 
+    for each grid cell are subtracted from each grid cell of the Nino3.4 area
     for each time step for the whole period of analysis.
     
     Parameters:
@@ -172,12 +173,48 @@ def running(dataset,start,end):
         count_running += 1
     return running
 
+def cropRM(dataset):
+    """
+    A function to crop the running mean output (March 1900
+    to October 2005) to study period (June 1900 to May 2005).
+    This output is used for the CSV output (see enso_csv.py)
+    and for cropping ENSOphase data.
+
+    Parameters:
+    -----------
+    Dataset : the output of running()
+    """
+    cropRM = dataset[3:((len(dataset))-5)]
+    return cropRM
+
 def chunks(l,n):
-    n = max(1,n)
+    """
+    A function to divide the output of running() into chunks of interest
+    (e.g. annual, particular seasons).  Returns a list of lists, where the
+    sub-lists are the months of a given season (number = 3), or all months
+    in a year (number = 12).
+    
+    Parameters:
+    -----------
+    l : the list which will be broken into seasonal or annual chunks.
+    n : the size of the seasonal or annual chunk (e.g. 3 = seasonal,
+            12 = annual).
+    """
     return [l[i:i+n] for i in range(0,len(l),n)]
 
 def runningSeasons(dataset,n,m,o):
     """
+    A function to break the running mean dataset into seasonal subsets.
+
+    Parameters:
+    -----------
+    dataset : Output from running().
+    n : the size of the chunk (e.g. 3 months, 12 months).
+    m : the starting element in the list (e.g. 0 = June 1990.
+    o : the number of the element in the list at which the next instance of
+        the season of interest, or the next year, begins.
+    
+    For example:
     JJA: runningSeasons(mylist,3,0,4)
     SON: runningSeasons(mylist,3,1,4)
     DJF: runningSeasons(mylist,3,2,4)
@@ -198,7 +235,19 @@ def runningSeasons(dataset,n,m,o):
     newNewarray = np.asarray(newNewlist)
     return newNewarray
 
-def ENSOnegPhaseAnnual(dataset,n,m,o):
+def ENSOnegPhase(dataset,n,m,o):
+    """
+    A function to mask all values in the cropped running mean dataset (length
+    1260) that are not ENSO negative (SST anomalies > 0.4 degrees Celsius).
+
+    Parameters:
+    -----------
+    dataset : Output from running().
+    n : the size of the chunk (e.g. 3 months, 12 months).
+    m : the starting element in the list (e.g. 0 = June 1990.
+    o : the number of the element in the list at which the next instance of
+        the season of interest, or the next year, begins.
+    """
     
     new = chunks(dataset,n)
     newlist = []
@@ -240,9 +289,18 @@ def ENSOnegPhaseAnnual(dataset,n,m,o):
     negENSO_Annual = np.ma.masked_values(array,0.0)
     return negENSO_Annual
 
-def ENSOposPhaseAnnual(dataset,n,m,o):
+def ENSOposPhase(dataset,n,m,o):
     """
-    Apply to data with length 1260.
+    A function to mask all values in the cropped running mean dataset (length
+    1260) that are not ENSO positive (SST anomalies < -0.4 degrees Celsius).
+
+    Parameters:
+    -----------
+    dataset : Output from running().
+    n : the size of the chunk (e.g. 3 months, 12 months).
+    m : the starting element in the list (e.g. 0 = June 1990.
+    o : the number of the element in the list at which the next instance of
+        the season of interest, or the next year, begins.
     """
     
     new = chunks(dataset,n)
@@ -285,7 +343,19 @@ def ENSOposPhaseAnnual(dataset,n,m,o):
     posENSO_Annual = np.ma.masked_values(array,0.0)
     return posENSO_Annual
 
-def ENSOneutralPhaseAnnual(dataset,n,m,o):
+def ENSOneutralPhase(dataset,n,m,o):
+    """
+    A function to mask all ENSO non-neutral values in the cropped running mean
+    dataset (length 1260).
+
+    Parameters:
+    -----------
+    dataset : Output from running().
+    n : the size of the chunk (e.g. 3 months, 12 months).
+    m : the starting element in the list (e.g. 0 = June 1990.
+    o : the number of the element in the list at which the next instance of
+        the season of interest, or the next year, begins.
+    """
 
     new = chunks(dataset,n)
     newlist = []
@@ -301,35 +371,22 @@ def ENSOneutralPhaseAnnual(dataset,n,m,o):
         array[count] = np.mean(newarray[count])
         count += 1
     
-    neg = ENSOnegPhaseAnnual(dataset,12,0,1)
-    pos = ENSOposPhaseAnnual(dataset,12,0,1)
+    neg = ENSOnegPhase(dataset,12,0,1)
+    pos = ENSOposPhase(dataset,12,0,1)
 
     neutral = np.ma.masked_where(neg.mask==False,array)
     neutralENSO_Annual = np.ma.masked_where(pos.mask==False,neutral)
     return neutralENSO_Annual
 
-def cropRM(dataset):
-    """
-    A function to crop the running mean output (March 1900
-    to October 2005) to study period (June 1900 to May 2005).
-    This output is used for the CSV output (see enso_csv.py)
-    and for cropping ENSOphase data.
-
-    Parameters:
-    -----------
-    Dataset : the output of running()
-    """
-    cropRM = dataset[3:((len(dataset))-5)]
-    return cropRM
-
 def ensoSD(dataset,sd=num,crop=False):
     """
-    A function to startify SST data according to standard deviations.
+    A function to stratify ENSO SST anomaly data according to standard
+    deviations.
 
     Parameters:
     -----------
     dataset : output of running().
-    sd : standard deviations.  Currently set to number in "parameters.py".
+    sd : standard deviations.  Defined in "parameters.py".
     """
     if crop == True:
         data = cropRM(dataset)
@@ -337,6 +394,37 @@ def ensoSD(dataset,sd=num,crop=False):
         data = dataset
     std = np.std(dataset)*sd
     ENSOneutral = numpy.ma.masked_outside(data,std,-std)
-    ENSOpos = numpy.ma.masked_greater_equal(data,-std)
-    ENSOneg = numpy.ma.masked_less_equal(data,std)
+    ENSOpos = numpy.ma.masked_greater(data,-std)
+    ENSOneg = numpy.ma.masked_less(data,std)
     return data, ENSOpos, ENSOneg, ENSOneutral
+
+def enso(dataset,n,m,o,crop=False):
+    """
+    A function to stratify ENSO SST anomaly data according to SST anomalies
+    (anomalies > 0.4 degrees Celsius = negative ENSO, anomalies < -0.4
+    degrees Celsius = positive ENSO).
+
+    Parameters:
+    -----------
+    dataset : output of running().
+    n : the size of the chunk (e.g. 3 months, 12 months).
+    m : the starting element in the list (e.g. 0 = June 1990.
+    o : the number of the element in the list at which the next instance of
+        the season of interest, or the next year, begins.
+    crop : states whether the data needs to be cropped from length 1268 to
+           length 1260.  Default = False.
+    
+    """
+    if crop == True:
+        data = cropRM(dataset)
+    else:
+        data = dataset
+        
+    ENSOneutral = ENSOneutralPhase(data,n,m,o)
+    ENSOpos = ENSOposPhase(data,n,m,o)
+    ENSOneg = ENSOnegPhase(data,n,m,o)
+
+    neutralAll = numpy.ma.masked_outside(data,-0.4,0.4)
+    posAll = numpy.ma.masked_greater(data,-0.4)
+    negAll = numpy.ma.masked_less(data,0.4)
+    return data, ENSOpos, ENSOneg, ENSOneutral,posAll,negAll,neutralAll

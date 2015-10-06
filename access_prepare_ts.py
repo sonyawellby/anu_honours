@@ -311,6 +311,6 @@ ts_SON = accessSON()
 ts_DJF = accessDJF()
 ts_MAM = accessMAM()
 
-#Divide into time bins - January 1900 to December 2005
+#Extended subset of data for use in Nino 3.4 - January 1900 to December 2005
 data_flat_ext = accessTrimExt()
 dataFix_Acc = bugHad(data_flat_ext,ext=True)

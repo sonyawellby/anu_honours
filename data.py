@@ -1,5 +1,5 @@
 """
-A script to define the eight main datasets for analysis.
+A script to specify the file-paths of the eight main datasets for analysis.
 Download information given here.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.

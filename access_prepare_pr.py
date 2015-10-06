@@ -258,7 +258,6 @@ dataDay = SectoDay()
 data_flat = accessTrim()
 
 #Divide into time bins
-
 pr_Annual = accessAnnual()
 
 pr_June = accessJune()

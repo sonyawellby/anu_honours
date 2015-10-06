@@ -222,11 +222,34 @@ def TPI(dataset,n,rp,wn):
     return TPI
 
 def chunks(l,n):
-    n = max(1,n)
+    """
+    A function to divide the output of running() into chunks of interest
+    (e.g. annual, particular seasons).  Returns a list of lists, where the
+    sub-lists are the months of a given season (number = 3), or all months
+    in a year (number = 12).
+    
+    Parameters:
+    -----------
+    l : the list which will be broken into seasonal or annual chunks.
+    n : the size of the seasonal or annual chunk (e.g. 3 = seasonal,
+        12 = annual).
+    """
     return [l[i:i+n] for i in range(0,len(l),n)]
 
 def runningSeasons(dataset,n,m,o):
     """
+    A function to break the running mean dataset into seasonal or annual
+    subsets.
+
+    Parameters:
+    -----------
+    dataset : Output from running().
+    n : the size of the chunk (e.g. 3 months, 12 months).
+    m : the starting element in the list (e.g. 0 = June 1990.
+    o : the number of the element in the list at which the next instance of
+        the season of interest, or the next year, begins.
+    
+    For example:
     JJA: runningSeasons(mylist,3,0,4)
     SON: runningSeasons(mylist,3,1,4)
     DJF: runningSeasons(mylist,3,2,4)

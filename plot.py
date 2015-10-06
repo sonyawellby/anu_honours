@@ -192,7 +192,7 @@ def mapCompositeAnom(dataset):
     dict8['lon'] = longitude
     dict8['lat_units'] = awap_lat_units
     dict8['lon_units'] = awap_lon_units
-    dict8['var_units'] = "Precipitation (mm/day)"
+    dict8['var_units'] = "Precipitation anomalies (mm/day)"
     dict8['vmin'] = -3.0 # mm/day
     dict8['vmax'] = 3.0 # mm/day.
     return dict8

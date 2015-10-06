@@ -263,7 +263,6 @@ dataDay = m2mm()
 data_flat = awapTrim()
 
 #Divide into time bins
-
 awap_Annual = awapAnnual()
 
 awap_June = awapJune()

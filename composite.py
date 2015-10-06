@@ -82,7 +82,7 @@ def plotStrat(stratAv,precip_data,title,filepath):
     """
     var = ma.masked_invalid(stratAv)
     dict7 = mapComposite(precip_data)
-    myplot = plot(var,dict7,labels=False,grid=False,oceans=False,cbar=True)
+    myplot = plot(var,dict7,labels=False,grid=False,oceans=False,cbar=False)
     reload(maps_sub)
     from maps_sub import saveFig
     saveFig(myplot,title,filepath)
@@ -94,7 +94,7 @@ def plotStratAnom(rainAnom,precip_data,title,filepath):
     """
     var = ma.masked_invalid(rainAnom)
     dict8 = mapCompositeAnom(precip_data)
-    myplot = plot(var,dict8,labels=False,grid=False,oceans=False,cbar=True)
+    myplot = plot(var,dict8,labels=False,grid=False,oceans=False,cbar=False)
     reload(maps_sub)
     from maps_sub import saveFig
     saveFig(myplot,title,filepath)

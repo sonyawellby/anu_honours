@@ -198,7 +198,7 @@ IPO_R3_Annual = runningSeasons(Acc_monthsTPI_r3,12,0,1)
 
 
 """
-Generate IPO phases
+Generate IPO phases (mask the data according to IPO phases)
 """
 #HadISST
 seasons_Had = hadisst_access_TPI(Had_monthsTPI)

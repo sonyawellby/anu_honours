@@ -20,7 +20,7 @@ from cwd import cwdInFunction
 cwdInFunction()
 
 
-def corr(rainfall,index,ind_num):
+def corr(rainfall,index):
     """
     A function to correlate rainfall (AWAP or ACCESS) with an index
     (e.g. IPO, ENSO).  Masks non-significant values (p > 0.05).
@@ -35,7 +35,7 @@ def corr(rainfall,index,ind_num):
     while count1 < 27:
         count2 = 0
         while count2 < 22:
-            a = stats.pearsonr(rainfall[:,count1,count2],index[ind_num])
+            a = stats.pearsonr(rainfall[:,count1,count2],index)
             if a[1] <= 0.05:
                 corr_array[count1,count2] = a[0]
             else:
@@ -46,11 +46,11 @@ def corr(rainfall,index,ind_num):
     corr_array_masked = np.ma.masked_where(corr_array == 0.0, corr_array)
     return corr_array_masked
 
-def plotCorr(rainfall,index,ind_num,title,filepath):
+def plotCorr(rainfall,index,title,filepath):
     """
     A function to produce plots of correlations.
     """
-    var = corr(rainfall,index,ind_num)
+    var = corr(rainfall,index)
     var2 = ma.masked_invalid(var)
     Dict6 = mapCorr()
     myplot = plot(var2,Dict6,labels=False,grid=False,oceans=False,cbar=True)
