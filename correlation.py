@@ -3,7 +3,7 @@ A file to collate sub-routines used to correlate ENSO with rainfall
 and the IPO with rainfall.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 24 September 2015.
+Last updated 7 October 2015.
 """
 import netCDF4 as n
 import numpy as np
@@ -45,6 +45,59 @@ def corr(rainfall,index):
         count1 += 1
     corr_array_masked = np.ma.masked_where(corr_array == 0.0, corr_array)
     return corr_array_masked
+
+def corrAverage(rainfall,index):
+    """
+    Returns the average correlation value between an index and rainfall
+    in Australia.
+    """
+    array = corr(rainfall,index)
+    corr_Aus = np.ma.average(array)
+    return corr_Aus
+
+def corrEastAus(rainfall,index):
+    """
+    A function to correlate rainfall (AWAP or ACCESS) with an index
+    (e.g. IPO, ENSO), for eastern Australia only.  Masks non-significant
+    values (p > 0.05).
+
+    Parameters:
+    -----------
+    Rainfall: the dataset of rainfall.
+    Index: the dataset of the index.
+    """
+    corr_array_masked = corr(rainfall,index)
+
+    #Eastern Australian region is from 140.625 degrees east (~Vic/NSW border)
+    corr_array_E_Aus = corr_array_masked[:,14:]
+    
+    #Koppen classification areas in eastern Australia
+    corr_array_equatorial = corr_array_masked[23:,14:]
+    corr_array_tropical = corr_array_masked[19:23,14:]
+    corr_array_subtropical = corr_array_masked[10:19,16:]
+    corr_array_desert = corr_array_masked[9:17,14:15]
+
+    grass1 = corr_array_masked[17:19,14:15]
+    grass2 = corr_array_masked[17:19,15:16]
+    grass3 = corr_array_masked[4:17,15:16]
+    grass4 = corr_array_masked[4:9,14:15]
+    corr_array_grassland = np.ma.concatenate((grass1,grass2,grass3,grass4))
+
+    temperate1 = corr_array_masked[4:10,16:]
+    temperate2 = corr_array_masked[:4,14:20]
+    corr_array_temperate = np.ma.concatenate((temperate1,temperate2))
+
+    #Compute average correlations for eastern Australia
+    corr_E_Aus = np.ma.average(corr_array_E_Aus)
+    corr_equatorial = np.ma.average(corr_array_equatorial)
+    corr_tropical = np.ma.average(corr_array_tropical)
+    corr_subtropical = np.ma.average(corr_array_subtropical)
+    corr_desert = np.ma.average(corr_array_desert)
+    corr_grassland = np.ma.average(corr_array_grassland)
+    corr_temperate = np.ma.average(corr_array_temperate)
+
+    return corr_E_Aus,corr_equatorial,corr_tropical,\
+           corr_subtropical,corr_desert,corr_grassland,corr_temperate
 
 def plotCorr(rainfall,index,title,filepath):
     """
@@ -99,9 +152,17 @@ def plotCorrDiff(array1,array2,title,filepath):
     array2 : modelled dataset. Output of corr()
     """
     corrDiff_array = corrDiff(array1,array2)
-    Dict6 = mapCorr()
-    myplot = plot(corrDiff_array,Dict6,labels=False,grid=False,oceans=False,cbar=True)
-    reload(maps_sub)
-    from maps_sub import saveFig
-    saveFig(myplot,title,filepath)
+    if corrDiff_array != None:
+        Dict6 = mapCorr()
+        myplot = plot(corrDiff_array,Dict6,labels=False,grid=False,oceans=False,cbar=True)
+        reload(maps_sub)
+        from maps_sub import saveFig
+        saveFig(myplot,title,filepath)
+    else:
+        array = np.zeros((27,22))
+        Dict6 = mapCorr()
+        myplot = plot(array,Dict6,labels=False,grid=False,oceans=False,cbar=True)
+        reload(maps_sub)
+        from maps_sub import saveFig
+        saveFig(myplot,title,filepath)
     return

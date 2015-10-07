@@ -133,7 +133,7 @@ def hadisstNino34(var):
         ENSO = enso(ENSO_running_Had,12,0,1,crop=True)
         (data,ENSOpos, ENSOneg, ENSOneutral,posAll,negAll,neutralAll) = ENSO
         ENSO_crop_Had = data
-        ensoAnnual = ENSO_crop_Had
+        ensoAnnual = runningSeasons(ENSO_crop_Had,12,0,1)
         ENSOpos1 = posAll
         ENSOneg1 = negAll
         ENSOneutral1 = neutralAll
@@ -245,7 +245,7 @@ def accessNino34(var):
         ENSO = enso(ENSO_running_Acc,12,0,1,crop=True)
         (data,ENSOpos, ENSOneg, ENSOneutral,posAll,negAll,neutralAll) = ENSO
         ENSO_crop_Acc = data
-        ensoAnnual = ENSO_crop_Acc
+        ensoAnnual = runningSeasons(ENSO_crop_Acc,12,0,1)
         ENSOpos1 = posAll
         ENSOneg1 = negAll
         ENSOneutral1 = neutralAll
