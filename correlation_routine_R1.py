@@ -96,7 +96,7 @@ def accessR1_awap_corrIPO(roundNum):
     plotCorr(trim_March,IPO_R1_Mar,"ACCESS "+roundNum+" rainfall-TPI correlation - March",\
              "/correlation/tpi_"+roundNum+"/March")
     plotCorr(trim_April,IPO_R1_Apr,"ACCESS "+roundNum+" rainfall-TPI correlation - April",\
-             "/correlation/tpi_"+roundNum+"/etcApril")
+             "/correlation/tpi_"+roundNum+"/April")
     plotCorr(trim_May,IPO_R1_May,"ACCESS "+roundNum+" rainfall-TPI correlation - May",\
              "/correlation/tpi_"+roundNum+"/May")
     return
