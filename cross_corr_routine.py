@@ -141,21 +141,13 @@ def xCorrIndices_Model(key_ENSO,key_IPO,roundNum):
         }
     
     #ENSO-IPO
-    plotXCorrel(Dict[key_ENSO][0],Dict[key_IPO][0],'months','ACCESS '+roundNum+': ENSO-IPO cross correlation, June 1900-May 2005','my_coding_routines/images/xcorr_nino_tpi/'+roundNum+'/All_ENSO')
-    plotXCorrel(Dict[key_ENSO][1],Dict[key_IPO][1],'months','ACCESS '+roundNum+': ENSO-IPO cross correlation, annual','my_coding_routines/images/xcorr_nino_tpi/'+roundNum+'/Annual_ENSO')
-    plotXCorrel(runningSeasons(Dict[key_ENSO][0],3,0,1),runningSeasons(Dict[key_IPO][0],3,0,1),'seasons','ACCESS '+roundNum+': ENSO-IPO cross correlation, JJA 1900-MAM 2005','my_coding_routines/images/xcorr_nino_tpi/'+roundNum+'/Seasons_ENSO')
-    plotXCorrel(Dict[key_ENSO][2],Dict[key_IPO][2],'years','ACCESS '+roundNum+': ENSO-IPO cross correlation, JJA','my_coding_routines/images/xcorr_nino_tpi/'+roundNum+'/JJA_ENSO')
-    plotXCorrel(Dict[key_ENSO][3],Dict[key_IPO][3],'years','ACCESS '+roundNum+': ENSO-IPO cross correlation, SON','my_coding_routines/images/xcorr_nino_tpi/'+roundNum+'/SON_ENSO')
-    plotXCorrel(Dict[key_ENSO][4],Dict[key_IPO][4],'years','ACCESS '+roundNum+': ENSO-IPO cross correlation, DJF','my_coding_routines/images/xcorr_nino_tpi/'+roundNum+'/DJF_ENSO')
-    plotXCorrel(Dict[key_ENSO][5],Dict[key_IPO][5],'years','ACCESS '+roundNum+': ENSO-IPO cross correlation, MAM','my_coding_routines/images/xcorr_nino_tpi/'+roundNum+'/MAM_ENSO')
-    #IPO-ENSO
-    plotXCorrel(Dict[key_IPO][0],Dict[key_ENSO][0],'months','ACCESS '+roundNum+': IPO-ENSO cross correlation, June 1900-May 2005','my_coding_routines/images/xcorr_nino_tpi/'+roundNum+'/All_IPO')
-    plotXCorrel(Dict[key_IPO][1],Dict[key_ENSO][1],'months','ACCESS '+roundNum+': IPO-ENSO cross correlation, annual','my_coding_routines/images/xcorr_nino_tpi/'+roundNum+'/Annual_IPO')
-    plotXCorrel(runningSeasons(Dict[key_IPO][0],3,0,1),runningSeasons(Dict[key_ENSO][0],3,0,1),'seasons','ACCESS '+roundNum+': IPO-ENSO cross correlation, JJA 1900-MAM 2005','my_coding_routines/images/xcorr_nino_tpi/'+roundNum+'/Seasons_IPO')
-    plotXCorrel(Dict[key_IPO][2],Dict[key_ENSO][2],'years','ACCESS '+roundNum+': IPO-ENSO cross correlation, JJA','my_coding_routines/images/xcorr_nino_tpi/'+roundNum+'/JJA_IPO')
-    plotXCorrel(Dict[key_IPO][3],Dict[key_ENSO][3],'years','ACCESS '+roundNum+': IPO-ENSO cross correlation, SON','my_coding_routines/images/xcorr_nino_tpi/'+roundNum+'/SON_IPO')
-    plotXCorrel(Dict[key_IPO][4],Dict[key_ENSO][4],'years','ACCESS '+roundNum+': IPO-ENSO cross correlation, DJF','my_coding_routines/images/xcorr_nino_tpi/'+roundNum+'/DJF_IPO')
-    plotXCorrel(Dict[key_IPO][5],Dict[key_ENSO][5],'years','ACCESS '+roundNum+': IPO-ENSO cross correlation, MAM','my_coding_routines/images/xcorr_nino_tpi/'+roundNum+'/MAM_IPO')
+    plotXCorrel(Dict[key_ENSO][0],Dict[key_IPO][0],'months','ACCESS '+roundNum+': ENSO-IPO cross correlation, June 1900-May 2005','my_coding_routines/images/xcorr_nino_tpi/'+roundNum+'/All')
+    plotXCorrel(Dict[key_ENSO][1],Dict[key_IPO][1],'months','ACCESS '+roundNum+': ENSO-IPO cross correlation, annual','my_coding_routines/images/xcorr_nino_tpi/'+roundNum+'/Annual')
+    plotXCorrel(runningSeasons(Dict[key_ENSO][0],3,0,1),runningSeasons(Dict[key_IPO][0],3,0,1),'seasons','ACCESS '+roundNum+': ENSO-IPO cross correlation, JJA 1900-MAM 2005','my_coding_routines/images/xcorr_nino_tpi/'+roundNum+'/Seasons')
+    plotXCorrel(Dict[key_ENSO][2],Dict[key_IPO][2],'years','ACCESS '+roundNum+': ENSO-IPO cross correlation, JJA','my_coding_routines/images/xcorr_nino_tpi/'+roundNum+'/JJA')
+    plotXCorrel(Dict[key_ENSO][3],Dict[key_IPO][3],'years','ACCESS '+roundNum+': ENSO-IPO cross correlation, SON','my_coding_routines/images/xcorr_nino_tpi/'+roundNum+'/SON')
+    plotXCorrel(Dict[key_ENSO][4],Dict[key_IPO][4],'years','ACCESS '+roundNum+': ENSO-IPO cross correlation, DJF','my_coding_routines/images/xcorr_nino_tpi/'+roundNum+'/DJF')
+    plotXCorrel(Dict[key_ENSO][5],Dict[key_IPO][5],'years','ACCESS '+roundNum+': ENSO-IPO cross correlation, MAM','my_coding_routines/images/xcorr_nino_tpi/'+roundNum+'/MAM')
     return
 
 data_flat1 = flatten(data_flat)
