@@ -53,19 +53,6 @@ from indices_phase import enso_Jun_Had,enso_Jul_Had,enso_Aug_Had,enso_Sep_Had,\
      IPO_R3_Oct,IPO_R3_Nov,IPO_R3_Dec,IPO_R3_Jan,\
      IPO_R3_Feb,IPO_R3_Mar,IPO_R3_Apr,IPO_R3_May
 
-from enso_csv import enso_JJA_Had, enso_SON_Had, enso_DJF_Had,\
-     enso_MAM_Had, enso_Annual_Had, enso_JJA_R1, enso_SON_R1,\
-     enso_DJF_R1,enso_MAM_R1, enso_Annual_R1,enso_JJA_R2, \
-     enso_SON_R2, enso_DJF_R2,enso_MAM_R2, enso_Annual_R2,\
-     enso_JJA_R3, enso_SON_R3, enso_DJF_R3,enso_MAM_R3, \
-     enso_Annual_R3
-
-from tpi_csv import IPO_had_JJA,IPO_had_SON,IPO_had_DJF,\
-     IPO_had_MAM,IPO_had_Annual,IPO_R1_JJA,IPO_R1_SON,\
-     IPO_R1_DJF,IPO_R1_MAM,IPO_R1_Annual,IPO_R2_JJA,\
-     IPO_R2_SON,IPO_R2_DJF,IPO_R2_MAM,IPO_R2_Annual,\
-     IPO_R3_JJA,IPO_R3_SON,IPO_R3_DJF,IPO_R3_MAM,IPO_R3_Annual
-
 def normal(data):
     """
     Checks to see if dataset is normally distributed.  Returns
@@ -106,14 +93,15 @@ def testNormal(data):
     analyses cannot be performed.
     """
     count = 0
-    while count < len(data):
-        a = normal(data[count])
+    copy = data[:]
+    while count < len(copy):
+        a = normal(copy[count])
         if a <= 0.05:
-            data[count] = np.ma.masked_where(data[count],data[count])
+            copy[count] = np.ma.masked_where(copy[count],copy[count])
             count += 1
         else:
             count += 1
-    return data
+    return copy
 
 def correl(index1,index2):
     """
@@ -157,7 +145,8 @@ def scatPlot(data_x_enso,data_y_ipo,title,filename):
     plt.xlabel("Nino 3.4")
     plt.ylabel("TPI")
     plt.title(title)
-    savefig(filename)
+    plt.savefig(filename)
+    plt.close()
     return
 
 def corrANOVA(array1,array2,array3,array4):

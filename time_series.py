@@ -2,7 +2,7 @@
 A file to compute time-series plots of ENSO and IPO indicies.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 8 October 2015.
+Last updated 11 October 2015.
 """
 
 import netCDF4 as n
