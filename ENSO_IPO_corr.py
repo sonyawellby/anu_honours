@@ -3,14 +3,16 @@ A file to compute Pearson's correlation coefficient and
 significance for the ENSO and the IPO indices.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 25 September 2015.
+Last updated 12 October 2015.
 """
 import netCDF4 as n
 import numpy as np
 import scipy.stats as stats
 import matplotlib.pyplot as plt
 import pylab
-#from statsmodels.stats.multicomp import pairwise_tukeyhsd
+from unpaired_t_test import *
+from cwd import cwdInFunction
+cwdInFunction()
 
 from enso_csv import enso_JJA_Had, enso_SON_Had, enso_DJF_Had,\
      enso_MAM_Had, enso_Annual_Had, enso_JJA_R1, enso_SON_R1,\
@@ -24,9 +26,6 @@ from tpi_csv import IPO_had_JJA,IPO_had_SON,IPO_had_DJF,\
      IPO_R1_DJF,IPO_R1_MAM,IPO_R1_Annual,IPO_R2_JJA,\
      IPO_R2_SON,IPO_R2_DJF,IPO_R2_MAM,IPO_R2_Annual,\
      IPO_R3_JJA,IPO_R3_SON,IPO_R3_DJF,IPO_R3_MAM,IPO_R3_Annual
-
-from cwd import cwdInFunction
-cwdInFunction()
 
 from indices_phase import enso_Jun_Had,enso_Jul_Had,enso_Aug_Had,enso_Sep_Had,\
      enso_Oct_Had,enso_Nov_Had,enso_Dec_Had,enso_Jan_Had,\
@@ -53,6 +52,11 @@ from indices_phase import enso_Jun_Had,enso_Jul_Had,enso_Aug_Had,enso_Sep_Had,\
      IPO_R3_Oct,IPO_R3_Nov,IPO_R3_Dec,IPO_R3_Jan,\
      IPO_R3_Feb,IPO_R3_Mar,IPO_R3_Apr,IPO_R3_May
 
+from correlation_routine_awap import rainfall_awap,rainfall_awap_average
+from correlation_routine_R1 import rainfall_R1,rainfall_R1_average
+from correlation_routine_R2 import rainfall_R2,rainfall_R2_average
+from correlation_routine_R3 import rainfall_R3,rainfall_R3_average
+
 def normal(data):
     """
     Checks to see if dataset is normally distributed.  Returns
@@ -68,30 +72,53 @@ def printNormal():
     Print the output of normal() for the index datasets used,
     to allow visual inspection.
     """
+    hadISST_ENSO_normality = []
     for i in hadISST_ENSO:
-        print "hadISST_ENSO ",normal(i)
+        hadISST_ENSO_normality.append(normal(i))
+    R1_ENSO_normality = []
     for i in R1_ENSO:
-        print "R1_ENSO ", normal(i)
+        R1_ENSO_normality.append(normal(i))
+    R2_ENSO_normality = []
     for i in R2_ENSO:
-        print "R2_ENSO ", normal(i)
+        R2_ENSO_normality.append(normal(i))
+    R3_ENSO_normality = []
     for i in R3_ENSO:
-        print "R3_ENSO ", normal(i)
+        R3_ENSO_normality.append(normal(i))
+    hadISST_IPO_normality = []
     for i in hadISST_IPO:
-        print "hadISST_IPO ",normal(i)
+        hadISST_IPO_normality.append(normal(i))
+    R1_IPO_normality = []
     for i in R1_IPO:
-        print "R1_IPO ", normal(i)
+        R1_IPO_normality.append(normal(i))
+    R2_IPO_normality = []
     for i in R2_IPO:
-        print "R2_IPO ",normal(i)
+        R2_IPO_normality.append(normal(i))
+    R3_IPO_normality = []
     for i in R3_IPO:
-        print "R3_IPO ",normal(i)
-    return
-
+        R3_IPO_normality.append(normal(i))
+    rainfall_awap_normality = []
+    for i in rainfall_awap_average:
+        rainfall_awap_normality.append(normal(i))
+    rainfall_R1_normality = []
+    for i in rainfall_R1_average:
+        rainfall_R1_normality.append(normal(i))
+    rainfall_R2_normality = []
+    for i in rainfall_R2_average:
+        rainfall_R2_normality.append(normal(i))
+    rainfall_R3_normality = []
+    for i in rainfall_R3_average:
+        rainfall_R3_normality.append(normal(i))
+    return hadISST_ENSO_normality, R1_ENSO_normality,R2_ENSO_normality,\
+           R3_ENSO_normality,hadISST_IPO_normality, R1_IPO_normality,\
+           R2_IPO_normality,R3_IPO_normality,rainfall_awap_normality,\
+           rainfall_R1_normality,rainfall_R2_normality,rainfall_R3_normality
+"""
 def testNormal(data):
-    """
+
     A function to test if index data is normally distributed;
     if not, the dataset is masked so that further correlation
     analyses cannot be performed.
-    """
+
     count = 0
     copy = data[:]
     while count < len(copy):
@@ -102,7 +129,7 @@ def testNormal(data):
         else:
             count += 1
     return copy
-
+"""
 def correl(index1,index2):
     """
     Pearson's correlation coefficient [-1,1]
@@ -148,9 +175,9 @@ def scatPlot(data_x_enso,data_y_ipo,title,filename):
     plt.savefig(filename)
     plt.close()
     return
-
+"""
 def corrANOVA(array1,array2,array3,array4):
-    """
+    
     A function to test if the means of the output from the four correlation
     datasets (observational, R1, R2, R3) are different.
     n = 12; N = 48.  DFbtw = 3, DFwthin = 44
@@ -160,9 +187,13 @@ def corrANOVA(array1,array2,array3,array4):
     Parameters:
     -----------
     Output: the f_value (not the f table (critical f-value) statistic)
-    """
+    
     f_val,p_val = stats.f_oneway(array1,array2,array3,array4)
     return f_val, p_val
+"""
+################################################################################
+#Create arrays of index data for use in this and other files
+################################################################################
 
 hadISST_ENSO = [enso_Jun_Had,enso_Jul_Had,enso_Aug_Had,enso_Sep_Had,\
                 enso_Oct_Had,enso_Nov_Had,enso_Dec_Had,enso_Jan_Had,\
@@ -206,11 +237,24 @@ R3_IPO = [IPO_R3_Jun,IPO_R3_Jul,IPO_R3_Aug,IPO_R3_Sep,\
           IPO_R3_JJA,IPO_R3_SON,IPO_R3_DJF,IPO_R3_MAM,\
           IPO_R3_Annual]
 
-"""
-Test to see if indices are normally distributed.
-"""
-#printNormal()
+################################################################################
+#Test to see if indices are normally distributed.
+################################################################################
 
+print_normal = printNormal()
+(hadISST_ENSO_normality, R1_ENSO_normality,R2_ENSO_normality,\
+           R3_ENSO_normality,hadISST_IPO_normality, R1_IPO_normality,\
+           R2_IPO_normality,R3_IPO_normality,rainfall_awap_normality,\
+           rainfall_R1_normality,rainfall_R2_normality,rainfall_R3_normality) = print_normal
+
+output = np.column_stack((hadISST_ENSO_normality, R1_ENSO_normality,R2_ENSO_normality,\
+           R3_ENSO_normality,hadISST_IPO_normality, R1_IPO_normality,\
+           R2_IPO_normality,R3_IPO_normality,rainfall_awap_normality,\
+            rainfall_R1_normality,rainfall_R2_normality,rainfall_R3_normality))
+#np.savetxt('data/Correlation_coefficients/normality.csv',output,delimiter=',')
+
+
+"""
 hadISST_ENSO_norm = testNormal(hadISST_ENSO)
 R1_ENSO_norm = testNormal(R1_ENSO)
 R2_ENSO_norm = testNormal(R2_ENSO)
@@ -219,13 +263,14 @@ hadISST_IPO_norm = testNormal(hadISST_IPO)
 R1_IPO_norm = testNormal(R3_IPO)
 R2_IPO_norm = testNormal(R2_IPO)
 R3_IPO_norm = testNormal(R3_IPO)
+"""
 
-"""
-Correllations
-"""
+################################################################################
+#Correllations
+################################################################################
 
 #Correlations - HadISST1
-corr = correlAll(hadISST_ENSO_norm,hadISST_IPO_norm)
+corr = correlAll(hadISST_ENSO,hadISST_IPO)
 (June, July, August, September, October, November, December, January,\
            February, March, April, May, JJA, SON, DJF, MAM, annual) = corr
 
@@ -267,7 +312,7 @@ HadISST_sig = np.array([Had_June[1], Had_July[1], Had_August[1], Had_September[1
 
 
 #ACCESS1.3 R1
-corr = correlAll(R1_ENSO_norm,R1_IPO_norm)
+corr = correlAll(R1_ENSO,R1_IPO)
 (June, July, August, September, October, November, December, January,\
            February, March, April, May, JJA, SON, DJF, MAM, annual) = corr
 
@@ -312,7 +357,7 @@ accessR1_sig = np.array([AccR1_June[1], AccR1_July[1], AccR1_August[1],\
             AccR1_DJF[1], AccR1_MAM[1], AccR1_annual[1]])
 
 #ACCESS1.3 R2
-corr = correlAll(R2_ENSO_norm,R2_IPO_norm)
+corr = correlAll(R2_ENSO,R2_IPO)
 (June, July, August, September, October, November, December, January,\
            February, March, April, May, JJA, SON, DJF, MAM, annual) = corr
 
@@ -357,7 +402,7 @@ accessR2_sig = np.array([AccR2_June[1], AccR2_July[1], AccR2_August[1],\
             AccR2_DJF[1], AccR2_MAM[1], AccR2_annual[1]])
 
 #ACCESS1.3 R3
-corr = correlAll(R3_ENSO_norm,R3_IPO_norm)
+corr = correlAll(R3_ENSO,R3_IPO)
 (June, July, August, September, October, November, December, January,\
            February, March, April, May, JJA, SON, DJF, MAM, annual) = corr
 
@@ -401,20 +446,27 @@ accessR3_sig = np.array([AccR3_June[1], AccR3_July[1], AccR3_August[1],\
                      AccR3_SON[1], \
             AccR3_DJF[1], AccR3_MAM[1], AccR3_annual[1]])
 
-##################
+#Correlation data to CSV output
+
+output = np.column_stack((HadISST_all,accessR1_all,accessR2_all,accessR3_all))
+np.savetxt('data/Correlation_coefficients/ENSO_IPO.csv',output,delimiter=',')
 
 
-####################
-"""
-test = corrANOVA(HadISST,accessR1,accessR2,accessR3)
-#test1 = pairwise_tukeyhsd(HadISST,accessR1,accessR2,accessR3)
-#test2 = normal(Nino34,0)
+################################################################################
+#Test for significant difference between different datasets' correlation output
+################################################################################
+# p-values <0.05 indicate that there is a significant difference between datasets
 
-#test3 = linePlot(Nino34_annual[0],TPI_annual[0])
+#Significant difference from HadISST:
+sig_diff_had_R1 = unpaired_t_test(HadISST,accessR1)
+sig_diff_had_R2 = unpaired_t_test(HadISST,accessR2)
+sig_diff_had_R3 = unpaired_t_test(HadISST,accessR3)
 
+#Significant difference in ACCESS rounds
+sig_diff_R1_R2 = unpaired_t_test(accessR1,accessR2)
+sig_diff_R1_R3 = unpaired_t_test(accessR1,accessR3)
+sig_diff_R2_R3 = unpaired_t_test(accessR2,accessR3)
 
-#Test to see if this function matches Excel's output:
-hey = np.array([Nino34[0],TPI[1]])
-hey1 = np.corrcoef(hey)
-hey2 = stats.pearsonr(Nino34[0],TPI[1])
-"""
+output2 = np.column_stack((sig_diff_had_R1,sig_diff_had_R2,sig_diff_had_R3,\
+                          sig_diff_R1_R2,sig_diff_R1_R3,sig_diff_R2_R3))
+np.savetxt('data/Correlation_coefficients/ENSO_IPO_sig_diff.csv',output2,delimiter=',')

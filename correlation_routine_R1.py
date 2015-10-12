@@ -1,5 +1,5 @@
 """
-A file to correlate ENSO with awap R1 rainfall and the IPO with awap R1
+A file to correlate ENSO with ACCESS R1 rainfall and the IPO with ACCESS R1
 rainfall.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
@@ -338,6 +338,13 @@ def corrDiffTPI_R1():
     plotCorrDiff(awapCorrTPI_May,R1CorrTPI_May,"Difference in AWAP and R1 correlations, IPO - May",\
              "/correlation/diff_tpi_R1/May")
     return
+
+#Make ACCESS R1 data available as a list; creates an array of rainfall averages
+rainfall_R1 = [trim_June, trim_July, trim_August, trim_September, trim_October, trim_November,\
+      trim_December,trim_January,trim_February,trim_March,trim_April,trim_May,\
+      trim_JJA,trim_SON,trim_DJF,trim_MAM,trim_Annual]
+
+rainfall_R1_average = averageArray(rainfall_R1)
 
 #Makes data available for plotting correlation plots
 corrENSO = awapCorrENSO_data()

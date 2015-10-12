@@ -339,6 +339,13 @@ def corrDiffTPI_R2():
              "/correlation/diff_tpi_R2/May")
     return
 
+#Make ACCESS R2 data available as a list; creates an array of rainfall averages
+rainfall_R2 = [trim_June, trim_July, trim_August, trim_September, trim_October, trim_November,\
+      trim_December,trim_January,trim_February,trim_March,trim_April,trim_May,\
+      trim_JJA,trim_SON,trim_DJF,trim_MAM,trim_Annual]
+
+rainfall_R2_average = averageArray(rainfall_R2)
+
 #Makes data available for plotting correlation plots
 corrENSO = awapCorrENSO_data()
 (awapCorrENSO_annual, awapCorrENSO_JJA, awapCorrENSO_SON, awapCorrENSO_DJF,\

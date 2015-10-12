@@ -23,7 +23,6 @@ from awap_prepare import awap_Annual, awap_JJA,awap_SON,awap_DJF,awap_MAM,\
      awap_June, awap_July, awap_August, awap_September, awap_October, awap_November,\
      awap_December,awap_January,awap_February,awap_March,awap_April,awap_May
 
-
 # Plot correlation coefficients on Australian maps.
 
 def awapCorrENSO():
@@ -269,6 +268,14 @@ def awapCorrTPI_data():
            awapCorrTPI_May
 
 
+#Make AWAP data available as a list; creates an array of average rainfall
+rainfall_awap = [awap_June, awap_July, awap_August, awap_September, \
+                 awap_October, awap_November,awap_December,awap_January,\
+                 awap_February,awap_March,awap_April,awap_May,\
+                 awap_JJA,awap_SON,awap_DJF,awap_MAM,awap_Annual]
+
+rainfall_awap_average = averageArray(rainfall_awap)
+
 #Generate correlation plots
 awapCorrENSO()
 awapCorrIPO()
@@ -314,4 +321,5 @@ output4 = np.column_stack((awapCorrEastTPI_annual, awapCorrEastTPI_JJA,awapCorrE
            awapCorrEastTPI_Jan,awapCorrEastTPI_Feb,awapCorrEastTPI_Mar,\
            awapCorrEastTPI_Apr,awapCorrEastTPI_May))
 np.savetxt('data/Correlation_coefficients/awap_corr_coef_TPI_EastAus.csv',output4,delimiter=',')
+
 

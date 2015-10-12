@@ -65,7 +65,7 @@ def meanRainfall(data):
 
 def anomalies(data,stratified):
     """
-    A function to return anomalies (mm) for stratified
+    A function to return rainfall anomalies (mm) for stratified
     indices.
 
     Parameters:

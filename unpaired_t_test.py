@@ -4,16 +4,26 @@ A function to compute statistical differences in means between two datasets
 by performing unpaired t-tests on independent samples.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 8 October 2015.
+Last updated 12 October 2015.
 """
 
 import netCDF4 as n
 import numpy as np
 import scipy
-from ENSO_IPO_corr import normal
+import scipy.stats as stats
 
 from cwd import *
 cwdInFunction()
+
+def normal(data):
+    """
+    Checks to see if dataset is normally distributed.  Returns
+    the p-value for the dataset (if p > 0.05 it is normally
+    distributed; otherwise it is not).
+    """
+    dat = np.array(data)
+    z,pval = stats.normaltest(dat)
+    return pval
 
 
 def unpaired_t_test(array1,array2):

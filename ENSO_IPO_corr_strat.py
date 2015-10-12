@@ -3,13 +3,14 @@ A file to compute Pearson's correlation coefficient and
 significance for stratified ENSO and IPO indices.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 23 September 2015.
+Last updated 12 October 2015.
 """
 import netCDF4 as n
 import numpy as np
 from scipy import stats
-from ENSO_IPO_corr import correlStrat
+from ENSO_IPO_corr import correl
 from cwd import cwdInFunction
+from unpaired_t_test import *
 
 cwdInFunction()
 
@@ -138,7 +139,7 @@ def corrStrat(array1,array2):
     list1 = []
     count = 0
     while count < 17:
-        list1.append(correlStrat(array1[count],array2[count]))
+        list1.append(correl(array1[count],array2[count]))
         count += 1
     array = np.asarray(list1)
     return array
@@ -421,4 +422,158 @@ output = np.column_stack((HadISST_corr[0,:,0].flatten(),\
                           R3_corr[7,:,1].flatten(),\
                           R3_corr[8,:,0].flatten(),\
                           R3_corr[8,:,1].flatten()))
-np.savetxt('data/correlations_stratified.csv',output,delimiter=',')
+
+np.savetxt('data/Correlation_coefficients/correlations_stratified_3SD.csv',output,delimiter=',')
+
+###################################################################################
+# Check to see if stratified correlations are statistically significantly different
+###################################################################################
+
+#Check if data is statistically significant from ENSO/IPO neutral
+
+had_pos_pos = unpaired_t_test(HadISST_corr[8,:,0],HadISST_corr[0,:,0])
+had_neu_pos = unpaired_t_test(HadISST_corr[8,:,0],HadISST_corr[6,:,0])
+had_neg_pos = unpaired_t_test(HadISST_corr[8,:,0],HadISST_corr[3,:,0])
+had_pos_neu = unpaired_t_test(HadISST_corr[8,:,0],HadISST_corr[2,:,0])
+had_neg_neu = unpaired_t_test(HadISST_corr[8,:,0],HadISST_corr[5,:,0])
+had_pos_neg = unpaired_t_test(HadISST_corr[8,:,0],HadISST_corr[1,:,0])
+had_neu_neg = unpaired_t_test(HadISST_corr[8,:,0],HadISST_corr[7,:,0])
+had_neg_neg = unpaired_t_test(HadISST_corr[8,:,0],HadISST_corr[4,:,0])
+
+hadISST_stat_sig = np.vstack((had_pos_pos,had_neu_pos,had_neg_pos,\
+                              had_pos_neu,had_neg_neu,had_pos_neg,\
+                              had_neu_neg,had_neg_neg))
+
+R1_pos_pos = unpaired_t_test(R1_corr[8,:,0],R1_corr[0,:,0])
+R1_neu_pos = unpaired_t_test(R1_corr[8,:,0],R1_corr[6,:,0])
+R1_neg_pos = unpaired_t_test(R1_corr[8,:,0],R1_corr[3,:,0])
+R1_pos_neu = unpaired_t_test(R1_corr[8,:,0],R1_corr[2,:,0])
+R1_neg_neu = unpaired_t_test(R1_corr[8,:,0],R1_corr[5,:,0])
+R1_pos_neg = unpaired_t_test(R1_corr[8,:,0],R1_corr[1,:,0])
+R1_neu_neg = unpaired_t_test(R1_corr[8,:,0],R1_corr[7,:,0])
+R1_neg_neg = unpaired_t_test(R1_corr[8,:,0],R1_corr[4,:,0])
+
+R1_stat_sig = np.vstack((R1_pos_pos,R1_neu_pos,R1_neg_pos,\
+                              R1_pos_neu,R1_neg_neu,R1_pos_neg,\
+                              R1_neu_neg,R1_neg_neg))
+
+R2_pos_pos = unpaired_t_test(R2_corr[8,:,0],R2_corr[0,:,0])
+R2_neu_pos = unpaired_t_test(R2_corr[8,:,0],R2_corr[6,:,0])
+R2_neg_pos = unpaired_t_test(R2_corr[8,:,0],R2_corr[3,:,0])
+R2_pos_neu = unpaired_t_test(R2_corr[8,:,0],R2_corr[2,:,0])
+R2_neg_neu = unpaired_t_test(R2_corr[8,:,0],R2_corr[5,:,0])
+R2_pos_neg = unpaired_t_test(R2_corr[8,:,0],R2_corr[1,:,0])
+R2_neu_neg = unpaired_t_test(R2_corr[8,:,0],R2_corr[7,:,0])
+R2_neg_neg = unpaired_t_test(R2_corr[8,:,0],R2_corr[4,:,0])
+
+R2_stat_sig = np.vstack((R2_pos_pos,R2_neu_pos,R2_neg_pos,\
+                              R2_pos_neu,R2_neg_neu,R2_pos_neg,\
+                              R2_neu_neg,R2_neg_neg))
+
+R3_pos_pos = unpaired_t_test(R3_corr[8,:,0],R3_corr[0,:,0])
+R3_neu_pos = unpaired_t_test(R3_corr[8,:,0],R3_corr[6,:,0])
+R3_neg_pos = unpaired_t_test(R3_corr[8,:,0],R3_corr[3,:,0])
+R3_pos_neu = unpaired_t_test(R3_corr[8,:,0],R3_corr[2,:,0])
+R3_neg_neu = unpaired_t_test(R3_corr[8,:,0],R3_corr[5,:,0])
+R3_pos_neg = unpaired_t_test(R3_corr[8,:,0],R3_corr[1,:,0])
+R3_neu_neg = unpaired_t_test(R3_corr[8,:,0],R3_corr[7,:,0])
+R3_neg_neg = unpaired_t_test(R3_corr[8,:,0],R3_corr[4,:,0])
+
+R3_stat_sig = np.vstack((R3_pos_pos,R3_neu_pos,R3_neg_pos,\
+                              R3_pos_neu,R3_neg_neu,R3_pos_neg,\
+                              R3_neu_neg,R3_neg_neg))
+
+#Check if ACCESS data is statistically significant from HadISST data
+Had_R1_neu_neu = unpaired_t_test(HadISST_corr[8,:,0],R1_corr[8,:,0])
+Had_R1_pos_pos = unpaired_t_test(HadISST_corr[0,:,0],R1_corr[0,:,0])
+Had_R1_neu_pos = unpaired_t_test(HadISST_corr[6,:,0],R1_corr[6,:,0])
+Had_R1_neg_pos = unpaired_t_test(HadISST_corr[3,:,0],R1_corr[3,:,0])
+Had_R1_pos_neu = unpaired_t_test(HadISST_corr[2,:,0],R1_corr[2,:,0])
+Had_R1_neg_neu = unpaired_t_test(HadISST_corr[5,:,0],R1_corr[5,:,0])
+Had_R1_pos_neg = unpaired_t_test(HadISST_corr[1,:,0],R1_corr[1,:,0])
+Had_R1_neu_neg = unpaired_t_test(HadISST_corr[7,:,0],R1_corr[7,:,0])
+Had_R1_neg_neg = unpaired_t_test(HadISST_corr[4,:,0],R1_corr[4,:,0])
+
+Had_R1_stat_sig = np.vstack((Had_R1_neu_neu,Had_R1_pos_pos,Had_R1_neu_pos,\
+                             Had_R1_neg_pos,Had_R1_pos_neu,Had_R1_neg_neu,\
+                             Had_R1_pos_neg,Had_R1_neu_neg,Had_R1_neg_neg))
+
+Had_R2_neu_neu = unpaired_t_test(HadISST_corr[8,:,0],R2_corr[8,:,0])
+Had_R2_pos_pos = unpaired_t_test(HadISST_corr[0,:,0],R2_corr[0,:,0])
+Had_R2_neu_pos = unpaired_t_test(HadISST_corr[6,:,0],R2_corr[6,:,0])
+Had_R2_neg_pos = unpaired_t_test(HadISST_corr[3,:,0],R2_corr[3,:,0])
+Had_R2_pos_neu = unpaired_t_test(HadISST_corr[2,:,0],R2_corr[2,:,0])
+Had_R2_neg_neu = unpaired_t_test(HadISST_corr[5,:,0],R2_corr[5,:,0])
+Had_R2_pos_neg = unpaired_t_test(HadISST_corr[1,:,0],R2_corr[1,:,0])
+Had_R2_neu_neg = unpaired_t_test(HadISST_corr[7,:,0],R2_corr[7,:,0])
+Had_R2_neg_neg = unpaired_t_test(HadISST_corr[4,:,0],R2_corr[4,:,0])
+
+Had_R2_stat_sig = np.vstack((Had_R2_neu_neu,Had_R2_pos_pos,Had_R2_neu_pos,\
+                             Had_R2_neg_pos,Had_R2_pos_neu,Had_R2_neg_neu,\
+                             Had_R2_pos_neg,Had_R2_neu_neg,Had_R2_neg_neg))
+
+Had_R3_neu_neu = unpaired_t_test(HadISST_corr[8,:,0],R3_corr[8,:,0])
+Had_R3_pos_pos = unpaired_t_test(HadISST_corr[0,:,0],R3_corr[0,:,0])
+Had_R3_neu_pos = unpaired_t_test(HadISST_corr[6,:,0],R3_corr[6,:,0])
+Had_R3_neg_pos = unpaired_t_test(HadISST_corr[3,:,0],R3_corr[3,:,0])
+Had_R3_pos_neu = unpaired_t_test(HadISST_corr[2,:,0],R3_corr[2,:,0])
+Had_R3_neg_neu = unpaired_t_test(HadISST_corr[5,:,0],R3_corr[5,:,0])
+Had_R3_pos_neg = unpaired_t_test(HadISST_corr[1,:,0],R3_corr[1,:,0])
+Had_R3_neu_neg = unpaired_t_test(HadISST_corr[7,:,0],R3_corr[7,:,0])
+Had_R3_neg_neg = unpaired_t_test(HadISST_corr[4,:,0],R3_corr[4,:,0])
+
+Had_R3_stat_sig = np.vstack((Had_R3_neu_neu,Had_R3_pos_pos,Had_R3_neu_pos,\
+                             Had_R3_neg_pos,Had_R3_pos_neu,Had_R3_neg_neu,\
+                             Had_R3_pos_neg,Had_R3_neu_neg,Had_R3_neg_neg))
+
+#Check if rounds of ACCESS data are statistically significantly different
+R1_R2_neu_neu = unpaired_t_test(R1_corr[8,:,0],R2_corr[8,:,0])
+R1_R2_pos_pos = unpaired_t_test(R1_corr[0,:,0],R2_corr[0,:,0])
+R1_R2_neu_pos = unpaired_t_test(R1_corr[6,:,0],R2_corr[6,:,0])
+R1_R2_neg_pos = unpaired_t_test(R1_corr[3,:,0],R2_corr[3,:,0])
+R1_R2_pos_neu = unpaired_t_test(R1_corr[2,:,0],R2_corr[2,:,0])
+R1_R2_neg_neu = unpaired_t_test(R1_corr[5,:,0],R2_corr[5,:,0])
+R1_R2_pos_neg = unpaired_t_test(R1_corr[1,:,0],R2_corr[1,:,0])
+R1_R2_neu_neg = unpaired_t_test(R1_corr[7,:,0],R2_corr[7,:,0])
+R1_R2_neg_neg = unpaired_t_test(R1_corr[4,:,0],R2_corr[4,:,0])
+
+R1_R2_stat_sig = np.vstack((R1_R2_neu_neu,R1_R2_pos_pos,R1_R2_neu_pos,\
+                            R1_R2_neg_pos,R1_R2_pos_neu,R1_R2_neg_neu,\
+                            R1_R2_pos_neg,R1_R2_neu_neg,R1_R2_neg_neg))
+
+R1_R3_neu_neu = unpaired_t_test(R1_corr[8,:,0],R3_corr[8,:,0])
+R1_R3_pos_pos = unpaired_t_test(R1_corr[0,:,0],R3_corr[0,:,0])
+R1_R3_neu_pos = unpaired_t_test(R1_corr[6,:,0],R3_corr[6,:,0])
+R1_R3_neg_pos = unpaired_t_test(R1_corr[3,:,0],R3_corr[3,:,0])
+R1_R3_pos_neu = unpaired_t_test(R1_corr[2,:,0],R3_corr[2,:,0])
+R1_R3_neg_neu = unpaired_t_test(R1_corr[5,:,0],R3_corr[5,:,0])
+R1_R3_pos_neg = unpaired_t_test(R1_corr[1,:,0],R3_corr[1,:,0])
+R1_R3_neu_neg = unpaired_t_test(R1_corr[7,:,0],R3_corr[7,:,0])
+R1_R3_neg_neg = unpaired_t_test(R1_corr[4,:,0],R3_corr[4,:,0])
+
+R1_R3_stat_sig = np.vstack((R1_R3_neu_neu,R1_R3_pos_pos,R1_R3_neu_pos,\
+                            R1_R3_neg_pos,R1_R3_pos_neu,R1_R3_neg_neu,\
+                            R1_R3_pos_neg,R1_R3_neu_neg,R1_R3_neg_neg))
+
+R2_R3_neu_neu = unpaired_t_test(R2_corr[8,:,0],R3_corr[8,:,0])
+R2_R3_pos_pos = unpaired_t_test(R2_corr[0,:,0],R3_corr[0,:,0])
+R2_R3_neu_pos = unpaired_t_test(R2_corr[6,:,0],R3_corr[6,:,0])
+R2_R3_neg_pos = unpaired_t_test(R2_corr[3,:,0],R3_corr[3,:,0])
+R2_R3_pos_neu = unpaired_t_test(R2_corr[2,:,0],R3_corr[2,:,0])
+R2_R3_neg_neu = unpaired_t_test(R2_corr[5,:,0],R3_corr[5,:,0])
+R2_R3_pos_neg = unpaired_t_test(R2_corr[1,:,0],R3_corr[1,:,0])
+R2_R3_neu_neg = unpaired_t_test(R2_corr[7,:,0],R3_corr[7,:,0])
+R2_R3_neg_neg = unpaired_t_test(R2_corr[4,:,0],R3_corr[4,:,0])
+
+R2_R3_stat_sig = np.vstack((R2_R3_neu_neu,R2_R3_pos_pos,R2_R3_neu_pos,\
+                            R2_R3_neg_pos,R2_R3_pos_neu,R2_R3_neg_neu,\
+                            R2_R3_pos_neg,R2_R3_neu_neg,R2_R3_neg_neg))
+
+#Output to CSV
+output2 = np.hstack((Had_R1_stat_sig,Had_R2_stat_sig,Had_R3_stat_sig,\
+                     R1_R2_stat_sig,R1_R3_stat_sig,R2_R3_stat_sig))
+output3 = np.hstack((hadISST_stat_sig,R1_stat_sig,R2_stat_sig,R3_stat_sig))
+np.savetxt('data/Correlation_coefficients/correlations_stratified_significance_3SD.csv',output2,delimiter=',')
+np.savetxt('data/Correlation_coefficients/correlations_stratified_significance_neutral_3SD.csv',output3,delimiter=',')
+
+

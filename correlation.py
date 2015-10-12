@@ -12,13 +12,24 @@ import numpy.ma as ma
 from matplotlib import pyplot as plt
 from plot import plot, mapCorr
 
-from indices_array import Nino34,TPI
 import maps_sub
 import math
 
 from cwd import cwdInFunction
 cwdInFunction()
 
+def averageArray(rainfall_data):
+    """
+    Returns the average rainfall value for each year in
+    a given (typically 105 year) array.
+    """
+    list1 = []
+    for i in rainfall_data:
+        listtemp = []
+        for j in i:
+            listtemp.append(np.ma.mean(j))
+        list1.append(listtemp)
+    return list1
 
 def corr(rainfall,index):
     """
