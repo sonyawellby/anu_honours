@@ -8,13 +8,10 @@ Last updated 17 September 2015.
 import numpy as np
 import numpy.ma as ma
 
-import indices_phase
-import awap_prepare
-import access_trimmed
-
 import maps_sub
 from matplotlib import pyplot as plt
-from plot import plot, mapComposite, mapCompositeAnom, multi
+from plot import plot, mapComposite, mapCompositeAnom, multi,\
+     mapDifference, mapStandardised
 
 from cwd import cwdInFunction
 cwdInFunction()
@@ -76,6 +73,21 @@ def anomalies(data,stratified):
     anomalies = stratified - meanRain
     return anomalies
 
+def difference(rainfall,index_more_rain,index_less_rain):
+    """
+    A function to plot differences in mean rainfall in the
+    rain enhanced and rain reduced phases of ENSO and
+    the IPO.
+    """
+    phase_more_rain = stratify(rainfall,index_more_rain)
+    phase_less_rain = stratify(rainfall,index_less_rain)
+
+    phase_more_rain_av = stratifyAverage(phase_more_rain)
+    phase_less_rain_av = stratifyAverage(phase_less_rain)
+    
+    diff = np.ma.subtract(phase_more_rain_av,phase_less_rain_av)
+    return diff
+
 def plotStrat(stratAv,precip_data,title,filepath):
     """
     A function to produce plots of stratified data.
@@ -87,6 +99,31 @@ def plotStrat(stratAv,precip_data,title,filepath):
     from maps_sub import saveFig
     saveFig(myplot,title,filepath)
     return
+
+def plotStratDiff(stratAv,precip_data,title,filepath):
+    """
+    A function to produce plots of stratified data.
+    """
+    var = ma.masked_invalid(stratAv)
+    dict9 = mapDifference(precip_data)
+    myplot = plot(var,dict9,labels=False,grid=False,oceans=False,cbar=True)
+    reload(maps_sub)
+    from maps_sub import saveFig
+    saveFig(myplot,title,filepath)
+    return
+
+def plotStratStandardised(data,precip_data,title,filepath):
+    """
+    A function to produce standardised plots of stratified rainfall data.
+    """
+    var = ma.masked_invalid(data)
+    dict10 = mapDifference(precip_data)
+    myplot = plot(var,dict10,labels=False,grid=False,oceans=False,cbar=False)
+    reload(maps_sub)
+    from maps_sub import saveFig
+    saveFig(myplot,title,filepath)
+    return
+
 
 def plotStratAnom(rainAnom,precip_data,title,filepath):
     """

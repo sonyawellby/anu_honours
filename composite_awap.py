@@ -6,6 +6,9 @@ Submitted by Sonya Wellby for ENVS4055, 2015.
 Last updated 17 September 2015.
 """
 from composite import *
+import indices_phase
+import awap_prepare
+import access_trimmed
 
 #Change as required to "1_sd", "2_sd", "3_sd"
 num = "1_sd"

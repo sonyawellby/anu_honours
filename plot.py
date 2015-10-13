@@ -2,7 +2,7 @@
 Routines to plot HadISST, ACCESS and AWAP datasets. 
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 25 September 2015.
+Last updated 12 October 2015.
 """
 
 import netCDF4 as n
@@ -197,6 +197,47 @@ def mapCompositeAnom(dataset):
     dict8['vmax'] = 3.0 # mm/day.
     return dict8
 
+def mapDifference(dataset):
+    """
+    A function to call variables needed to plot rainfall
+    differences between phases of indices for AWAP data
+    (can also be used for ACCESS data).
+
+    Parameters:
+    -----------
+    dataset : the name of the dataset to be plotted.
+    """
+    dict9 = {}
+    dict9['lat'] = latitude
+    dict9['lon'] = longitude
+    dict9['lat_units'] = awap_lat_units
+    dict9['lon_units'] = awap_lon_units
+    dict9['var_units'] = "Mean precipitation difference (mm/day)"
+    dict9['vmin'] = -3.0 # mm/day
+    dict9['vmax'] = 3.0 # mm/day.
+    return dict9
+
+def mapStandardised(dataset):
+    """
+    A function to call variables needed to plot rainfall
+    differences between phases of indices for AWAP data
+    (can also be used for ACCESS data).
+
+    Parameters:
+    -----------
+    dataset : the name of the dataset to be plotted.
+    """
+    dict10 = {}
+    dict10['lat'] = latitude
+    dict10['lon'] = longitude
+    dict10['lat_units'] = awap_lat_units
+    dict10['lon_units'] = awap_lon_units
+    dict10['var_units'] = r'Standardised rainfall ($\sigma$)'
+    dict10['vmin'] = -3.0 # standard deviations
+    dict10['vmax'] = 3.0 # standard deviations
+    return dict10
+
+
 def plot(var_time,Dict,labels=False,grid=False,oceans=False,cbar=True):
     """
     A function to plot and display a basic plot of ACCESS,
@@ -289,7 +330,7 @@ def multi(directory,nrow,ncol,title=''):
     mainTitle = title
     plt.suptitle(mainTitle,fontsize = 18)
     
-    fileList = glob.glob(directory)
+    fileList = sorted(glob.glob(directory))
     
     for i in range(1,(nrow*ncol)+1):
         a = fig.add_subplot(nrow,ncol,i)
