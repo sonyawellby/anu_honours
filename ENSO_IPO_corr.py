@@ -112,24 +112,7 @@ def printNormal():
            R3_ENSO_normality,hadISST_IPO_normality, R1_IPO_normality,\
            R2_IPO_normality,R3_IPO_normality,rainfall_awap_normality,\
            rainfall_R1_normality,rainfall_R2_normality,rainfall_R3_normality
-"""
-def testNormal(data):
 
-    A function to test if index data is normally distributed;
-    if not, the dataset is masked so that further correlation
-    analyses cannot be performed.
-
-    count = 0
-    copy = data[:]
-    while count < len(copy):
-        a = normal(copy[count])
-        if a <= 0.05:
-            copy[count] = np.ma.masked_where(copy[count],copy[count])
-            count += 1
-        else:
-            count += 1
-    return copy
-"""
 def correl(index1,index2):
     """
     Pearson's correlation coefficient [-1,1]
@@ -175,22 +158,7 @@ def scatPlot(data_x_enso,data_y_ipo,title,filename):
     plt.savefig(filename)
     plt.close()
     return
-"""
-def corrANOVA(array1,array2,array3,array4):
-    
-    A function to test if the means of the output from the four correlation
-    datasets (observational, R1, R2, R3) are different.
-    n = 12; N = 48.  DFbtw = 3, DFwthin = 44
-    H0: all means are equal to each other.
-    H1: not all means are equal.
 
-    Parameters:
-    -----------
-    Output: the f_value (not the f table (critical f-value) statistic)
-    
-    f_val,p_val = stats.f_oneway(array1,array2,array3,array4)
-    return f_val, p_val
-"""
 ################################################################################
 #Create arrays of index data for use in this and other files
 ################################################################################
@@ -253,17 +221,6 @@ output = np.column_stack((hadISST_ENSO_normality, R1_ENSO_normality,R2_ENSO_norm
             rainfall_R1_normality,rainfall_R2_normality,rainfall_R3_normality))
 #np.savetxt('data/Correlation_coefficients/normality.csv',output,delimiter=',')
 
-
-"""
-hadISST_ENSO_norm = testNormal(hadISST_ENSO)
-R1_ENSO_norm = testNormal(R1_ENSO)
-R2_ENSO_norm = testNormal(R2_ENSO)
-R3_ENSO_norm = testNormal(R3_ENSO)
-hadISST_IPO_norm = testNormal(hadISST_IPO)
-R1_IPO_norm = testNormal(R3_IPO)
-R2_IPO_norm = testNormal(R2_IPO)
-R3_IPO_norm = testNormal(R3_IPO)
-"""
 
 ################################################################################
 #Correllations

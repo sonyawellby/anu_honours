@@ -129,18 +129,18 @@ def runACCESS(std,roundNum, roundTitle,std_caption):
     standardisedPlots(trim_May,had_ENSO_array,had_IPO_array,16,std,'May',roundNum,roundTitle,std_caption)
     return
 
-#runAWAP('1_SD','') #Done
-#runAWAP('2_SD','(2 $\sigma$)')
-#runAWAP('3_SD','(3 $\sigma$)')
+runAWAP('1_SD','') #Done
+runAWAP('2_SD',r' (2 $\sigma$)') #Done
+runAWAP('3_SD',r' (3 $\sigma$)')
 
-#runACCESS('1_SD','R1','ACCESS R1','') #Done
-#runACCESS('2_SD','R1','ACCESS R1','2 $\sigma$)')
-#runACCESS('3_SD','R1','ACCESS R1','3 $\sigma$)')
+runACCESS('1_SD','R1','ACCESS R1','') #Done
+runACCESS('2_SD','R1','ACCESS R1',r' (2 $\sigma$)') #Done
+runACCESS('3_SD','R1','ACCESS R1',r' (3 $\sigma$)') #Done
 
-runACCESS('1_SD','R2','ACCESS R2','')
-#runACCESS('2_SD','R2','ACCESS R2','2 $\sigma$)')
-#runACCESS('3_SD','R2','ACCESS R2','3 $\sigma$)')
+runACCESS('1_SD','R2','ACCESS R2','') #Done
+runACCESS('2_SD','R2','ACCESS R2',r'(2 $\sigma$)') #Done
+runACCESS('3_SD','R2','ACCESS R2', r' (3 $\sigma$)') #Done
 
-#runACCESS('1_SD','R3','ACCESS R3','')
-#runACCESS('2_SD','R3','ACCESS R3','2 $\sigma$)')
-#runACCESS('3_SD','R3','ACCESS R3','3 $\sigma$)')
+runACCESS('1_SD','R3','ACCESS R3','') #Done
+runACCESS('2_SD','R3','ACCESS R3',r' (2 $\sigma$)') #Done
+runACCESS('3_SD','R3','ACCESS R3', r' (3 $\sigma$)') #Done

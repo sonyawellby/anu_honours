@@ -2,7 +2,7 @@
 Routines to plot HadISST, ACCESS and AWAP datasets. 
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 12 October 2015.
+Last updated 13 October 2015.
 """
 
 import netCDF4 as n
@@ -31,7 +31,7 @@ from hadisst_prepare import latHad, lonHad, latHad_units, lonHad_units
 def vmax(dataset):
     """
     A function to define the maximum value of data to be displayed on
-    the plot, where 'vmax' = 3 standard deviations above the dataset's
+    the plot, where 'vmax' = 3 (2?) standard deviations above the dataset's
     mean.
 
     Parameters:
@@ -44,6 +44,41 @@ def vmax(dataset):
     sd = np.std(dataset)
     vmax = mean + 2.0*sd
     return vmax
+
+def vmax_masked(dataset):
+    """
+    A function to define the maximum value of data to be displayed on
+    the plot, where 'vmax' = 0.5 standard deviations above the dataset's
+    mean.  Handles masked arrays.
+
+    Parameters:
+    -----------
+    dataset : the name of the dataset to be plotted, as imported from
+    access_prepare_ts, hadisst_prepare, awap_prepare, access_prepare_pr
+    or access_trimmed.
+    """
+    mean = np.ma.mean(dataset)
+    sd = np.ma.std(dataset)
+    vmax = mean + 0.5*sd
+    return vmax
+
+def vmin_masked(dataset):
+    """
+    A function to define the maximum value of data to be displayed on
+    the plot, where 'vmax' = 0.5 standard deviations above the dataset's
+    mean.  Handles masked arrays.
+
+    Parameters:
+    -----------
+    dataset : the name of the dataset to be plotted, as imported from
+    access_prepare_ts, hadisst_prepare, awap_prepare, access_prepare_pr
+    or access_trimmed.
+    """
+    mean = np.ma.mean(dataset)
+    sd = np.ma.std(dataset)
+    vmin = mean - 0.5*sd
+    return vmin
+
 
 def mapAWAP(dataset):
     """
@@ -237,6 +272,20 @@ def mapStandardised(dataset):
     dict10['vmax'] = 3.0 # standard deviations
     return dict10
 
+def mapCorrStratified(correlation_array):
+    """
+    A function to call variables needed to plot correlations between
+    one index and stratified (according to a second index) precipitation data.
+    """
+    dict11 = {}
+    dict11['lat'] = latACCESS_tr
+    dict11['lon'] = lonACCESS_tr
+    dict11['lat_units'] = latACCESS_units
+    dict11['lon_units'] = lonACCESS_units
+    dict11['var_units'] = 'Correlation coefficient'
+    dict11['vmin'] = vmin_masked(correlation_array) #Correlation coefficient
+    dict11['vmax'] = vmax_masked(correlation_array) #Correlation coefficient
+    return dict11
 
 def plot(var_time,Dict,labels=False,grid=False,oceans=False,cbar=True):
     """
@@ -301,7 +350,7 @@ def plot(var_time,Dict,labels=False,grid=False,oceans=False,cbar=True):
         cs = m.pcolor(x,y,var_time,vmin=Dict['vmin'],vmax=Dict['vmax'])
 
     if cbar == True:
-        cbar = m.colorbar(cs, location='right', pad="10%")
+        cbar = m.colorbar(cs, location='right', pad="1%")
         cbarLabel = "%s" %(Dict['var_units'])
         cbar.set_label(cbarLabel)
     else:

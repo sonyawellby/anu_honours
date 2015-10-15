@@ -103,9 +103,9 @@ def saveFig(plot,title,filename,ext='png'):
     if title == "":
         pass
     else:
-        plt.title(title,fontsize=18)
+        plt.title(title,fontsize=18) #,y=1.08)
     fileName = "%s%s.%s" %("my_coding_routines/images/",filename,ext)
-    plt.savefig(fileName)
+    plt.savefig(fileName) #,bbox_inches='tight')
 
     plt.close()
 
