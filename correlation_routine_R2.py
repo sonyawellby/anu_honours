@@ -25,6 +25,7 @@ from enso_csv import enso_JJA_R2, enso_SON_R2, enso_DJF_R2, enso_MAM_R2,\
 from tpi_csv import IPO_R2_JJA, IPO_R2_SON, IPO_R2_DJF, IPO_R2_MAM,\
      IPO_R2_Annual
 
+
 # Plots correlation maps
 
 def accessR2_awap_corrENSO(roundNum):

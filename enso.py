@@ -3,7 +3,7 @@ Set of routines to compute the Nino3.4 ENSO index.
 Nino3.4 region: -5 to 5 degrees N, 190 to 240 degrees E
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 22 September 2015.
+Last updated 16 October 2015.
 """
 
 import netCDF4 as n
@@ -392,7 +392,7 @@ def ensoSD(dataset,sd=num,crop=False):
         data = cropRM(dataset)
     else:
         data = dataset
-    std = np.std(dataset)*sd
+    std = np.std(data)*sd
     ENSOneutral = numpy.ma.masked_outside(data,std,-std)
     ENSOpos = numpy.ma.masked_greater(data,-std)
     ENSOneg = numpy.ma.masked_less(data,std)

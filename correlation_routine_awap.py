@@ -23,6 +23,7 @@ from awap_prepare import awap_Annual, awap_JJA,awap_SON,awap_DJF,awap_MAM,\
      awap_June, awap_July, awap_August, awap_September, awap_October, awap_November,\
      awap_December,awap_January,awap_February,awap_March,awap_April,awap_May
 
+
 # Plot correlation coefficients on Australian maps.
 
 def awapCorrENSO():
