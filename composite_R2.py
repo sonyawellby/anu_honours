@@ -12,7 +12,7 @@ import access_trimmed
 
 #Change as required to "1_sd", "2_sd", "3_sd"
 num = "1_sd"
-#Enter as needed: (3 $\sigma$)
+sigma = '' # ' (2 $\sigma$)'  ' (3 $\sigma$)'
 
 #ACCESS R2: June
 
@@ -35,8 +35,8 @@ output(access_trimmed.trim_June,indices_phase.IPO_negR2_Jun,indices_phase.ENSO_n
 output(access_trimmed.trim_June,indices_phase.IPO_negR2_Jun,indices_phase.ENSO_negR2_Jun,\
        "","/composite/"+num+"/rainfall/R2/June/9","/composite/"+num+"/rainfall_anomalies/R2/June/9")
 
-ACCESS_June = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/June/*.png",3,3,title=(r'ACCESS1.3 R2 June: mean rainfall'))
-ACCESS_June_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/June/*.png",3,3,title=(r'ACCESS1.3 R2 June: mean rainfall anomalies'))
+ACCESS_June = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/June/*.png",3,3,title=(r'ACCESS1.3 R2 June: mean rainfall'+sigma))
+ACCESS_June_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/June/*.png",3,3,title=(r'ACCESS1.3 R2 June: mean rainfall anomalies'+sigma))
 maps_sub.saveFig(ACCESS_June,"","composite/"+num+"_compiled/R2/ACCESS_June")
 maps_sub.saveFig(ACCESS_June_Anom,"","composite/"+num+"_compiled/R2/ACCESS_June_Anom")
 
@@ -62,8 +62,8 @@ output(access_trimmed.trim_July,indices_phase.IPO_negR2_Jul,indices_phase.ENSO_n
 output(access_trimmed.trim_July,indices_phase.IPO_negR2_Jul,indices_phase.ENSO_negR2_Jul,\
        "","/composite/"+num+"/rainfall/R2/July/9","/composite/"+num+"/rainfall_anomalies/R2/July/9")
 
-ACCESS_July = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/July/*.png",3,3,title=(r'ACCESS1.3 R2 July: mean rainfall'))
-ACCESS_July_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/July/*.png",3,3,title=(r'ACCESS1.3 R2 July: mean rainfall anomalies'))
+ACCESS_July = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/July/*.png",3,3,title=(r'ACCESS1.3 R2 July: mean rainfall'+sigma))
+ACCESS_July_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/July/*.png",3,3,title=(r'ACCESS1.3 R2 July: mean rainfall anomalies'+sigma))
 maps_sub.saveFig(ACCESS_July,"","composite/"+num+"_compiled/R2/ACCESS_July")
 maps_sub.saveFig(ACCESS_July_Anom,"","composite/"+num+"_compiled/R2/ACCESS_July_Anom")
 
@@ -89,8 +89,8 @@ output(access_trimmed.trim_August,indices_phase.IPO_negR2_Aug,indices_phase.ENSO
 output(access_trimmed.trim_August,indices_phase.IPO_negR2_Aug,indices_phase.ENSO_negR2_Aug,\
        "","/composite/"+num+"/rainfall/R2/August/9","/composite/"+num+"/rainfall_anomalies/R2/August/9")
 
-ACCESS_August = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/August/*.png",3,3,title=(r'ACCESS1.3 R2 August: mean rainfall'))
-ACCESS_August_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/August/*.png",3,3,title=(r'ACCESS1.3 R2 August: mean rainfall anomalies'))
+ACCESS_August = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/August/*.png",3,3,title=(r'ACCESS1.3 R2 August: mean rainfall'+sigma))
+ACCESS_August_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/August/*.png",3,3,title=(r'ACCESS1.3 R2 August: mean rainfall anomalies'+sigma))
 maps_sub.saveFig(ACCESS_August,"","composite/"+num+"_compiled/R2/ACCESS_August")
 maps_sub.saveFig(ACCESS_August_Anom,"","composite/"+num+"_compiled/R2/ACCESS_August_Anom")
 
@@ -116,8 +116,8 @@ output(access_trimmed.trim_September,indices_phase.IPO_negR2_Sep,indices_phase.E
 output(access_trimmed.trim_September,indices_phase.IPO_negR2_Sep,indices_phase.ENSO_negR2_Sep,\
        "","/composite/"+num+"/rainfall/R2/September/9","/composite/"+num+"/rainfall_anomalies/R2/September/9")
 
-ACCESS_September = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/September/*.png",3,3,title=(r'ACCESS1.3 R2 September: mean rainfall'))
-ACCESS_September_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/September/*.png",3,3,title=(r'ACCESS1.3 R2 September: mean rainfall anomalies'))
+ACCESS_September = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/September/*.png",3,3,title=(r'ACCESS1.3 R2 September: mean rainfall'+sigma))
+ACCESS_September_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/September/*.png",3,3,title=(r'ACCESS1.3 R2 September: mean rainfall anomalies'+sigma))
 maps_sub.saveFig(ACCESS_September,"","composite/"+num+"_compiled/R2/ACCESS_September")
 maps_sub.saveFig(ACCESS_September_Anom,"","composite/"+num+"_compiled/R2/ACCESS_September_Anom")
 
@@ -143,8 +143,8 @@ output(access_trimmed.trim_October,indices_phase.IPO_negR2_Oct,indices_phase.ENS
 output(access_trimmed.trim_October,indices_phase.IPO_negR2_Oct,indices_phase.ENSO_negR2_Oct,\
        "","/composite/"+num+"/rainfall/R2/October/9","/composite/"+num+"/rainfall_anomalies/R2/October/9")
 
-ACCESS_October = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/October/*.png",3,3,title=(r'ACCESS1.3 R2 October: mean rainfall'))
-ACCESS_October_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/October/*.png",3,3,title=(r'ACCESS1.3 R2 October: mean rainfall anomalies'))
+ACCESS_October = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/October/*.png",3,3,title=(r'ACCESS1.3 R2 October: mean rainfall'+sigma))
+ACCESS_October_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/October/*.png",3,3,title=(r'ACCESS1.3 R2 October: mean rainfall anomalies'+sigma))
 maps_sub.saveFig(ACCESS_October,"","composite/"+num+"_compiled/R2/ACCESS_October")
 maps_sub.saveFig(ACCESS_October_Anom,"","composite/"+num+"_compiled/R2/ACCESS_October_Anom")
 
@@ -170,8 +170,8 @@ output(access_trimmed.trim_November,indices_phase.IPO_negR2_Nov,indices_phase.EN
 output(access_trimmed.trim_November,indices_phase.IPO_negR2_Nov,indices_phase.ENSO_negR2_Nov,\
        "","/composite/"+num+"/rainfall/R2/November/9","/composite/"+num+"/rainfall_anomalies/R2/November/9")
 
-ACCESS_November = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/November/*.png",3,3,title=(r'ACCESS1.3 R2 November: mean rainfall'))
-ACCESS_November_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/November/*.png",3,3,title=(r'ACCESS1.3 R2 November: mean rainfall anomalies'))
+ACCESS_November = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/November/*.png",3,3,title=(r'ACCESS1.3 R2 November: mean rainfall'+sigma))
+ACCESS_November_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/November/*.png",3,3,title=(r'ACCESS1.3 R2 November: mean rainfall anomalies'+sigma))
 maps_sub.saveFig(ACCESS_November,"","composite/"+num+"_compiled/R2/ACCESS_November")
 maps_sub.saveFig(ACCESS_November_Anom,"","composite/"+num+"_compiled/R2/ACCESS_November_Anom")
 
@@ -197,8 +197,8 @@ output(access_trimmed.trim_December,indices_phase.IPO_negR2_Dec,indices_phase.EN
 output(access_trimmed.trim_December,indices_phase.IPO_negR2_Dec,indices_phase.ENSO_negR2_Dec,\
        "","/composite/"+num+"/rainfall/R2/December/9","/composite/"+num+"/rainfall_anomalies/R2/December/9")
 
-ACCESS_December = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/December/*.png",3,3,title=(r'ACCESS1.3 R2 December: mean rainfall'))
-ACCESS_December_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/December/*.png",3,3,title=(r'ACCESS1.3 R2 December: mean rainfall anomalies'))
+ACCESS_December = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/December/*.png",3,3,title=(r'ACCESS1.3 R2 December: mean rainfall'+sigma))
+ACCESS_December_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/December/*.png",3,3,title=(r'ACCESS1.3 R2 December: mean rainfall anomalies'+sigma))
 maps_sub.saveFig(ACCESS_December,"","composite/"+num+"_compiled/R2/ACCESS_December")
 maps_sub.saveFig(ACCESS_December_Anom,"","composite/"+num+"_compiled/R2/ACCESS_December_Anom")
 
@@ -224,8 +224,8 @@ output(access_trimmed.trim_January,indices_phase.IPO_negR2_Jan,indices_phase.ENS
 output(access_trimmed.trim_January,indices_phase.IPO_negR2_Jan,indices_phase.ENSO_negR2_Jan,\
        "","/composite/"+num+"/rainfall/R2/January/9","/composite/"+num+"/rainfall_anomalies/R2/January/9")
 
-ACCESS_January = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/January/*.png",3,3,title=(r'ACCESS1.3 R2 January: mean rainfall'))
-ACCESS_January_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/January/*.png",3,3,title=(r'ACCESS1.3 R2 January: mean rainfall anomalies'))
+ACCESS_January = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/January/*.png",3,3,title=(r'ACCESS1.3 R2 January: mean rainfall'+sigma))
+ACCESS_January_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/January/*.png",3,3,title=(r'ACCESS1.3 R2 January: mean rainfall anomalies'+sigma))
 maps_sub.saveFig(ACCESS_January,"","composite/"+num+"_compiled/R2/ACCESS_January")
 maps_sub.saveFig(ACCESS_January_Anom,"","composite/"+num+"_compiled/R2/ACCESS_January_Anom")
 
@@ -251,8 +251,8 @@ output(access_trimmed.trim_February,indices_phase.IPO_negR2_Feb,indices_phase.EN
 output(access_trimmed.trim_February,indices_phase.IPO_negR2_Feb,indices_phase.ENSO_negR2_Feb,\
        "","/composite/"+num+"/rainfall/R2/February/9","/composite/"+num+"/rainfall_anomalies/R2/February/9")
 
-ACCESS_February = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/February/*.png",3,3,title=(r'ACCESS1.3 R2 February: mean rainfall'))
-ACCESS_February_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/February/*.png",3,3,title=(r'ACCESS1.3 R2 February: mean rainfall anomalies'))
+ACCESS_February = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/February/*.png",3,3,title=(r'ACCESS1.3 R2 February: mean rainfall'+sigma))
+ACCESS_February_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/February/*.png",3,3,title=(r'ACCESS1.3 R2 February: mean rainfall anomalies'+sigma))
 maps_sub.saveFig(ACCESS_February,"","composite/"+num+"_compiled/R2/ACCESS_February")
 maps_sub.saveFig(ACCESS_February_Anom,"","composite/"+num+"_compiled/R2/ACCESS_February_Anom")
 
@@ -278,8 +278,8 @@ output(access_trimmed.trim_March,indices_phase.IPO_negR2_Mar,indices_phase.ENSO_
 output(access_trimmed.trim_March,indices_phase.IPO_negR2_Mar,indices_phase.ENSO_negR2_Mar,\
        "","/composite/"+num+"/rainfall/R2/March/9","/composite/"+num+"/rainfall_anomalies/R2/March/9")
 
-ACCESS_March = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/March/*.png",3,3,title=(r'ACCESS1.3 R2 March: mean rainfall'))
-ACCESS_March_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/March/*.png",3,3,title=(r'ACCESS1.3 R2 March: mean rainfall anomalies'))
+ACCESS_March = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/March/*.png",3,3,title=(r'ACCESS1.3 R2 March: mean rainfall'+sigma))
+ACCESS_March_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/March/*.png",3,3,title=(r'ACCESS1.3 R2 March: mean rainfall anomalies'+sigma))
 maps_sub.saveFig(ACCESS_March,"","composite/"+num+"_compiled/R2/ACCESS_March")
 maps_sub.saveFig(ACCESS_March_Anom,"","composite/"+num+"_compiled/R2/ACCESS_March_Anom")
 
@@ -305,8 +305,8 @@ output(access_trimmed.trim_April,indices_phase.IPO_negR2_Apr,indices_phase.ENSO_
 output(access_trimmed.trim_April,indices_phase.IPO_negR2_Apr,indices_phase.ENSO_negR2_Apr,\
        "","/composite/"+num+"/rainfall/R2/April/9","/composite/"+num+"/rainfall_anomalies/R2/April/9")
 
-ACCESS_April = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/April/*.png",3,3,title=(r'ACCESS1.3 R2 April: mean rainfall'))
-ACCESS_April_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/April/*.png",3,3,title=(r'ACCESS1.3 R2 April: mean rainfall anomalies'))
+ACCESS_April = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/April/*.png",3,3,title=(r'ACCESS1.3 R2 April: mean rainfall'+sigma))
+ACCESS_April_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/April/*.png",3,3,title=(r'ACCESS1.3 R2 April: mean rainfall anomalies'+sigma))
 maps_sub.saveFig(ACCESS_April,"","composite/"+num+"_compiled/R2/ACCESS_April")
 maps_sub.saveFig(ACCESS_April_Anom,"","composite/"+num+"_compiled/R2/ACCESS_April_Anom")
 
@@ -332,8 +332,8 @@ output(access_trimmed.trim_May,indices_phase.IPO_negR2_May,indices_phase.ENSO_ne
 output(access_trimmed.trim_May,indices_phase.IPO_negR2_May,indices_phase.ENSO_negR2_May,\
        "","/composite/"+num+"/rainfall/R2/May/9","/composite/"+num+"/rainfall_anomalies/R2/May/9")
 
-ACCESS_May = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/May/*.png",3,3,title=(r'ACCESS1.3 R2 May: mean rainfall'))
-ACCESS_May_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/May/*.png",3,3,title=(r'ACCESS1.3 R2 May: mean rainfall anomalies'))
+ACCESS_May = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/May/*.png",3,3,title=(r'ACCESS1.3 R2 May: mean rainfall'+sigma))
+ACCESS_May_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/May/*.png",3,3,title=(r'ACCESS1.3 R2 May: mean rainfall anomalies'+sigma))
 maps_sub.saveFig(ACCESS_May,"","composite/"+num+"_compiled/R2/ACCESS_May")
 maps_sub.saveFig(ACCESS_May_Anom,"","composite/"+num+"_compiled/R2/ACCESS_May_Anom")
 
@@ -358,8 +358,8 @@ output(access_trimmed.trim_JJA,indices_phase.IPO_negR2_JJA,indices_phase.ENSO_ne
 output(access_trimmed.trim_JJA,indices_phase.IPO_negR2_JJA,indices_phase.ENSO_negR2_JJA,\
        "","/composite/"+num+"/rainfall/R2/JJA/9","/composite/"+num+"/rainfall_anomalies/R2/JJA/9")
 
-ACCESS_JJA = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/JJA/*.png",3,3,title=(r'ACCESS1.3 R2 JJA: mean rainfall'))
-ACCESS_JJA_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/JJA/*.png",3,3,title=(r'ACCESS1.3 R2 JJA: mean rainfall anomalies'))
+ACCESS_JJA = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/JJA/*.png",3,3,title=(r'ACCESS1.3 R2 JJA: mean rainfall'+sigma))
+ACCESS_JJA_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/JJA/*.png",3,3,title=(r'ACCESS1.3 R2 JJA: mean rainfall anomalies'+sigma))
 maps_sub.saveFig(ACCESS_JJA,"","composite/"+num+"_compiled/R2/ACCESS_JJA")
 maps_sub.saveFig(ACCESS_JJA_Anom,"","composite/"+num+"_compiled/R2/ACCESS_JJA_Anom")
 
@@ -385,8 +385,8 @@ output(access_trimmed.trim_SON,indices_phase.IPO_negR2_SON,indices_phase.ENSO_ne
 output(access_trimmed.trim_SON,indices_phase.IPO_negR2_SON,indices_phase.ENSO_negR2_SON,\
        "","/composite/"+num+"/rainfall/R2/SON/9","/composite/"+num+"/rainfall_anomalies/R2/SON/9")
 
-ACCESS_SON = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/SON/*.png",3,3,title=(r'ACCESS1.3 R2 SON: mean rainfall'))
-ACCESS_SON_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/SON/*.png",3,3,title=(r'ACCESS1.3 R2 SON: mean rainfall anomalies'))
+ACCESS_SON = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/SON/*.png",3,3,title=(r'ACCESS1.3 R2 SON: mean rainfall'+sigma))
+ACCESS_SON_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/SON/*.png",3,3,title=(r'ACCESS1.3 R2 SON: mean rainfall anomalies'+sigma))
 maps_sub.saveFig(ACCESS_SON,"","composite/"+num+"_compiled/R2/ACCESS_SON")
 maps_sub.saveFig(ACCESS_SON_Anom,"","composite/"+num+"_compiled/R2/ACCESS_SON_Anom")
 
@@ -412,8 +412,8 @@ output(access_trimmed.trim_DJF,indices_phase.IPO_negR2_DJF,indices_phase.ENSO_ne
 output(access_trimmed.trim_DJF,indices_phase.IPO_negR2_DJF,indices_phase.ENSO_negR2_DJF,\
        "","/composite/"+num+"/rainfall/R2/DJF/9","/composite/"+num+"/rainfall_anomalies/R2/DJF/9")
 
-ACCESS_DJF = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/DJF/*.png",3,3,title=(r'ACCESS1.3 R2 DJF: mean rainfall'))
-ACCESS_DJF_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/DJF/*.png",3,3,title=(r'ACCESS1.3 R2 DJF: mean rainfall anomalies'))
+ACCESS_DJF = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/DJF/*.png",3,3,title=(r'ACCESS1.3 R2 DJF: mean rainfall'+sigma))
+ACCESS_DJF_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/DJF/*.png",3,3,title=(r'ACCESS1.3 R2 DJF: mean rainfall anomalies'+sigma))
 maps_sub.saveFig(ACCESS_DJF,"","composite/"+num+"_compiled/R2/ACCESS_DJF")
 maps_sub.saveFig(ACCESS_DJF_Anom,"","composite/"+num+"_compiled/R2/ACCESS_DJF_Anom")
 
@@ -439,8 +439,8 @@ output(access_trimmed.trim_MAM,indices_phase.IPO_negR2_MAM,indices_phase.ENSO_ne
 output(access_trimmed.trim_MAM,indices_phase.IPO_negR2_MAM,indices_phase.ENSO_negR2_MAM,\
        "","/composite/"+num+"/rainfall/R2/MAM/9","/composite/"+num+"/rainfall_anomalies/R2/MAM/9")
 
-ACCESS_MAM = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/MAM/*.png",3,3,title=(r'ACCESS1.3 R2 MAM: mean rainfall'))
-ACCESS_MAM_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/MAM/*.png",3,3,title=(r'ACCESS1.3 R2 MAM: mean rainfall anomalies'))
+ACCESS_MAM = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/MAM/*.png",3,3,title=(r'ACCESS1.3 R2 MAM: mean rainfall'+sigma))
+ACCESS_MAM_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/MAM/*.png",3,3,title=(r'ACCESS1.3 R2 MAM: mean rainfall anomalies'+sigma))
 maps_sub.saveFig(ACCESS_MAM,"","composite/"+num+"_compiled/R2/ACCESS_MAM")
 maps_sub.saveFig(ACCESS_MAM_Anom,"","composite/"+num+"_compiled/R2/ACCESS_MAM_Anom")
 
@@ -466,7 +466,7 @@ output(access_trimmed.trim_Annual,indices_phase.IPO_negR2_annual,indices_phase.E
 output(access_trimmed.trim_Annual,indices_phase.IPO_negR2_annual,indices_phase.ENSO_negR2_annual,\
        "","/composite/"+num+"/rainfall/R2/Annual/9","/composite/"+num+"/rainfall_anomalies/R2/Annual/9")
 
-ACCESS_annual = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/Annual/*.png",3,3,title=(r'ACCESS1.3 R2 annual: mean rainfall'))
-ACCESS_annual_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/Annual/*.png",3,3,title=(r'ACCESS1.3 R2 annual: mean rainfall anomalies'))
+ACCESS_annual = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/Annual/*.png",3,3,title=(r'ACCESS1.3 R2 annual: mean rainfall'+sigma))
+ACCESS_annual_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/Annual/*.png",3,3,title=(r'ACCESS1.3 R2 annual: mean rainfall anomalies'+sigma))
 maps_sub.saveFig(ACCESS_annual,"","composite/"+num+"_compiled/R2/ACCESS_annual")
 maps_sub.saveFig(ACCESS_annual_Anom,"","composite/"+num+"_compiled/R2/ACCESS_annual_Anom")

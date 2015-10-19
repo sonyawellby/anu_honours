@@ -2,7 +2,7 @@
 A script to create maps which compare stratified ACCESS/AWAP rainfall data.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 12 October 2015.
+Last updated 19 October 2015.
 """
 import numpy as np
 import numpy.ma as ma
@@ -47,12 +47,13 @@ def standardised(rainfall,array_index_IPO,array_index_ENSO,num_i):
     array9 = stratifiedRainfall(rainfall,array_index_IPO[2][num_i],array_index_ENSO[1][num_i])
 
     new_list = [array1,array2,array3,array4,array5,array6,array7,array8,array9]
-    
-    std = np.ma.std(new_list[4])
+
+    std = np.ma.std(rainfall[60:91])
     list1 = []
     for i in new_list:
-        sub = np.ma.subtract(i,new_list[4])
-        list1.append(np.ma.divide(sub,std))
+        climate_mean = np.ma.mean(rainfall[60:91],axis=0)
+        anomaly = np.ma.subtract(i,climate_mean)
+        list1.append(np.ma.divide(anomaly,std))
     new_array = np.asarray(list1)
     return new_array
 
@@ -90,48 +91,48 @@ R3_IPO_array = [IPO_posR3,IPO_negR3,IPO_neutralR3]
 ########################################################################################
 
 def runAWAP(std,std_caption):
-    standardisedPlots(awap_Annual,had_ENSO_array,had_IPO_array,0,std,'annual','AWAP','AWAP',std_caption)
-    standardisedPlots(awap_JJA,had_ENSO_array,had_IPO_array,1,std,'JJA','AWAP','AWAP',std_caption)
-    standardisedPlots(awap_SON,had_ENSO_array,had_IPO_array,2,std,'SON','AWAP','AWAP',std_caption)
-    standardisedPlots(awap_DJF,had_ENSO_array,had_IPO_array,3,std,'DJF','AWAP','AWAP',std_caption)
-    standardisedPlots(awap_MAM,had_ENSO_array,had_IPO_array,4,std,'MAM','AWAP','AWAP',std_caption)
-    standardisedPlots(awap_June,had_ENSO_array,had_IPO_array,5,std,'June','AWAP','AWAP',std_caption)
-    standardisedPlots(awap_July,had_ENSO_array,had_IPO_array,6,std,'July','AWAP','AWAP',std_caption)
-    standardisedPlots(awap_August,had_ENSO_array,had_IPO_array,7,std,'August','AWAP','AWAP',std_caption)
-    standardisedPlots(awap_September,had_ENSO_array,had_IPO_array,8,std,'September','AWAP','AWAP',std_caption)
-    standardisedPlots(awap_October,had_ENSO_array,had_IPO_array,9,std,'October','AWAP','AWAP',std_caption)
-    standardisedPlots(awap_November,had_ENSO_array,had_IPO_array,10,std,'November','AWAP','AWAP',std_caption)
-    standardisedPlots(awap_December,had_ENSO_array,had_IPO_array,11,std,'December','AWAP','AWAP',std_caption)
-    standardisedPlots(awap_January,had_ENSO_array,had_IPO_array,12,std,'January','AWAP','AWAP',std_caption)
-    standardisedPlots(awap_February,had_ENSO_array,had_IPO_array,13,std,'February','AWAP','AWAP',std_caption)
-    standardisedPlots(awap_March,had_ENSO_array,had_IPO_array,14,std,'March','AWAP','AWAP',std_caption)
-    standardisedPlots(awap_April,had_ENSO_array,had_IPO_array,15,std,'April','AWAP','AWAP',std_caption)
-    standardisedPlots(awap_May,had_ENSO_array,had_IPO_array,16,std,'May','AWAP','AWAP',std_caption)
+    standardisedPlots(awap_Annual,had_IPO_array,had_ENSO_array,0,std,'annual','AWAP','AWAP',std_caption)
+    standardisedPlots(awap_JJA,had_IPO_array,had_ENSO_array,1,std,'JJA','AWAP','AWAP',std_caption)
+    standardisedPlots(awap_SON,had_IPO_array,had_ENSO_array,2,std,'SON','AWAP','AWAP',std_caption)
+    standardisedPlots(awap_DJF,had_IPO_array,had_ENSO_array,3,std,'DJF','AWAP','AWAP',std_caption)
+    standardisedPlots(awap_MAM,had_IPO_array,had_ENSO_array,4,std,'MAM','AWAP','AWAP',std_caption)
+    standardisedPlots(awap_June,had_IPO_array,had_ENSO_array,5,std,'June','AWAP','AWAP',std_caption)
+    standardisedPlots(awap_July,had_IPO_array,had_ENSO_array,6,std,'July','AWAP','AWAP',std_caption)
+    standardisedPlots(awap_August,had_IPO_array,had_ENSO_array,7,std,'August','AWAP','AWAP',std_caption)
+    standardisedPlots(awap_September,had_IPO_array,had_ENSO_array,8,std,'September','AWAP','AWAP',std_caption)
+    standardisedPlots(awap_October,had_IPO_array,had_ENSO_array,9,std,'October','AWAP','AWAP',std_caption)
+    standardisedPlots(awap_November,had_IPO_array,had_ENSO_array,10,std,'November','AWAP','AWAP',std_caption)
+    standardisedPlots(awap_December,had_IPO_array,had_ENSO_array,11,std,'December','AWAP','AWAP',std_caption)
+    standardisedPlots(awap_January,had_IPO_array,had_ENSO_array,12,std,'January','AWAP','AWAP',std_caption)
+    standardisedPlots(awap_February,had_IPO_array,had_ENSO_array,13,std,'February','AWAP','AWAP',std_caption)
+    standardisedPlots(awap_March,had_IPO_array,had_ENSO_array,14,std,'March','AWAP','AWAP',std_caption)
+    standardisedPlots(awap_April,had_IPO_array,had_ENSO_array,15,std,'April','AWAP','AWAP',std_caption)
+    standardisedPlots(awap_May,had_IPO_array,had_ENSO_array,16,std,'May','AWAP','AWAP',std_caption)
     return
 
 def runACCESS(std,roundNum, roundTitle,std_caption):
-    standardisedPlots(trim_Annual,had_ENSO_array,had_IPO_array,0,std,'annual',roundNum,roundTitle,std_caption)
-    standardisedPlots(trim_JJA,had_ENSO_array,had_IPO_array,1,std,'JJA',roundNum,roundTitle,std_caption)
-    standardisedPlots(trim_SON,had_ENSO_array,had_IPO_array,2,std,'SON',roundNum,roundTitle,std_caption)
-    standardisedPlots(trim_DJF,had_ENSO_array,had_IPO_array,3,std,'DJF',roundNum,roundTitle,std_caption)
-    standardisedPlots(trim_MAM,had_ENSO_array,had_IPO_array,4,std,'MAM',roundNum,roundTitle,std_caption)
-    standardisedPlots(trim_June,had_ENSO_array,had_IPO_array,5,std,'June',roundNum,roundTitle,std_caption)
-    standardisedPlots(trim_July,had_ENSO_array,had_IPO_array,6,std,'July',roundNum,roundTitle,std_caption)
-    standardisedPlots(trim_August,had_ENSO_array,had_IPO_array,7,std,'August',roundNum,roundTitle,std_caption)
-    standardisedPlots(trim_September,had_ENSO_array,had_IPO_array,8,std,'September',roundNum,roundTitle,std_caption)
-    standardisedPlots(trim_October,had_ENSO_array,had_IPO_array,9,std,'October',roundNum,roundTitle,std_caption)
-    standardisedPlots(trim_November,had_ENSO_array,had_IPO_array,10,std,'November',roundNum,roundTitle,std_caption)
-    standardisedPlots(trim_December,had_ENSO_array,had_IPO_array,11,std,'December',roundNum,roundTitle,std_caption)
-    standardisedPlots(trim_January,had_ENSO_array,had_IPO_array,12,std,'January',roundNum,roundTitle,std_caption)
-    standardisedPlots(trim_February,had_ENSO_array,had_IPO_array,13,std,'February',roundNum,roundTitle,std_caption)
-    standardisedPlots(trim_March,had_ENSO_array,had_IPO_array,14,std,'March',roundNum,roundTitle,std_caption)
-    standardisedPlots(trim_April,had_ENSO_array,had_IPO_array,15,std,'April',roundNum,roundTitle,std_caption)
-    standardisedPlots(trim_May,had_ENSO_array,had_IPO_array,16,std,'May',roundNum,roundTitle,std_caption)
+    standardisedPlots(trim_Annual,had_IPO_array,had_ENSO_array,0,std,'annual',roundNum,roundTitle,std_caption)
+    standardisedPlots(trim_JJA,had_IPO_array,had_ENSO_array,1,std,'JJA',roundNum,roundTitle,std_caption)
+    standardisedPlots(trim_SON,had_IPO_array,had_ENSO_array,2,std,'SON',roundNum,roundTitle,std_caption)
+    standardisedPlots(trim_DJF,had_IPO_array,had_ENSO_array,3,std,'DJF',roundNum,roundTitle,std_caption)
+    standardisedPlots(trim_MAM,had_IPO_array,had_ENSO_array,4,std,'MAM',roundNum,roundTitle,std_caption)
+    standardisedPlots(trim_June,had_IPO_array,had_ENSO_array,5,std,'June',roundNum,roundTitle,std_caption)
+    standardisedPlots(trim_July,had_IPO_array,had_ENSO_array,6,std,'July',roundNum,roundTitle,std_caption)
+    standardisedPlots(trim_August,had_IPO_array,had_ENSO_array,7,std,'August',roundNum,roundTitle,std_caption)
+    standardisedPlots(trim_September,had_IPO_array,had_ENSO_array,8,std,'September',roundNum,roundTitle,std_caption)
+    standardisedPlots(trim_October,had_IPO_array,had_ENSO_array,9,std,'October',roundNum,roundTitle,std_caption)
+    standardisedPlots(trim_November,had_IPO_array,had_ENSO_array,10,std,'November',roundNum,roundTitle,std_caption)
+    standardisedPlots(trim_December,had_IPO_array,had_ENSO_array,11,std,'December',roundNum,roundTitle,std_caption)
+    standardisedPlots(trim_January,had_IPO_array,had_ENSO_array,12,std,'January',roundNum,roundTitle,std_caption)
+    standardisedPlots(trim_February,had_IPO_array,had_ENSO_array,13,std,'February',roundNum,roundTitle,std_caption)
+    standardisedPlots(trim_March,had_IPO_array,had_ENSO_array,14,std,'March',roundNum,roundTitle,std_caption)
+    standardisedPlots(trim_April,had_IPO_array,had_ENSO_array,15,std,'April',roundNum,roundTitle,std_caption)
+    standardisedPlots(trim_May,had_IPO_array,had_ENSO_array,16,std,'May',roundNum,roundTitle,std_caption)
     return
 
 runAWAP('1_SD','') #Done
 runAWAP('2_SD',r' (2 $\sigma$)') #Done
-runAWAP('3_SD',r' (3 $\sigma$)')
+runAWAP('3_SD',r' (3 $\sigma$)') #Done
 
 runACCESS('1_SD','R1','ACCESS R1','') #Done
 runACCESS('2_SD','R1','ACCESS R1',r' (2 $\sigma$)') #Done

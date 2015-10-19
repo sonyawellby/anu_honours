@@ -69,8 +69,8 @@ def anomalies(data,stratified):
     -----------
     
     """
-    meanRain = meanRainfall(data)
-    anomalies = stratified - meanRain
+    climate_mean = meanRainfall(data[60:91])
+    anomalies = np.ma.subtract(stratified,climate_mean)
     return anomalies
 
 def difference(rainfall,index_more_rain,index_less_rain):

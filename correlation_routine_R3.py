@@ -266,76 +266,76 @@ def R3CorrTPI_data():
 #Plots difference in AWAP and ACCESS R3 correlation maps.
 
 def corrDiffENSO_R3():
-    plotCorrDiff(awapCorrENSO_annual,R3CorrENSO_annual,"Difference in AWAP and R3 correlations "+std+", ENSO - annual",\
+    plotCorrDiff(awapCorrENSO_annual,R3CorrENSO_annual,"Difference in AWAP and R3 correlations, ENSO - annual",\
              "/correlation/diff_nino_R3/annual")
-    plotCorrDiff(awapCorrENSO_JJA,R3CorrENSO_JJA,"Difference in AWAP and R3 correlations "+std+", ENSO - JJA",\
+    plotCorrDiff(awapCorrENSO_JJA,R3CorrENSO_JJA,"Difference in AWAP and R3 correlations, ENSO - JJA",\
              "/correlation/diff_nino_R3/JJA")
-    plotCorrDiff(awapCorrENSO_SON,R3CorrENSO_SON,"Difference in AWAP and R3 correlations "+std+", ENSO - SON",\
+    plotCorrDiff(awapCorrENSO_SON,R3CorrENSO_SON,"Difference in AWAP and R3 correlations, ENSO - SON",\
              "/correlation/diff_nino_R3/SON")
-    plotCorrDiff(awapCorrENSO_DJF,R3CorrENSO_DJF,"Difference in AWAP and R3 correlations "+std+", ENSO - DJF",\
+    plotCorrDiff(awapCorrENSO_DJF,R3CorrENSO_DJF,"Difference in AWAP and R3 correlations, ENSO - DJF",\
              "/correlation/diff_nino_R3/DJF")
-    plotCorrDiff(awapCorrENSO_MAM,R3CorrENSO_MAM,"Difference in AWAP and R3 correlations "+std+", ENSO - MAM",\
+    plotCorrDiff(awapCorrENSO_MAM,R3CorrENSO_MAM,"Difference in AWAP and R3 correlations, ENSO - MAM",\
              "/correlation/diff_nino_R3/MAM")
-    plotCorrDiff(awapCorrENSO_Jun,R3CorrENSO_Jun,"Difference in AWAP and R3 correlations "+std+", ENSO - June",\
+    plotCorrDiff(awapCorrENSO_Jun,R3CorrENSO_Jun,"Difference in AWAP and R3 correlations, ENSO - June",\
              "/correlation/diff_nino_R3/June")
-    plotCorrDiff(awapCorrENSO_Jul,R3CorrENSO_Jul,"Difference in AWAP and R3 correlations "+std+", ENSO - July",\
+    plotCorrDiff(awapCorrENSO_Jul,R3CorrENSO_Jul,"Difference in AWAP and R3 correlations, ENSO - July",\
              "/correlation/diff_nino_R3/July")
-    plotCorrDiff(awapCorrENSO_Aug,R3CorrENSO_Aug,"Difference in AWAP and R3 correlations "+std+", ENSO - August",\
+    plotCorrDiff(awapCorrENSO_Aug,R3CorrENSO_Aug,"Difference in AWAP and R3 correlations, ENSO - August",\
              "/correlation/diff_nino_R3/August")
-    plotCorrDiff(awapCorrENSO_Sep,R3CorrENSO_Sep,"Difference in AWAP and R3 correlations "+std+", ENSO - September",\
+    plotCorrDiff(awapCorrENSO_Sep,R3CorrENSO_Sep,"Difference in AWAP and R3 correlations, ENSO - September",\
              "/correlation/diff_nino_R3/September")
-    plotCorrDiff(awapCorrENSO_Oct,R3CorrENSO_Oct,"Difference in AWAP and R3 correlations "+std+", ENSO - October",\
+    plotCorrDiff(awapCorrENSO_Oct,R3CorrENSO_Oct,"Difference in AWAP and R3 correlations, ENSO - October",\
              "/correlation/diff_nino_R3/October")
-    plotCorrDiff(awapCorrENSO_Nov,R3CorrENSO_Nov,"Difference in AWAP and R3 correlations "+std+", ENSO - November",\
+    plotCorrDiff(awapCorrENSO_Nov,R3CorrENSO_Nov,"Difference in AWAP and R3 correlations, ENSO - November",\
              "/correlation/diff_nino_R3/November")
-    plotCorrDiff(awapCorrENSO_Dec,R3CorrENSO_Dec,"Difference in AWAP and R3 correlations "+std+", ENSO - December",\
+    plotCorrDiff(awapCorrENSO_Dec,R3CorrENSO_Dec,"Difference in AWAP and R3 correlations, ENSO - December",\
              "/correlation/diff_nino_R3/December")
-    plotCorrDiff(awapCorrENSO_Jan,R3CorrENSO_Jan,"Difference in AWAP and R3 correlations "+std+", ENSO - January",\
+    plotCorrDiff(awapCorrENSO_Jan,R3CorrENSO_Jan,"Difference in AWAP and R3 correlations, ENSO - January",\
              "/correlation/diff_nino_R3/January")
-    plotCorrDiff(awapCorrENSO_Feb,R3CorrENSO_Feb,"Difference in AWAP and R3 correlations "+std+", ENSO - February",\
+    plotCorrDiff(awapCorrENSO_Feb,R3CorrENSO_Feb,"Difference in AWAP and R3 correlations, ENSO - February",\
              "/correlation/diff_nino_R3/February")
-    plotCorrDiff(awapCorrENSO_Mar,R3CorrENSO_Mar,"Difference in AWAP and R3 correlations "+std+", ENSO - March",\
+    plotCorrDiff(awapCorrENSO_Mar,R3CorrENSO_Mar,"Difference in AWAP and R3 correlations, ENSO - March",\
              "/correlation/diff_nino_R3/March")
-    plotCorrDiff(awapCorrENSO_Apr,R3CorrENSO_Apr,"Difference in AWAP and R3 correlations "+std+", ENSO - April",\
+    plotCorrDiff(awapCorrENSO_Apr,R3CorrENSO_Apr,"Difference in AWAP and R3 correlations, ENSO - April",\
              "/correlation/diff_nino_R3/April")
-    plotCorrDiff(awapCorrENSO_May,R3CorrENSO_May,"Difference in AWAP and R3 correlations "+std+", ENSO - May",\
+    plotCorrDiff(awapCorrENSO_May,R3CorrENSO_May,"Difference in AWAP and R3 correlations, ENSO - May",\
              "/correlation/diff_nino_R3/May")
     return
 
 def corrDiffTPI_R3():
-    plotCorrDiff(awapCorrTPI_annual,R3CorrTPI_annual,"Difference in AWAP and R3 correlations "+std+", IPO - annual",\
+    plotCorrDiff(awapCorrTPI_annual,R3CorrTPI_annual,"Difference in AWAP and R3 correlations, IPO - annual",\
              "/correlation/diff_tpi_R3/annual")
-    plotCorrDiff(awapCorrTPI_JJA,R3CorrTPI_JJA,"Difference in AWAP and R3 correlations "+std+", IPO - JJA",\
+    plotCorrDiff(awapCorrTPI_JJA,R3CorrTPI_JJA,"Difference in AWAP and R3 correlations, IPO - JJA",\
              "/correlation/diff_tpi_R3/JJA")
-    plotCorrDiff(awapCorrTPI_SON,R3CorrTPI_SON,"Difference in AWAP and R3 correlations "+std+", IPO - SON",\
+    plotCorrDiff(awapCorrTPI_SON,R3CorrTPI_SON,"Difference in AWAP and R3 correlations, IPO - SON",\
              "/correlation/diff_tpi_R3/SON")
-    plotCorrDiff(awapCorrTPI_DJF,R3CorrTPI_DJF,"Difference in AWAP and R3 correlations "+std+", IPO - DJF",\
+    plotCorrDiff(awapCorrTPI_DJF,R3CorrTPI_DJF,"Difference in AWAP and R3 correlations, IPO - DJF",\
              "/correlation/diff_tpi_R3/DJF")
-    plotCorrDiff(awapCorrTPI_MAM,R3CorrTPI_MAM,"Difference in AWAP and R3 correlations "+std+", IPO - MAM",\
+    plotCorrDiff(awapCorrTPI_MAM,R3CorrTPI_MAM,"Difference in AWAP and R3 correlations, IPO - MAM",\
              "/correlation/diff_tpi_R3/MAM")
-    plotCorrDiff(awapCorrTPI_Jun,R3CorrTPI_Jun,"Difference in AWAP and R3 correlations "+std+", IPO - June",\
+    plotCorrDiff(awapCorrTPI_Jun,R3CorrTPI_Jun,"Difference in AWAP and R3 correlations, IPO - June",\
              "/correlation/diff_tpi_R3/June")
-    plotCorrDiff(awapCorrTPI_Jul,R3CorrTPI_Jul,"Difference in AWAP and R3 correlations "+std+", IPO - July",\
+    plotCorrDiff(awapCorrTPI_Jul,R3CorrTPI_Jul,"Difference in AWAP and R3 correlations, IPO - July",\
              "/correlation/diff_tpi_R3/July")
-    plotCorrDiff(awapCorrTPI_Aug,R3CorrTPI_Aug,"Difference in AWAP and R3 correlations "+std+", IPO - August",\
+    plotCorrDiff(awapCorrTPI_Aug,R3CorrTPI_Aug,"Difference in AWAP and R3 correlations, IPO - August",\
              "/correlation/diff_tpi_R3/August")
-    plotCorrDiff(awapCorrTPI_Sep,R3CorrTPI_Sep,"Difference in AWAP and R3 correlations "+std+", IPO - September",\
+    plotCorrDiff(awapCorrTPI_Sep,R3CorrTPI_Sep,"Difference in AWAP and R3 correlations, IPO - September",\
              "/correlation/diff_tpi_R3/September")
-    plotCorrDiff(awapCorrTPI_Oct,R3CorrTPI_Oct,"Difference in AWAP and R3 correlations "+std+", IPO - October",\
+    plotCorrDiff(awapCorrTPI_Oct,R3CorrTPI_Oct,"Difference in AWAP and R3 correlations, IPO - October",\
              "/correlation/diff_tpi_R3/October")
-    plotCorrDiff(awapCorrTPI_Nov,R3CorrTPI_Nov,"Difference in AWAP and R3 correlations "+std+", IPO - November",\
+    plotCorrDiff(awapCorrTPI_Nov,R3CorrTPI_Nov,"Difference in AWAP and R3 correlations, IPO - November",\
              "/correlation/diff_tpi_R3/November")
-    plotCorrDiff(awapCorrTPI_Dec,R3CorrTPI_Dec,"Difference in AWAP and R3 correlations "+std+", IPO - December",\
+    plotCorrDiff(awapCorrTPI_Dec,R3CorrTPI_Dec,"Difference in AWAP and R3 correlations, IPO - December",\
              "/correlation/diff_tpi_R3/December")
-    plotCorrDiff(awapCorrTPI_Jan,R3CorrTPI_Jan,"Difference in AWAP and R3 correlations "+std+", IPO - January",\
+    plotCorrDiff(awapCorrTPI_Jan,R3CorrTPI_Jan,"Difference in AWAP and R3 correlations, IPO - January",\
              "/correlation/diff_tpi_R3/January")
-    plotCorrDiff(awapCorrTPI_Feb,R3CorrTPI_Feb,"Difference in AWAP and R3 correlations "+std+", IPO - February",\
+    plotCorrDiff(awapCorrTPI_Feb,R3CorrTPI_Feb,"Difference in AWAP and R3 correlations, IPO - February",\
              "/correlation/diff_tpi_R3/February")
-    plotCorrDiff(awapCorrTPI_Mar,R3CorrTPI_Mar,"Difference in AWAP and R3 correlations "+std+", IPO - March",\
+    plotCorrDiff(awapCorrTPI_Mar,R3CorrTPI_Mar,"Difference in AWAP and R3 correlations, IPO - March",\
              "/correlation/diff_tpi_R3/March")
-    plotCorrDiff(awapCorrTPI_Apr,R3CorrTPI_Apr,"Difference in AWAP and R3 correlations "+std+", IPO - April",\
+    plotCorrDiff(awapCorrTPI_Apr,R3CorrTPI_Apr,"Difference in AWAP and R3 correlations, IPO - April",\
              "/correlation/diff_tpi_R3/April")
-    plotCorrDiff(awapCorrTPI_May,R3CorrTPI_May,"Difference in AWAP and R3 correlations "+std+", IPO - May",\
+    plotCorrDiff(awapCorrTPI_May,R3CorrTPI_May,"Difference in AWAP and R3 correlations, IPO - May",\
              "/correlation/diff_tpi_R3/May")
     return
 
