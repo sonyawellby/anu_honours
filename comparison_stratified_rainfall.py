@@ -39,12 +39,12 @@ def standardised(rainfall,array_index_IPO,array_index_ENSO,num_i):
     array1 = stratifiedRainfall(rainfall,array_index_IPO[0][num_i],array_index_ENSO[0][num_i])
     array2 = stratifiedRainfall(rainfall,array_index_IPO[0][num_i],array_index_ENSO[2][num_i])
     array3 = stratifiedRainfall(rainfall,array_index_IPO[0][num_i],array_index_ENSO[1][num_i])
-    array4 = stratifiedRainfall(rainfall,array_index_IPO[1][num_i],array_index_ENSO[0][num_i])
-    array5 = stratifiedRainfall(rainfall,array_index_IPO[1][num_i],array_index_ENSO[2][num_i])
-    array6 = stratifiedRainfall(rainfall,array_index_IPO[1][num_i],array_index_ENSO[1][num_i])
-    array7 = stratifiedRainfall(rainfall,array_index_IPO[2][num_i],array_index_ENSO[0][num_i])
-    array8 = stratifiedRainfall(rainfall,array_index_IPO[2][num_i],array_index_ENSO[2][num_i])
-    array9 = stratifiedRainfall(rainfall,array_index_IPO[2][num_i],array_index_ENSO[1][num_i])
+    array4 = stratifiedRainfall(rainfall,array_index_IPO[2][num_i],array_index_ENSO[0][num_i])
+    array5 = stratifiedRainfall(rainfall,array_index_IPO[2][num_i],array_index_ENSO[2][num_i])
+    array6 = stratifiedRainfall(rainfall,array_index_IPO[2][num_i],array_index_ENSO[1][num_i])
+    array7 = stratifiedRainfall(rainfall,array_index_IPO[1][num_i],array_index_ENSO[0][num_i])
+    array8 = stratifiedRainfall(rainfall,array_index_IPO[1][num_i],array_index_ENSO[2][num_i])
+    array9 = stratifiedRainfall(rainfall,array_index_IPO[1][num_i],array_index_ENSO[1][num_i])
 
     new_list = [array1,array2,array3,array4,array5,array6,array7,array8,array9]
 
@@ -130,18 +130,18 @@ def runACCESS(std,roundNum, roundTitle,std_caption):
     standardisedPlots(trim_May,had_IPO_array,had_ENSO_array,16,std,'May',roundNum,roundTitle,std_caption)
     return
 
-runAWAP('1_SD','') #Done
-runAWAP('2_SD',r' (2 $\sigma$)') #Done
-runAWAP('3_SD',r' (3 $\sigma$)') #Done
+runAWAP('1_SD','')
+runAWAP('2_SD',r' (2 $\sigma$)')
+runAWAP('3_SD',r' (3 $\sigma$)')
 
-runACCESS('1_SD','R1','ACCESS R1','') #Done
-runACCESS('2_SD','R1','ACCESS R1',r' (2 $\sigma$)') #Done
-runACCESS('3_SD','R1','ACCESS R1',r' (3 $\sigma$)') #Done
+runACCESS('1_SD','R1','ACCESS R1','')
+runACCESS('2_SD','R1','ACCESS R1',r' (2 $\sigma$)')
+runACCESS('3_SD','R1','ACCESS R1',r' (3 $\sigma$)') 
 
-runACCESS('1_SD','R2','ACCESS R2','') #Done
-runACCESS('2_SD','R2','ACCESS R2',r'(2 $\sigma$)') #Done
-runACCESS('3_SD','R2','ACCESS R2', r' (3 $\sigma$)') #Done
+runACCESS('1_SD','R2','ACCESS R2','')
+runACCESS('2_SD','R2','ACCESS R2',r'(2 $\sigma$)')
+runACCESS('3_SD','R2','ACCESS R2', r' (3 $\sigma$)') 
 
-runACCESS('1_SD','R3','ACCESS R3','') #Done
-runACCESS('2_SD','R3','ACCESS R3',r' (2 $\sigma$)') #Done
-runACCESS('3_SD','R3','ACCESS R3', r' (3 $\sigma$)') #Done
+runACCESS('1_SD','R3','ACCESS R3','')
+runACCESS('2_SD','R3','ACCESS R3',r' (2 $\sigma$)')
+runACCESS('3_SD','R3','ACCESS R3', r' (3 $\sigma$)') 

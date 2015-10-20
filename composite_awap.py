@@ -12,7 +12,7 @@ import access_trimmed
 
 #Change as required to "1_sd", "2_sd", "3_sd"
 num = "1_sd"
-sigma = '' # ' (2 $\sigma$)'  ' (3 $\sigma$)'
+sigma = '' # r' (2 $\sigma$)'  r' (3 $\sigma$)'
 
 #AWAP: June
 
@@ -256,7 +256,7 @@ AWAP_February_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall
 maps_sub.saveFig(AWAP_February,"","composite/"+num+"_compiled/AWAP/AWAP_February")
 maps_sub.saveFig(AWAP_February_Anom,"","composite/"+num+"_compiled/AWAP/AWAP_February_Anom")
 
-
+"""
 #AWAP: March
 
 output(awap_prepare.awap_March,indices_phase.IPO_posHad_Mar,indices_phase.ENSO_posHad_Mar,\
@@ -283,7 +283,7 @@ AWAP_March_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_an
 maps_sub.saveFig(AWAP_March,"","composite/"+num+"_compiled/AWAP/AWAP_March")
 maps_sub.saveFig(AWAP_March_Anom,"","composite/"+num+"_compiled/AWAP/AWAP_March_Anom")
 
-"""
+
 #AWAP: April
 
 output(awap_prepare.awap_April,indices_phase.IPO_posHad_Apr,indices_phase.ENSO_posHad_Apr,\

@@ -12,10 +12,10 @@ import access_trimmed
 
 #Change as required to "1_sd", "2_sd", "3_sd"
 num = "1_sd"
-sigma = '' # ' (2 $\sigma$)'  ' (3 $\sigma$)'
+sigma = ''# r' (2 $\sigma$)'  r' (3 $\sigma$)'sigma = '' # ' (2 $\sigma$)'  ' (3 $\sigma$)'
 
 #ACCESS R1: June
-
+"""
 output(access_trimmed.trim_June,indices_phase.IPO_posR1_Jun,indices_phase.ENSO_posR1_Jun,\
        "","/composite/"+num+"/rainfall/R1/June/1","/composite/"+num+"/rainfall_anomalies/R1/June/1")
 output(access_trimmed.trim_June,indices_phase.IPO_posR1_Jun,indices_phase.ENSO_neutralR1_Jun,\
@@ -284,7 +284,7 @@ maps_sub.saveFig(ACCESS_March,"","composite/"+num+"_compiled/R1/ACCESS_March")
 maps_sub.saveFig(ACCESS_March_Anom,"","composite/"+num+"_compiled/R1/ACCESS_March_Anom")
 
 
-
+"""
 #ACCESS R1: April
 
 output(access_trimmed.trim_April,indices_phase.IPO_posR1_Apr,indices_phase.ENSO_posR1_Apr,\
@@ -472,5 +472,4 @@ ACCESS_annual = multi("my_coding_routines/images/composite/"+num+"/rainfall/R1/A
 ACCESS_annual_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R1/Annual/*.png",3,3,title=(r'ACCESS1.3 R1 annual: mean rainfall anomalies'+sigma))
 maps_sub.saveFig(ACCESS_annual,"","composite/"+num+"_compiled/R1/ACCESS_annual")
 maps_sub.saveFig(ACCESS_annual_Anom,"","composite/"+num+"_compiled/R1/ACCESS_annual_Anom")
-
 
