@@ -29,6 +29,13 @@ def mapBase():
         llcrnrlat=-47.5,urcrnrlat=-7.5,\
         llcrnrlon=112.5,urcrnrlon=157.5)
     m.drawcoastlines()
+    """
+    # For plotBasic()
+    m = Basemap(projection='cyl', resolution='c',\
+    llcrnrlat=-43.75,urcrnrlat=-10.0,\
+    llcrnrlon=114.375,urcrnrlon=155.625)
+    m.drawcoastlines()
+    """
     return m
 
 def states():

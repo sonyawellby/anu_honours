@@ -2,7 +2,7 @@
 Routines to plot HadISST, ACCESS and AWAP datasets. 
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 13 October 2015.
+Last updated 7 November 2015.
 """
 
 import netCDF4 as n
@@ -358,6 +358,74 @@ def plot(var_time,Dict,labels=False,grid=False,oceans=False,cbar=True):
 
     return plt
 
+
+def plotAWAP_original(var_time,Dict):
+    """
+    Plot uninterpolated AWAP data.
+    """
+    m
+
+    [lonall,latall] = np.meshgrid((Dict['lon']),(Dict['lat']))
+    x,y = m(lonall,latall)
+
+    cs = m.pcolor(x,y,var_time,vmin=Dict['vmin'],vmax=Dict['vmax'])
+
+    cbar = m.colorbar(cs, location='right', pad="1%")
+    cbarLabel = "%s" %(Dict['var_units'])
+    cbar.set_label(cbarLabel)
+
+    return plt
+
+def plotBasic(title,labels=True,grid=True,):
+    """
+    A function to plot and display a basic plot of ACCESS,
+    AWAP, or HadISST datasets.
+
+    Parameters:
+    -----------
+    Dict :  a dictionary defining various
+            variables needed for the dataset to be plotted.
+            The dictionaries are defined above in the
+            mapAWAP(), mapACCESSpr(), mapACCESSts(), mapACCESSpr_tr() and
+            mapHadisst() functions.
+    labels : (default = False)
+            Adds axis labels for longitude/latitude if "True".
+    grid : (default = False)
+            If set to "True", the a grid is superimposed over
+            the map at the 1.25 (lat) by 1.875 (lon) degree
+            resolution.  If set to "False", only the latitudes/
+            longitudes that show the dimensions of the box are
+            plotted.
+            If set to "Simple", only the boundary lat/lon
+            values for the map are shown (no grid-lines).
+    title : enter a string
+    """
+    m
+    
+
+    if grid == True:
+        gridWhole(-43.75,-8.75,1.25,114.375,155.625,1.875)
+        gridLabels(-43.75,-8.75,2.5,114.375,155.625,7.5)
+    elif grid == 'Simple':
+        gridLabels(-40.0,0.0,10.0,110.0,160.0,10.0)
+    elif grid == 'Ticks':
+        gridLabels(-40.0,0.0,10.0,110.0,160.0,10.0)
+    else:
+        pass
+
+    if labels == True and grid==True:
+        plt.xlabel("Longitude ($^\circ$E)",labelpad=25)
+        plt.ylabel("Latitude ($^\circ$S)",labelpad=50)
+    elif labels == True and not grid==True:
+        plt.xlabel("Longitude ($^\circ$E)",labelpad=25)
+        plt.ylabel("Latitude ($^\circ$S)",labelpad=30)
+    else:
+        pass
+
+    plt.title(title)
+
+    return plt
+
 #def plot(dict, compdict) - add a comparison dictionary if necessary
 #When making comparisions, remember vmax - especially if plotting afterwards
 
@@ -507,6 +575,18 @@ def multiGeneral(directory,nrow,ncol,title=''):
             labelleft='off')
     return fig
 
+#Plot common grid (make sure to change base map in "maps_sub.py"
+#gridded_plot = plotBasic(title='Common grid for analysing ACCESS1.3 and AWAP data',labels=True,grid=True)
+#plt.show(gridded_plot)
+
+
+"""
+# Plot interpolated AWAP data (1900)
+from awap_prepare import awap_Annual
+dict1 = mapAWAP(awap_Annual)
+plot(awap_Annual[0,:,:],dict1,oceans=True)
+plt.show(plot)
+"""
 
 """
 #Plot AWAP annual data
