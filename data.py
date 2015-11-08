@@ -51,6 +51,5 @@ AWAP precipitation data
 Run 26j.  Data from http://www.eoc.csiro.au/awap/
 Accessed via FTP site (ftp.eoc.csiro.au/pub/awap/Australia_historical/Run26j/Precip)
 """
-#awap = 'data/AWAP_1900-2014_monthly_precip_swACCESSgrid_v4.nc'
-#awap = 'data/AWAP_1900-2014_monthly_precip_swACCESSgrid_fpm_v1.nc'
-awap = 'data/AWAP_1900-2013_annual_precip_v1.nc'
+awap = 'data/AWAP_1900-2014_monthly_precip_swACCESSgrid_v4.nc'
+#awap = 'data/AWAP_1900-2013_annual_precip_v1.nc'

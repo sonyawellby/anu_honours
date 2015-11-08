@@ -2,7 +2,7 @@
 Routines to plot HadISST, ACCESS and AWAP datasets. 
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 7 November 2015.
+Last updated 9 November 2015.
 """
 
 import netCDF4 as n
@@ -286,6 +286,25 @@ def mapCorrStratified(correlation_array):
     dict11['vmin'] = vmin_masked(correlation_array) #Correlation coefficient
     dict11['vmax'] = vmax_masked(correlation_array) #Correlation coefficient
     return dict11
+
+def mapAWAPinterpolated(dataset):
+    """
+    A function to call variables needed to plot AWAP data.
+
+    Parameters:
+    -----------
+    dataset : the name of the dataset to be plotted, as
+            defined in 'awap_prepare.py'.
+    """
+    dict1 = {}
+    dict1['lat'] = latitude
+    dict1['lon'] = longitude
+    dict1['lat_units'] = awap_lat_units
+    dict1['lon_units'] = awap_lon_units
+    dict1['var_units'] = "Precipitation (mm/day)"
+    dict1['vmin'] = 0.0 # mm/day
+    dict1['vmax'] = 3.0 # mm/day.
+    return dict1
 
 def plot(var_time,Dict,labels=False,grid=False,oceans=False,cbar=True):
     """
@@ -575,28 +594,21 @@ def multiGeneral(directory,nrow,ncol,title=''):
             labelleft='off')
     return fig
 
+"""
 #Plot common grid (make sure to change base map in "maps_sub.py"
-#gridded_plot = plotBasic(title='Common grid for analysing ACCESS1.3 and AWAP data',labels=True,grid=True)
-#plt.show(gridded_plot)
+gridded_plot = plotBasic(title='Common grid for analysing ACCESS1.3 and AWAP data',labels=True,grid=True)
+plt.show(gridded_plot)
 
-
-"""
-# Plot interpolated AWAP data (1900)
-from awap_prepare import awap_Annual
-dict1 = mapAWAP(awap_Annual)
-plot(awap_Annual[0,:,:],dict1,oceans=True)
+#Plot interpolated AWAP data (1900)
+from awap_prepare import year1900
+dict1 = mapAWAPinterpolated(year1900)
+plot(year1900[:,:],dict1,oceans=True)
 plt.show(plot)
 """
 
-"""
-#Plot AWAP annual data
-from awap_prepare import awap_Annual
-dict1 = mapAWAP(awap_Annual)
-plot(awap_Annual[0,0],dict1)
-plt.show(plot)
-"""
 
 """
+#Examples:
 #Make sure to check vmax!
 
 #Plot AWAP annual data
