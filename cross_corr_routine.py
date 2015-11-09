@@ -34,7 +34,7 @@ def flatten(array):
     """
     list1 = []
     for i in range(0,len(array)):
-        list1.append(np.ma.average(data_flat[:][:][i]))
+        list1.append(np.ma.mean(array[i]))
     array2 = np.asarray(list1)
     return array2
 

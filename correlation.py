@@ -62,8 +62,8 @@ def corrAverage(rainfall,index):
     Returns the average correlation value between an index and rainfall
     in Australia.
     """
-    array = corr(rainfall,index)
-    corr_Aus = np.ma.average(array)
+    rain_array = np.ma.mean(rainfall,axis=0)
+    corr_Aus = corr(rain_array,index)
     return corr_Aus
 
 def corrEastAus(rainfall,index):
@@ -77,35 +77,50 @@ def corrEastAus(rainfall,index):
     Rainfall: the dataset of rainfall.
     Index: the dataset of the index.
     """
-    corr_array_masked = corr(rainfall,index)
+    #corr_array_masked = corr(rainfall,index)
 
     #Eastern Australian region is from 140.625 degrees east (~Vic/NSW border)
-    corr_array_E_Aus = corr_array_masked[:,14:]
+    array_E_Aus = rainfall[:,14:]
     
     #Koppen classification areas in eastern Australia
-    corr_array_equatorial = corr_array_masked[23:,14:]
-    corr_array_tropical = corr_array_masked[19:23,14:]
-    corr_array_subtropical = corr_array_masked[10:19,16:]
-    corr_array_desert = corr_array_masked[9:17,14:15]
+    array_equatorial = rainfall[23:,14:]
+    array_tropical = rainfall[19:23,14:]
+    array_subtropical = rainfall[10:19,16:]
+    array_desert = rainfall[9:17,14:15]
 
-    grass1 = corr_array_masked[17:19,14:15]
-    grass2 = corr_array_masked[17:19,15:16]
-    grass3 = corr_array_masked[4:17,15:16]
-    grass4 = corr_array_masked[4:9,14:15]
-    corr_array_grassland = np.ma.concatenate((grass1,grass2,grass3,grass4))
+    grass1 = rainfall[17:19,14:15]
+    grass2 = rainfall[17:19,15:16]
+    grass3 = rainfall[4:17,15:16]
+    grass4 = rainfall[4:9,14:15]
+    array_grassland = np.ma.concatenate((grass1,grass2,grass3,grass4))
 
-    temperate1 = corr_array_masked[4:10,16:]
-    temperate2 = corr_array_masked[:4,14:20]
-    corr_array_temperate = np.ma.concatenate((temperate1,temperate2))
+    temperate1 = rainfall[4:10,16:]
+    temperate2 = rainfall[:4,14:20]
+    array_temperate = np.ma.concatenate((temperate1,temperate2))
 
     #Compute average correlations for eastern Australia
-    corr_E_Aus = np.ma.average(corr_array_E_Aus)
-    corr_equatorial = np.ma.average(corr_array_equatorial)
-    corr_tropical = np.ma.average(corr_array_tropical)
-    corr_subtropical = np.ma.average(corr_array_subtropical)
-    corr_desert = np.ma.average(corr_array_desert)
-    corr_grassland = np.ma.average(corr_array_grassland)
-    corr_temperate = np.ma.average(corr_array_temperate)
+    rain_E_Aus = np.ma.average(array_E_Aus,axis=0)
+    rain_equatorial = np.ma.average(array_equatorial,axis=0)
+    rain_tropical = np.ma.average(array_tropical,axis=0)
+    rain_subtropical = np.ma.average(array_subtropical,axis=0)
+    rain_desert = np.ma.average(array_desert,axis=0)
+    rain_grassland = np.ma.average(array_grassland,axis=0)
+    rain_temperate = np.ma.average(array_temperate,axis=0)
+
+    corr_E_Aus_full = stats.pearsonr(rain_E_Aus,index)
+    corr_E_Aus = corr_E_Aus_full[0]
+    corr_equatorial_full = stats.pearsonr(rain_equatorial,index)
+    corr_equatorial = corr_equatorial_full[0]
+    corr_tropical_full = stats.pearsonr(rain_tropical,index)
+    corr_tropical = corr_tropical_full[0]
+    corr_subtropical_full = stats.pearsonr(rain_subtropical,index)
+    corr_subtropical = corr_subtropical_full[0]
+    corr_desert_full = stats.pearsonr(rain_desert,index)
+    corr_desert = corr_desert_full[0]
+    corr_grassland_full = stats.pearsonr(rain_grassland,index)
+    corr_grassland = corr_grassland_full[0]
+    corr_temperate_full = stats.pearsonr(rain_temperate,index)
+    corr_temperate = corr_temperate_full[0]
 
     return corr_E_Aus,corr_equatorial,corr_tropical,\
            corr_subtropical,corr_desert,corr_grassland,corr_temperate
