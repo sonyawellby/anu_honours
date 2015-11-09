@@ -7,6 +7,7 @@ Last updated 9 November 2015.
 
 import netCDF4 as n
 import numpy as np
+import numpy.ma
 
 from matplotlib import cm, pyplot as plt
 import pylab
@@ -395,6 +396,38 @@ def plotAWAP_original(var_time,Dict):
 
     return plt
 
+def plotKoppen(Dict):
+    """
+    Plot a map of the Koppen climate zones used in the correlation analysis.
+    """
+    m
+
+    empty = np.zeros((27,22))
+
+    empty[23:,14:] = 1.0 #equatorial
+    empty[19:23,14:] = 2.0 #tropical
+    empty[10:19,16:] = 3.0 #subtropical
+    empty[9:17,14:15] = 4.0 #desert
+
+    empty[17:19,14:15] = 5.0#grass1
+    empty[17:19,15:16] = 5.0 #grass2
+    empty[4:17,15:16] = 5.0 #grass3
+    empty[4:9,14:15] = 5.0 #grass4
+
+    empty[4:10,16:] = 6.0 #temperate1
+    empty[:4,14:20] = 6.0 #temperate2
+
+    [lonall,latall] = np.meshgrid((Dict['lon']),(Dict['lat']))
+    x,y = m(lonall,latall)
+
+    eastern_Aus = maskoceans(lonall,latall,empty)
+    eastern_Aus = np.ma.masked_where(eastern_Aus == 0.0,eastern_Aus)
+    cs = m.pcolor(x,y,eastern_Aus)
+    plt.title("Climate zones in eastern Australia")
+    plt.show()
+    return eastern_Aus
+    
+
 def plotBasic(title,labels=True,grid=True,):
     """
     A function to plot and display a basic plot of ACCESS,
@@ -595,6 +628,11 @@ def multiGeneral(directory,nrow,ncol,title=''):
     return fig
 
 """
+#Plot a map of the Koppen climate zones used in this study
+from awap_prepare import awap_Annual
+Dict = mapAWAP(awap_Annual)
+plotKoppen(Dict)
+
 #Plot common grid (make sure to change base map in "maps_sub.py"
 gridded_plot = plotBasic(title='Common grid for analysing ACCESS1.3 and AWAP data',labels=True,grid=True)
 plt.show(gridded_plot)
