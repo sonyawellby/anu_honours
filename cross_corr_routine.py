@@ -43,21 +43,21 @@ def xCorr_AWAPrainfall_indices():
     Generate cross-correlation plots for AWAP rainfall-ENSO and rainfall-IPO.
     """
     #ENSO
-    plotXCorrel(data_flat1,cropHad,'months','AWAP-ENSO cross correlation, June 1900-May 2005',"my_coding_routines/images/xcorr_indices_rainfall/awap/All_ENSO")
-    plotXCorrel(awap_Annual1,enso_Annual_Had,'years','AWAP-ENSO cross correlation, annual',"my_coding_routines/images/xcorr_indices_rainfall/awap/Annual_ENSO")
+    plotXCorrel(data_flat1,cropHad,'months','AWAP-Nino 3.4 cross correlation, June 1900-May 2005',"my_coding_routines/images/xcorr_indices_rainfall/awap/All_ENSO")
+    plotXCorrel(awap_Annual1,enso_Annual_Had,'years','AWAP-Nino 3.4 cross correlation, annual',"my_coding_routines/images/xcorr_indices_rainfall/awap/Annual_ENSO")
     plotXCorrel(runningSeasons(data_flat1,3,0,1),runningSeasons(cropHad,3,0,1),'seasons','AWAP-ENSO cross correlation, JJA 1900-MAM 2005',"my_coding_routines/images/xcorr_indices_rainfall/awap/Seasons_ENSO")
-    plotXCorrel(awap_JJA1,enso_JJA_Had,'years','AWAP-ENSO cross correlation, JJA',"my_coding_routines/images/xcorr_indices_rainfall/awap/JJA_ENSO")
-    plotXCorrel(awap_SON1,enso_SON_Had,'years','AWAP-ENSO cross correlation, SON',"my_coding_routines/images/xcorr_indices_rainfall/awap/SON_ENSO")
-    plotXCorrel(awap_DJF1,enso_DJF_Had,'years','AWAP-ENSO cross correlation, DJF',"my_coding_routines/images/xcorr_indices_rainfall/awap/DJF_ENSO")
-    plotXCorrel(awap_MAM1,enso_MAM_Had,'years','AWAP-ENSO cross correlation, MAM',"my_coding_routines/images/xcorr_indices_rainfall/awap/MAM_ENSO")
+    plotXCorrel(awap_JJA1,enso_JJA_Had,'years','AWAP-Nino 3.4 cross correlation, JJA',"my_coding_routines/images/xcorr_indices_rainfall/awap/JJA_ENSO")
+    plotXCorrel(awap_SON1,enso_SON_Had,'years','AWAP-Nino 3.4 cross correlation, SON',"my_coding_routines/images/xcorr_indices_rainfall/awap/SON_ENSO")
+    plotXCorrel(awap_DJF1,enso_DJF_Had,'years','AWAP-Nino 3.4 cross correlation, DJF',"my_coding_routines/images/xcorr_indices_rainfall/awap/DJF_ENSO")
+    plotXCorrel(awap_MAM1,enso_MAM_Had,'years','AWAP-Nino 3.4 cross correlation, MAM',"my_coding_routines/images/xcorr_indices_rainfall/awap/MAM_ENSO")
     #IPO
-    plotXCorrel(data_flat1,Had_monthsTPI,'months','AWAP-IPO cross correlation, June 1900-May 2005',"my_coding_routines/images/xcorr_indices_rainfall/awap/All_IPO")
-    plotXCorrel(awap_Annual1,IPO_had_Annual,'years','AWAP-IPO cross correlation, annual',"my_coding_routines/images/xcorr_indices_rainfall/awap/Annual_IPO")
+    plotXCorrel(data_flat1,Had_monthsTPI,'months','AWAP-TPI cross correlation, June 1900-May 2005',"my_coding_routines/images/xcorr_indices_rainfall/awap/All_IPO")
+    plotXCorrel(awap_Annual1,IPO_had_Annual,'years','AWAP-TPI cross correlation, annual',"my_coding_routines/images/xcorr_indices_rainfall/awap/Annual_IPO")
     plotXCorrel(runningSeasons(data_flat1,3,0,1),runningSeasons(Had_monthsTPI,3,0,1),'seasons','AWAP-IPO cross correlation, JJA 1900-MAM 2005',"my_coding_routines/images/xcorr_indices_rainfall/awap/Seasons_IPO")
-    plotXCorrel(awap_JJA1,IPO_had_JJA,'years','AWAP-IPO cross correlation, JJA',"my_coding_routines/images/xcorr_indices_rainfall/awap/JJA_IPO")
-    plotXCorrel(awap_SON1,IPO_had_SON,'years','AWAP-IPO cross correlation, SON',"my_coding_routines/images/xcorr_indices_rainfall/awap/SON_IPO")
-    plotXCorrel(awap_DJF1,IPO_had_DJF,'years','AWAP-IPO cross correlation, DJF',"my_coding_routines/images/xcorr_indices_rainfall/awap/DJF_IPO")
-    plotXCorrel(awap_MAM1,IPO_had_MAM,'years','AWAP-IPO cross correlation, MAM',"my_coding_routines/images/xcorr_indices_rainfall/awap/MAM_IPO")
+    plotXCorrel(awap_JJA1,IPO_had_JJA,'years','AWAP-TPI cross correlation, JJA',"my_coding_routines/images/xcorr_indices_rainfall/awap/JJA_IPO")
+    plotXCorrel(awap_SON1,IPO_had_SON,'years','AWAP-TPI cross correlation, SON',"my_coding_routines/images/xcorr_indices_rainfall/awap/SON_IPO")
+    plotXCorrel(awap_DJF1,IPO_had_DJF,'years','AWAP-TPI cross correlation, DJF',"my_coding_routines/images/xcorr_indices_rainfall/awap/DJF_IPO")
+    plotXCorrel(awap_MAM1,IPO_had_MAM,'years','AWAP-TPI cross correlation, MAM',"my_coding_routines/images/xcorr_indices_rainfall/awap/MAM_IPO")
     return
 
 def xCorr_ACCESSrainfall_indices(key_ENSO,key_IPO,roundNum):
@@ -104,13 +104,13 @@ def xCorrIndices_Obs():
     observational data.
     """
     #ENSO-IPO
-    plotXCorrel(cropHad,Had_monthsTPI,'months','AWAP: Nino 3.4-TPI cross correlation, June 1900-May 2005','my_coding_routines/images/xcorr_nino_tpi/awap/All_ENSO')
-    plotXCorrel(enso_Annual_Had,IPO_had_Annual,'years','AWAP: Nino 3.4-TPI cross correlation, annual','my_coding_routines/images/xcorr_nino_tpi/awap/Annual_ENSO')
+    plotXCorrel(cropHad,Had_monthsTPI,'months','Nino 3.4-TPI cross correlation, June 1900-May 2005','my_coding_routines/images/xcorr_nino_tpi/awap/All_ENSO')
+    plotXCorrel(enso_Annual_Had,IPO_had_Annual,'years','Nino 3.4-TPI cross correlation, annual','my_coding_routines/images/xcorr_nino_tpi/awap/Annual_ENSO')
     plotXCorrel(runningSeasons(cropHad,3,0,1),runningSeasons(Had_monthsTPI,3,0,1),'seasons','AWAP: Nino 3.4-TPI cross correlation, JJA 1900-MAM 2005','my_coding_routines/images/xcorr_nino_tpi/awap/Seasons_ENSO')
-    plotXCorrel(enso_JJA_Had,IPO_had_JJA,'years','AWAP: Nino 3.4-TPI cross correlation, JJA','my_coding_routines/images/xcorr_nino_tpi/awap/JJA_ENSO')
-    plotXCorrel(enso_SON_Had,IPO_had_SON,'years','AWAP: Nino 3.4-TPI cross correlation, SON','my_coding_routines/images/xcorr_nino_tpi/awap/SON_ENSO')
-    plotXCorrel(enso_DJF_Had,IPO_had_DJF,'years','AWAP: Nino 3.4-TPI cross correlation, DJF','my_coding_routines/images/xcorr_nino_tpi/awap/DJF_ENSO')
-    plotXCorrel(enso_MAM_Had,IPO_had_MAM,'years','AWAP: Nino 3.4-TPI cross correlation, MAM','my_coding_routines/images/xcorr_nino_tpi/awap/MAM_ENSO')
+    plotXCorrel(enso_JJA_Had,IPO_had_JJA,'years','Nino 3.4-TPI cross correlation, JJA','my_coding_routines/images/xcorr_nino_tpi/awap/JJA_ENSO')
+    plotXCorrel(enso_SON_Had,IPO_had_SON,'years','Nino 3.4-TPI cross correlation, SON','my_coding_routines/images/xcorr_nino_tpi/awap/SON_ENSO')
+    plotXCorrel(enso_DJF_Had,IPO_had_DJF,'years','Nino 3.4-TPI cross correlation, DJF','my_coding_routines/images/xcorr_nino_tpi/awap/DJF_ENSO')
+    plotXCorrel(enso_MAM_Had,IPO_had_MAM,'years','Nino 3.4-TPI cross correlation, MAM','my_coding_routines/images/xcorr_nino_tpi/awap/MAM_ENSO')
     return
 
 def xCorrIndices_Model(key_ENSO,key_IPO,roundNum):

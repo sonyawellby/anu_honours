@@ -8,6 +8,7 @@ import netCDF4 as n
 import numpy as np
 import scipy.signal
 import matplotlib.pyplot as plt
+import math
 from pylab import savefig
 from cwd import cwdInFunction
 
@@ -30,7 +31,8 @@ def xCorrel(array1,array2):
 
 def plotXCorrel(data1,data2,units,title,filename):
     """
-    A function to create cross-correlation charts.
+    A function to create cross-correlation charts.  95%
+    confidence intervals are generated: +- 2/sqrt(n)
 
     Parameters:
     -----------
@@ -39,9 +41,14 @@ def plotXCorrel(data1,data2,units,title,filename):
     units : string.  Units of time that are being plotted (e.g. months, years).
     """
 
+    confid_int_a = 2.0/(math.sqrt(len(data1)))
+    confid_int_b = -2.0/(math.sqrt(len(data1)))
+
     plt.xcorr(data1,data2,maxlags=None)
     plt.ylabel('Cross-correlation [-1,1]')
     plt.xlabel('Lag ('+units+')')
+    plt.axhline(y = confid_int_a,ls='dashed')
+    plt.axhline(y = confid_int_b,ls='dashed')
     plt.title(title)
     savefig(filename)
     plt.close()
