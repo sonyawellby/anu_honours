@@ -3,7 +3,7 @@ A file to collate sub-routines used to correlate ENSO with rainfall
 and the IPO with rainfall.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
-Last updated 7 October 2015.
+Last updated 10 November 2015.
 """
 import netCDF4 as n
 import numpy as np
@@ -57,13 +57,24 @@ def corr(rainfall,index):
     corr_array_masked = np.ma.masked_where(corr_array == 0.0, corr_array)
     return corr_array_masked
 
+def average(array):
+    """
+    A function to produce one value for each year in the study period.
+    """
+    list1 = []
+    for i in range(0,len(array)):
+        list1.append(np.ma.mean(array[i]))
+    array1 = np.asarray(list1)
+    return array1
+
 def corrAverage(rainfall,index):
     """
     Returns the average correlation value between an index and rainfall
     in Australia.
     """
-    rain_array = np.ma.mean(rainfall,axis=0)
-    corr_Aus = corr(rain_array,index)
+    rain_array = average(rainfall)
+    corr_Aus_full = stats.pearsonr(rain_array,index)
+    corr_Aus = np.ma.masked_where(corr_Aus_full[1]>0.05,corr_Aus_full[0])
     return corr_Aus
 
 def corrEastAus(rainfall,index):
@@ -77,50 +88,64 @@ def corrEastAus(rainfall,index):
     Rainfall: the dataset of rainfall.
     Index: the dataset of the index.
     """
-    #corr_array_masked = corr(rainfall,index)
-
     #Eastern Australian region is from 140.625 degrees east (~Vic/NSW border)
-    array_E_Aus = rainfall[:,14:]
+    array_E_Aus = rainfall[:,:,14:]
     
     #Koppen classification areas in eastern Australia
-    array_equatorial = rainfall[23:,14:]
-    array_tropical = rainfall[19:23,14:]
-    array_subtropical = rainfall[10:19,16:]
-    array_desert = rainfall[9:17,14:15]
+    array_equatorial = rainfall[:,23:,14:]
+    array_tropical = rainfall[:,19:23,14:]
+    array_subtropical = rainfall[:,10:19,16:]
+    array_desert = rainfall[:,9:17,14:15]
 
-    grass1 = rainfall[17:19,14:15]
-    grass2 = rainfall[17:19,15:16]
-    grass3 = rainfall[4:17,15:16]
-    grass4 = rainfall[4:9,14:15]
-    array_grassland = np.ma.concatenate((grass1,grass2,grass3,grass4))
+    grass1 = rainfall[:,17:19,14:15]
+    grass2 = rainfall[:,4:17,15:16]
+    grass3 = rainfall[:,4:9,14:15]
 
-    temperate1 = rainfall[4:10,16:]
-    temperate2 = rainfall[:4,14:20]
-    array_temperate = np.ma.concatenate((temperate1,temperate2))
+    temperate1 = rainfall[:,4:10,16:]
+    temperate2 = rainfall[:,:4,14:20]
 
-    #Compute average correlations for eastern Australia
-    rain_E_Aus = np.ma.average(array_E_Aus,axis=0)
-    rain_equatorial = np.ma.average(array_equatorial,axis=0)
-    rain_tropical = np.ma.average(array_tropical,axis=0)
-    rain_subtropical = np.ma.average(array_subtropical,axis=0)
-    rain_desert = np.ma.average(array_desert,axis=0)
-    rain_grassland = np.ma.average(array_grassland,axis=0)
-    rain_temperate = np.ma.average(array_temperate,axis=0)
+    #Compute average rainfall in the climate zones
+
+    rain_E_Aus = average(array_E_Aus)
+    rain_equatorial = average(array_equatorial)
+    rain_tropical = average(array_tropical)
+    rain_subtropical = average(array_subtropical)
+    rain_desert = average(array_desert)
+
+    grass1_av = average(grass1)
+    grass2_av = average(grass2)
+    grass3_av = average(grass3)
+    grass_add1 = np.ma.add(grass1_av,grass2_av)
+    grass_add2 = np.ma.add(grass_add1,grass3_av)
+    rain_grassland = np.ma.divide(grass_add2,3.0)
+    
+    temperate1_av = average(temperate1)
+    temperate2_av = average(temperate2)
+    temperate_add = np.ma.add(temperate1_av,temperate2_av)
+    rain_temperate = np.ma.divide(temperate_add,2.0)
+    
+    #Compute correlations for eastern Australia
 
     corr_E_Aus_full = stats.pearsonr(rain_E_Aus,index)
-    corr_E_Aus = corr_E_Aus_full[0]
+    corr_E_Aus = np.ma.masked_where(corr_E_Aus_full[1]>0.05,corr_E_Aus_full[0])
+    
     corr_equatorial_full = stats.pearsonr(rain_equatorial,index)
-    corr_equatorial = corr_equatorial_full[0]
+    corr_equatorial = np.ma.masked_where(corr_equatorial_full[1]>0.05,corr_equatorial_full[0])
+
     corr_tropical_full = stats.pearsonr(rain_tropical,index)
-    corr_tropical = corr_tropical_full[0]
+    corr_tropical = np.ma.masked_where(corr_tropical_full[1]>0.05,corr_tropical_full[0])
+    
     corr_subtropical_full = stats.pearsonr(rain_subtropical,index)
-    corr_subtropical = corr_subtropical_full[0]
+    corr_subtropical = np.ma.masked_where(corr_subtropical_full[1]>0.05,corr_subtropical_full[0])
+
     corr_desert_full = stats.pearsonr(rain_desert,index)
-    corr_desert = corr_desert_full[0]
+    corr_desert = np.ma.masked_where(corr_desert_full[1]>0.05,corr_desert_full[0])
+
     corr_grassland_full = stats.pearsonr(rain_grassland,index)
-    corr_grassland = corr_grassland_full[0]
+    corr_grassland = np.ma.masked_where(corr_grassland_full[1]>0.05,corr_grassland_full[0])
+
     corr_temperate_full = stats.pearsonr(rain_temperate,index)
-    corr_temperate = corr_temperate_full[0]
+    corr_temperate = np.ma.masked_where(corr_temperate_full[1]>0.05,corr_temperate_full[0])
 
     return corr_E_Aus,corr_equatorial,corr_tropical,\
            corr_subtropical,corr_desert,corr_grassland,corr_temperate
