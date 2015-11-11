@@ -478,10 +478,9 @@ ENSOpos_Annual_R3 = ENSOpos_Annual
 ENSOneg_Annual_R3 = ENSOneg_Annual
 ENSOneutral_Annual_R3 = ENSOneutral_Annual
 
-"""
+
 #Cropped running mean output to CSV:
 output = np.column_stack((cropHad.flatten(),cropR1.flatten(),\
                           cropR2.flatten(),cropR3.flatten()))
 np.savetxt('data/Nino3-4.csv',output,delimiter=',')
 
-"""

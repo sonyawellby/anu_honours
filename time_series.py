@@ -41,9 +41,6 @@ def linePlot(ENSO,IPO,rainfall,title,filename):
     plt.xlim(1900,2005)
     plt.xlabel('Years')
     plt.ylabel('Index values/mean rainfall (mm/day)')
-    #plt.axhline(y=line,ls="dashed")
-    #plt.axhline(y=0.0)
-    #plt.axhline(y=-line,ls="dashed")
     plt.title(title)
     plt.savefig(filename)
     plt.close
@@ -160,6 +157,6 @@ def generateTimeSeriesACCESS(ENSO,IPO,roundNum):
     return
 
 generateTimeSeriesAWAP()
-#generateTimeSeriesACCESS(ENSO=R1_ENSO,IPO=R1_IPO,roundNum='R1')
-#generateTimeSeriesACCESS(ENSO=R2_ENSO,IPO=R2_IPO,roundNum='R2')
-#generateTimeSeriesACCESS(ENSO=R3_ENSO,IPO=R3_IPO,roundNum='R3')
+generateTimeSeriesACCESS(ENSO=R1_ENSO,IPO=R1_IPO,roundNum='R1')
+generateTimeSeriesACCESS(ENSO=R2_ENSO,IPO=R2_IPO,roundNum='R2')
+generateTimeSeriesACCESS(ENSO=R3_ENSO,IPO=R3_IPO,roundNum='R3')

@@ -15,7 +15,7 @@ num = "3_sd"
 sigma = ' (3 $\sigma$)' # ' (2 $\sigma$)'  ' (3 $\sigma$)'
 
 #ACCESS R2: June
-"""
+
 output(access_trimmed.trim_June,indices_phase.IPO_posR2_Jun,indices_phase.ENSO_posR2_Jun,\
        "","/composite/"+num+"/rainfall/R2/June/1","/composite/"+num+"/rainfall_anomalies/R2/June/1")
 output(access_trimmed.trim_June,indices_phase.IPO_posR2_Jun,indices_phase.ENSO_neutralR2_Jun,\
@@ -282,7 +282,7 @@ ACCESS_March = multi("my_coding_routines/images/composite/"+num+"/rainfall/R2/Ma
 ACCESS_March_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/R2/March/*.png",3,3,title=(r'ACCESS1.3 R2 March: mean rainfall anomalies'+sigma))
 maps_sub.saveFig(ACCESS_March,"","composite/"+num+"_compiled/R2/ACCESS_March")
 maps_sub.saveFig(ACCESS_March_Anom,"","composite/"+num+"_compiled/R2/ACCESS_March_Anom")
-"""
+
 
 #ACCESS R2: April
 

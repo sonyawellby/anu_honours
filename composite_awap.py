@@ -256,7 +256,7 @@ AWAP_February_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall
 maps_sub.saveFig(AWAP_February,"","composite/"+num+"_compiled/AWAP/AWAP_February")
 maps_sub.saveFig(AWAP_February_Anom,"","composite/"+num+"_compiled/AWAP/AWAP_February_Anom")
 
-"""
+
 #AWAP: March
 
 output(awap_prepare.awap_March,indices_phase.IPO_posHad_Mar,indices_phase.ENSO_posHad_Mar,\
@@ -471,4 +471,4 @@ AWAP_annual = multi("my_coding_routines/images/composite/"+num+"/rainfall/AWAP/A
 AWAP_annual_Anom = multi("my_coding_routines/images/composite/"+num+"/rainfall_anomalies/AWAP/Annual/*.png",3,3,title=(r'AWAP annual: mean rainfall anomalies'+sigma))
 maps_sub.saveFig(AWAP_annual,"","composite/"+num+"_compiled/AWAP/AWAP_annual")
 maps_sub.saveFig(AWAP_annual_Anom,"","composite/"+num+"_compiled/AWAP/AWAP_annual_Anom")
-"""
+
