@@ -19,7 +19,7 @@ cwdInFunction()
 data = n.Dataset(awap,'a')
 awap_dat = data.variables['AWAP_precipitation']
 awap_dat1 = np.ma.masked_less_equal(awap_dat,0.0)
-awap_data = np.ma.multiply(awap_dat1,1000.0)
+awap_data = np.ma.multiply(awap_dat1,1000.0) #Convert from meters to mm
 
 def lat():
     """
@@ -40,7 +40,7 @@ def lon():
     A function to replace empty longitudinal values in the resampled
     AWAP dataset with actual longitudinal values.
     """
-    start_lon = 112.925
+    start_lon = 112.925 #Check value.  Should be 112.5?
     newlist_lon = []
     for i in range(0,813):
         i = start_lon
@@ -60,6 +60,7 @@ dict1['vmax'] = 3.0 # mm/day
 [lonall,latall] = np.meshgrid((dict1['lon']),(dict1['lat']))
 x,y = m(lonall,latall)
 
+#Plots an image of mean precipitation for 1900 (Jan-Dec).
 cs = m.pcolor(x,y,awap_data[0,:,:],vmin=dict1['vmin'],vmax=dict1['vmax'])
 cbar = m.colorbar(cs, location='right', pad="1%")
 cbarLabel = "%s" %(dict1['var_units'])

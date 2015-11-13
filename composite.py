@@ -102,7 +102,8 @@ def plotStrat(stratAv,precip_data,title,filepath):
 
 def plotStratDiff(stratAv,precip_data,title,filepath):
     """
-    A function to produce plots of stratified data.
+    A function to produce precipitation difference maps (between
+    wet and dry phases of the ENSO and IPO).
     """
     var = ma.masked_invalid(stratAv)
     dict9 = mapDifference(precip_data)
@@ -138,6 +139,10 @@ def plotStratAnom(rainAnom,precip_data,title,filepath):
     return
 
 def output(rainfall,index_IPO,index_ENSO,title,filepath,filepathA):
+    """
+    A function to produce an image of (a) mean rainfall in a given ENSO and IPO state,
+    and (b) mean rainfall anomalies in a given ENSO and IPO state.
+    """
     strat_IPO = stratify(rainfall,index_IPO)
     strat_IPO_ENSO = stratify(strat_IPO,index_ENSO)
     rainStrat = stratifyAverage(strat_IPO_ENSO)
@@ -147,6 +152,9 @@ def output(rainfall,index_IPO,index_ENSO,title,filepath,filepathA):
     return
 
 def number(rainfall,index_IPO,index_ENSO):
+    """
+    A function to return the number of years with a given ENSO-IPO state.
+    """
     strat_IPO = stratify(rainfall,index_IPO)
     strat_IPO_ENSO = stratify(strat_IPO,index_ENSO)
     rainStrat = stratifyAverage(strat_IPO_ENSO)

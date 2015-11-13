@@ -132,7 +132,7 @@ def awapCorrAverageENSO():
 
 def awapCorrAverageEastENSO():
     """
-    Produces a correlation coefficient for whole of Australia.
+    Produces a correlation coefficient for eastern Australia and various climate zones.
     """
     awapCorrEastENSO_annual = corrEastAus(awap_Annual,enso_Annual_Had)
     awapCorrEastENSO_JJA = corrEastAus(awap_JJA,enso_JJA_Had)
@@ -187,7 +187,7 @@ def awapCorrAverageTPI():
 
 def awapCorrAverageEastTPI():
     """
-    Produces a correlation coefficient for whole of Australia.
+    Produces a correlation coefficient for eastern Australia and various climate zones.
     """
     awapCorrEastTPI_annual = corrEastAus(awap_Annual,IPO_had_Annual)
     awapCorrEastTPI_JJA = corrEastAus(awap_JJA,IPO_had_JJA)

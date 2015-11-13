@@ -39,7 +39,7 @@ def lon(num_lon):
 
     num_long : 22 or 813
     """
-    start_lon = 114.375
+    start_lon = 114.375 #When rerunning, change this to 112.5
     newlist_lon = []
     for i in range(0,num_lon):
         i = start_lon

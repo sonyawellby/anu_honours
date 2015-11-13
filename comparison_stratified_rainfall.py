@@ -1,5 +1,6 @@
 """
 A script to create maps which compare stratified ACCESS/AWAP rainfall data.
+Deals with standardised plots.
 
 Submitted by Sonya Wellby for ENVS4055, 2015.
 Last updated 19 October 2015.
